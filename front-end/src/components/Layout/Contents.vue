@@ -2,12 +2,11 @@
   <div class="main-panel">
     <router-view />
   </div>
-  <Footer></Footer>
 </template>
-
-<script>
-
-export default {
-  
+<style lang="scss">
+.main-panel {
+  position: relative;
+  top: 110px;
+  padding: 30px;
 }
-</script>
+</style>

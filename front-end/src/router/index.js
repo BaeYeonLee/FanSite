@@ -4,8 +4,13 @@ const routes = [
   {
     path: "/",
     name: "Main",
-    component: () => import('@pages/MainPage.vue'),
-  }
+    component: () => import("@pages/MainPage.vue"),
+  },
+  {
+    path: "/album",
+    name: "album",
+    component: () => import("@pages/Album.vue"),
+  },
 ];
 
 const router = createRouter({

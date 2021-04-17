@@ -1,19 +1,20 @@
 <template>
-  <div class="wrapper">
-    MAIN PAGE
-  </div>
+  <div class="wrapper"><Tab /></div>
 </template>
 
 <script>
-
+import Tab from "@/Tab.vue";
 export default {
+  components: {
+    Tab,
+  },
   methods: {
     test() {
-      this.$api.getUserList()
-    }
+      this.$api.getUserList();
+    },
   },
   created() {
-    this.test()
+    this.test();
   },
-}
+};
 </script>
