@@ -13,14 +13,24 @@
         v-model="boardData.content"
         style="width: 100%; height: 150px"
       />
+      <div style="width: 100%; text-align: right">
+        <router-link :to="{ path: '/detail', query: { b_id: bId } }">
+          <input type="button" class="btn" value="입력" />
+        </router-link>
+      </div>
     </div>
 
     <div style="margin-top: 10px">
       <router-link to="/board">
-        <input type="button" value="최신목록" style="margin-right: 10px" />
+        <input
+          type="button"
+          class="btn"
+          value="최신목록"
+          style="margin-right: 10px"
+        />
       </router-link>
       <router-link :to="{ path: '/detail', query: { b_id: bId } }">
-        <input type="button" value="취소" />
+        <input type="button" class="btn" value="취소" />
       </router-link>
     </div>
   </div>

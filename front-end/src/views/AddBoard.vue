@@ -21,13 +21,23 @@
     {{ editorData }}
     <div style="margin-top: 10px">
       <router-link to="/board">
-        <input type="button" value="최신목록" style="margin-right: 10px" />
+        <input
+          type="button"
+          class="btn"
+          value="최신목록"
+          style="margin-right: 10px"
+        />
       </router-link>
       <router-link to="/board">
-        <input type="button" value="취소" style="margin-right: 10px" />
+        <input
+          type="button"
+          class="btn"
+          value="취소"
+          style="margin-right: 10px"
+        />
       </router-link>
       <router-link to="/board">
-        <input type="button" value="등록" />
+        <input type="button" class="btn" value="등록" />
       </router-link>
     </div>
   </div>
@@ -40,6 +50,7 @@ export default {
   components: {},
   data() {
     return {
+      title: "",
       editor: ClassicEditor,
       editorData: "",
       editorConfig: {

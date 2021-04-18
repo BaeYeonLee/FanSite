@@ -31,7 +31,7 @@ const boardList= [
     {
       b_id: 4,
       title: "제목4",
-      writer: "글쓴이",
+      writer: "글쓴이1",
       date: "21.04.15",
       recommend: "10",
       hit: "81812",
@@ -40,7 +40,7 @@ const boardList= [
     {
       b_id: 5,
       title: "제목5",
-      writer: "글쓴이",
+      writer: "글쓴이2",
       date: "21.04.15",
       recommend: "10",
       hit: "81812",
@@ -49,7 +49,7 @@ const boardList= [
     {
       b_id: 6,
       title: "제목6",
-      writer: "글쓴이",
+      writer: "글쓴이3",
       date: "21.04.15",
       recommend: "10",
       hit: "81812",

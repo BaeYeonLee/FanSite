@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <h2>
+      자유게시판<span
+        ><input type="button" class="btn" value="새로고침" @click="refresh"
+      /></span>
+    </h2>
     <table>
       <tr>
         <th>글번호</th>
@@ -10,7 +15,7 @@
         <th>조회</th>
       </tr>
       <tr
-        v-for="item in listData"
+        v-for="item in listDataTmp"
         :key="item.b_id"
         @click="moveDetail(item.b_id)"
       >
@@ -22,7 +27,7 @@
         <td>{{ item.hit }}</td>
       </tr>
     </table>
-    <div style="text-align: right; width: 100%">
+    <div style="text-align: right; width: 100%; margin-top: 10px">
       <button type="button" class="page-link">Previous</button>
       <button type="button">1</button>
       <button type="button">2</button>
@@ -30,7 +35,13 @@
       <button type="button">Next</button>
     </div>
     <div class="content-action-bar">
-      <input type="button" value="내글보기" />
+      <input
+        type="button"
+        value="내글보기"
+        style="float: left"
+        class="btn"
+        @click="myWriting"
+      />
       <select name="term">
         <option value="">전체기간</option>
         <option value="week">최근 1주</option>
@@ -42,10 +53,10 @@
         <option value="writer">글쓴이</option>
         <option value="b_id">글번호</option>
       </select>
-      <input type="text" />
+      <input type="text" v-model="searchKeyword" @keyup="search" />
 
       <router-link to="/add-board"
-        ><input type="button" value="글쓰기"
+        ><input type="button" class="btn" value="글쓰기"
       /></router-link>
     </div>
   </div>
@@ -56,16 +67,34 @@ import { boardList } from "../common/dummy.js";
 export default {
   data() {
     return {
+      searchKeyword: "",
       listData: [],
+      listDataTmp: [],
     };
   },
   methods: {
     moveDetail(id) {
       this.$router.push({ path: "/detail", query: { b_id: id } });
     },
+    search() {
+      this.listDataTmp = this.listData.filter((data) => {
+        return data.title.includes(this.searchKeyword);
+      });
+      return this.listDataTmp;
+    },
+    myWriting() {
+      this.listDataTmp = this.listData.filter((data) => {
+        return data.writer == "글쓴이";
+      });
+      return this.listDataTmp;
+    },
+    refresh() {
+      this.listDataTmp = this.listData;
+    },
   },
   created() {
     this.listData = boardList;
+    this.listDataTmp = this.listData;
   },
 };
 </script>
@@ -85,6 +114,7 @@ th {
   padding: 8px;
 }
 .content-action-bar {
+  margin-top: 10px;
   text-align: right;
   width: 100%;
 }

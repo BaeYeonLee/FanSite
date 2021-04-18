@@ -2,9 +2,14 @@
   <div class="container">
     <div style="text-align: right; margin-bottom: 10px">
       <router-link :to="{ path: '/edit', query: { b_id: bId } }">
-        <input type="button" value="수정" style="margin-right: 10px" />
+        <input
+          type="button"
+          value="수정"
+          class="btn"
+          style="margin-right: 10px"
+        />
       </router-link>
-      <input type="button" value="삭제" @click="remove" />
+      <input type="button" value="삭제" class="btn" @click="remove" />
     </div>
     <div class="detail">
       <h2>Detail Page</h2>
@@ -39,6 +44,7 @@
           />
           <input
             type="button"
+            class="btn"
             value="입력"
             style="float: right; margin-right: 20px"
             @click="inputReply"
@@ -48,10 +54,15 @@
     </div>
     <div style="margin-top: 10px">
       <router-link to="/board">
-        <input type="button" value="최신목록" style="margin-right: 10px" />
+        <input
+          type="button"
+          class="btn"
+          value="최신목록"
+          style="margin-right: 10px"
+        />
       </router-link>
       <router-link to="/add-board">
-        <input type="button" value="글쓰기" />
+        <input type="button" class="btn" value="글쓰기" />
       </router-link>
     </div>
   </div>
