@@ -2,12 +2,13 @@
   <div class="wrapper">
     <Header></Header>
     <Contents></Contents>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from '@layout/Header'
-import Contents from 'Footer/Contents'
+import Contents from '@layout/Contents'
 import Footer from '@layout/Footer'
 
 export default {

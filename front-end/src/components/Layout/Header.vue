@@ -1,12 +1,7 @@
 <template>
-  <header>
-    
-  </header>
+  <header>hearder</header>
 </template>
 
 <script>
-
-export default {
-  
-}
+export default {};
 </script>

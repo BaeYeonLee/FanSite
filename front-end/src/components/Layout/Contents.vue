@@ -1,13 +1,10 @@
 <template>
   <div class="main-panel">
+    contents
     <router-view />
   </div>
-  <Footer></Footer>
 </template>
 
 <script>
-
-export default {
-  
-}
+export default {};
 </script>

@@ -1,19 +1,18 @@
 <template>
   <div class="wrapper">
-    MAIN PAGE
+    <router-link to="/board">board</router-link>
   </div>
 </template>
 
 <script>
-
 export default {
   methods: {
     test() {
-      this.$api.getUserList()
-    }
+      this.$api.getUserList();
+    },
   },
   created() {
-    this.test()
+    this.test();
   },
-}
+};
 </script>
