@@ -1,16 +1,6 @@
 <template>
-  <MainLayout></MainLayout>
+  <router-view />
 </template>
-
-<script>
-import MainLayout from "@layout/MainLayout";
-
-export default {
-  components: {
-    MainLayout,
-  },
-};
-</script>
 
 <style lang="scss">
 #app {

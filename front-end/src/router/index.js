@@ -1,21 +1,33 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
-    path: "/",
-    name: "Main",
-    component: () => import("@pages/MainPage.vue"),
+    path: '/',
+    component: () => import('@layout/MainLayout.vue'),
+    redirect: '/main',
+    children: [
+      {
+        path: '/main',
+        name: 'Main',
+        component: () => import('@pages/MainPage.vue'),
+      },
+      {
+        path: '/album',
+        name: 'album',
+        component: () => import('@pages/Album.vue'),
+      },
+      {
+        path: '/album/:album_title',
+        name: 'album detail',
+        component: () => import('@/AlbumDetail.vue'),
+      },
+    ],
   },
-  {
-    path: "/album",
-    name: "album",
-    component: () => import("@pages/Album.vue"),
-  },
-];
+]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-});
+})
 
-export default router;
+export default router

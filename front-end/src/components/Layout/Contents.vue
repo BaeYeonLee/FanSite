@@ -6,7 +6,10 @@
 <style lang="scss">
 .main-panel {
   position: relative;
-  top: 110px;
+  top: 100px;
   padding: 30px;
+  width: 1440px;
+  display: grid;
+  margin: 0 auto;
 }
 </style>
