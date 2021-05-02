@@ -7,17 +7,17 @@
 </template>
 
 <script>
-import Header from '@layout/Header'
-import Contents from '@layout/Contents'
-import Footer from '@layout/Footer'
+import Header from "@layout/Header";
+import Contents from "@layout/Contents";
+import Footer from "@layout/Footer";
 
 export default {
   components: {
     Header,
     Contents,
-    Footer
-  }
-}
+    Footer,
+  },
+};
 </script>
 
 <style>

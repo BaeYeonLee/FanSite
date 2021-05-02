@@ -15,7 +15,12 @@
       />
       <div style="width: 100%; text-align: right">
         <router-link :to="{ path: '/detail', query: { b_id: bId } }">
-          <input type="button" class="btn" value="입력" />
+          <input
+            type="button"
+            class="btn"
+            value="입력"
+            @click="updateBoardData"
+          />
         </router-link>
       </div>
     </div>
@@ -52,6 +57,7 @@ export default {
         this.$router.push({ path: "/board" });
       }
     },
+    updateBoardData() {},
   },
   created() {
     this.bId = this.$route.query.b_id;

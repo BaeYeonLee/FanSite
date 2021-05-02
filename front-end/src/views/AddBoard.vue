@@ -37,7 +37,12 @@
         />
       </router-link>
       <router-link to="/board">
-        <input type="button" class="btn" value="등록" />
+        <input
+          type="button"
+          class="btn"
+          value="등록"
+          @click="insertBoardData"
+        />
       </router-link>
     </div>
   </div>
@@ -45,7 +50,7 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
+import { boardList } from "../common/dummy.js";
 export default {
   components: {},
   data() {
@@ -57,6 +62,22 @@ export default {
         // The configuration of the editor.
       },
     };
+  },
+  methods: {
+    insertBoardData() {
+      let tmp = {
+        b_id: boardList.length + 1,
+
+        writer: "쓴이1",
+        recommend: "0",
+        hit: "0",
+        date: "21.04.15 09:53",
+        title: this.title,
+        content: this.editorData,
+      };
+
+      boardList.push(tmp);
+    },
   },
 };
 </script>

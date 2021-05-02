@@ -1,6 +1,5 @@
 <template>
   <div class="main-panel">
-    contents
     <router-view />
   </div>
 </template>

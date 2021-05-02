@@ -1,11 +1,13 @@
 <template>
-  <div class="wrapper">
-    <router-link to="/board">board</router-link>
+  <div>
+    <Tab></Tab>
   </div>
 </template>
 
 <script>
+import Tab from "../components/UIComponents/Tab.vue";
 export default {
+  components: { Tab },
   methods: {
     test() {
       this.$api.getUserList();

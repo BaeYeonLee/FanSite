@@ -20,7 +20,7 @@
         @click="moveDetail(item.b_id)"
       >
         <td>{{ item.b_id }}</td>
-        <td>{{ item.title }}</td>
+        <td class="title-cell">{{ item.title }}</td>
         <td>{{ item.writer }}</td>
         <td>{{ item.date }}</td>
         <td>{{ item.recommend }}</td>
@@ -106,12 +106,15 @@ table {
   width: 100%;
 }
 
-td,
-th {
+td {
   border-top: 1px solid #dddddd;
-  text-align: left;
-  border-bottom: 1px solid #dddddd;
+  text-align: center;
+  border-bottom: 1px solid #f1f1f1;
   padding: 8px;
+}
+th {
+  border-top: 1px double #dddddd;
+  text-align: center;
 }
 .content-action-bar {
   margin-top: 10px;
@@ -121,7 +124,8 @@ th {
 td {
   cursor: pointer;
 }
-.container {
-  margin: 40px;
+.title-cell {
+  width: 55%;
+  text-align: left !important;
 }
 </style>
