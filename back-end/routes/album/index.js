@@ -1,180 +1,191 @@
 const express = require('express')
 const router = express.Router()
 
-const Users = require('../../models/user.js')
+const Album = require('../../models/album.js')
 
 /**
  *  @swagger
  *  tags:
- *    name: users
+ *    name: album
  *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /users:
+ * /album:
  *  get:
- *    summary: Get user data list.
- *    tags: [users]
+ *    summary: Get album data list.
+ *    tags: [album]
  *    responses:
  *      200:
- *        description: Get user data list
+ *        description: Get album data list
  */
 router.get('/', function (req, res, next) {
-  Users.find(req.query, function (err, users) {
+  Album.find(req.query, function (err, album) {
     if (err) {
       return res.status(500).send({ error: 'database failure', msg: err })
     }
 
-    res.status(200).json(users)
+    res.status(200).json(album)
   })
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /album/{id}:
  *  get:
- *    summary: Get user data.
- *    tags: [users]
+ *    summary: Get album data.
+ *    tags: [album]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: user PK
+ *        description: album PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get user data object
+ *        description: Get album data object
  */
 router.get('/:id', function (req, res, next) {
-  Users.findById(req.params.id, (err, users) => {
+  Album.findById(req.params.id, (err, album) => {
     if (err) {
       return res.status(500).send({ error: 'database failure', msg: err })
     }
-    res.status(200).json(users)
+    res.status(200).json(album)
   })
 })
 
 /**
  * @swagger
- * /users:
+ * /album:
  *  post:
- *    summary: Insert user data.
- *    tags: [users]
+ *    summary: Insert album data.
+ *    tags: [album]
  *    parameters:
  *      - in: body
- *        name: user
+ *        name: album
  *        required: true
  *        schema:
  *          type: object
- *          required:
- *            - user_id
  *          properties:
- *            user_id:
- *              type: string
- *            password:
- *              type: string
  *            name:
  *              type: string
- *            phone:
+ *            titles:
+ *              type: array
+ *              items:
+ *                type: string
+ *            tracks:
+ *              type: array
+ *              items:
+ *                type: string
+ *            cover:
  *              type: string
- *            address:
+ *            desc:
  *              type: string
- *            freind:
+ *            release_data:
+ *              type: string
+ *            links:
  *              type: array
  *              items:
  *                type: string
  *    responses:
  *      200:
- *        description: Insert user data
+ *        description: Insert album data
  */
 router.post('/', function (req, res, next) {
-  let user = new Users({ ...req.body })
+  let album = new Album({ ...req.body })
 
-  user.save((err, users) => {
+  album.save((err, album) => {
     if (err) {
       return res.status(500).send({ error: 'database failure', msg: err })
     }
 
-    res.status(200).json(users)
+    res.status(200).json(album)
   })
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /album/{id}:
  *  put:
- *    summary: Update user data.
- *    tags: [users]
+ *    summary: Update album data.
+ *    tags: [album]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: user PK
+ *        description: album PK
  *        type: Integer
  *      - in: body
- *        name: user
+ *        name: album
+ *        required: true
  *        schema:
  *          type: object
  *          properties:
- *            account:
- *              type: string
- *            password:
- *              type: string
  *            name:
  *              type: string
- *            phone:
+ *            titles:
+ *              type: array
+ *              items:
+ *                type: string
+ *            tracks:
+ *              type: array
+ *              items:
+ *                type: string
+ *            cover:
  *              type: string
- *            address:
+ *            desc:
  *              type: string
- *            freind:
+ *            release_data:
+ *              type: string
+ *            links:
  *              type: array
  *              items:
  *                type: string
  *    responses:
  *      200:
- *        description: Update user data
+ *        description: Update album data
  */
 router.put('/:id', function (req, res, next) {
   let upadetData = { ...req.body }
 
-  Users.findByIdAndUpdate(
+  Album.findByIdAndUpdate(
     req.params.id,
     upadetData,
     { new: true },
-    (err, users) => {
+    (err, album) => {
       if (err) {
         return res.status(500).send({ error: 'database failure', msg: err })
       }
 
-      res.status(200).json(users)
+      res.status(200).json(album)
     },
   )
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /album/{id}:
  *  delete:
- *    summary: Delete user data.
- *    tags: [users]
+ *    summary: Delete album data.
+ *    tags: [album]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: user PK
+ *        description: album PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete user data
+ *        description: Delete album data
  */
 router.delete('/:id', async function (req, res, next) {
-  Users.findByIdAndRemove(req.params.id, (err, users) => {
+  Album.findByIdAndRemove(req.params.id, (err, album) => {
     if (err) {
       return res.status(500).send({ error: 'database failure', msg: err })
     }
 
-    res.status(200).json(users)
+    res.status(200).json(album)
   })
 })
 

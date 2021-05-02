@@ -16,8 +16,7 @@ const cors = require('cors')
 app.use(cors())
 
 // ENV 설정
-require("dotenv").config()
-
+require('dotenv').config()
 
 /*-----------------------------------------------
   Body-parser
@@ -35,12 +34,18 @@ const swaggerSpec = swaggerJSDoc(swaggerOpt)
 ------------------------------------------------*/
 const indexRouter = require('./routes/index')
 const users = require('./routes/users')
+const album = require('./routes/album')
+const history = require('./routes/history')
+const program = require('./routes/program')
 
 /*-----------------------------------------------
   Routes
 ------------------------------------------------*/
 app.use('/', indexRouter)
 app.use('/users', users)
+app.use('/album', album)
+app.use('/history', history)
+app.use('/program', program)
 
 // Swagger routes
 app.use(
