@@ -1,6 +1,16 @@
 <template>
-  <router-view />
+  <router-view></router-view>
 </template>
+
+<script>
+import MainLayout from "./components/Layout/MainLayout.vue";
+
+export default {
+  components: {
+    MainLayout,
+  },
+};
+</script>
 
 <style lang="scss">
 #app {

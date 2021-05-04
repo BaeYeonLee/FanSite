@@ -7,9 +7,12 @@
 </template>
 
 <script>
+// import Tab from "../components/UIComponents/Tab.vue";
 import Tab from '@/Tab.vue'
 import Sns from '@/Sns.vue'
+
 // import MV from '@/MV.vue'
+
 export default {
   components: {
     Tab,
@@ -18,11 +21,11 @@ export default {
   },
   methods: {
     test() {
-      this.$api.getUserList()
+      this.$api.getUserList();
     },
   },
   created() {
-    this.test()
+    this.test();
   },
-}
+};
 </script>

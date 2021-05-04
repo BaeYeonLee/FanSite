@@ -1,0 +1,75 @@
+<template>
+  <div class="container">
+    <form>
+      <h4>자유게시판</h4>
+      <div style="width: 100%">
+        <input v-model="title" type="text" class="input-title" placeholder="제목을 입력해주세요" />
+      </div>
+      <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" style="height: 150px"></ckeditor>
+    </form>
+    {{ title }}
+    {{ editorData }}
+    <div style="margin-top: 10px">
+      <router-link to="/board">
+        <input type="button" class="btn" value="최신목록" style="margin-right: 10px" />
+      </router-link>
+      <router-link to="/board">
+        <input type="button" class="btn" value="취소" style="margin-right: 10px" />
+      </router-link>
+      <router-link to="/board">
+        <input type="button" class="btn" value="등록" @click="insertBoardData" />
+      </router-link>
+    </div>
+  </div>
+</template>
+
+<script>
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { boardList } from '../common/dummy.js'
+export default {
+  components: {},
+  data() {
+    return {
+      title: '',
+      editor: ClassicEditor,
+      editorData: '',
+      editorConfig: {
+        // The configuration of the editor.
+      },
+    }
+  },
+  methods: {
+    insertBoardData() {
+      let tmp = {
+        b_id: boardList.length + 1,
+
+        writer: '쓴이1',
+        recommend: '0',
+        hit: '0',
+        date: '21.04.15 09:53',
+        title: this.title,
+        content: this.editorData,
+      }
+
+      boardList.push(tmp)
+    },
+  },
+}
+</script>
+
+<style>
+.input-title {
+  width: 100%;
+  position: relative;
+  margin-top: 1px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border: 0;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.ck.ck-editor__main > .ck-editor__editable {
+  height: 150px;
+  border-color: var(--ck-color-base-border);
+}
+</style>
