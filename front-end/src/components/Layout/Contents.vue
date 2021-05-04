@@ -2,12 +2,14 @@
   <div class="main-panel">
     <router-view />
   </div>
-  <Footer></Footer>
 </template>
-
-<script>
-
-export default {
-  
+<style lang="scss">
+.main-panel {
+  position: relative;
+  top: 100px;
+  padding: 30px;
+  width: 1440px;
+  display: grid;
+  margin: 0 auto;
 }
-</script>
+</style>
