@@ -4,6 +4,11 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
+    name: 'Intro',
+    component: () => import('@pages/IntroPage'),
+  },
+  {
+    path: '/iu',
     name: 'Main',
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [

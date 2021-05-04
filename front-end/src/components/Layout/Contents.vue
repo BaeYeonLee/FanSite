@@ -5,16 +5,13 @@
 </template>
 
 <script>
-export default {};
+export default {}
 </script>
 
 <style lang="scss">
 .main-panel {
-  position: relative;
-  top: 100px;
-  padding: 30px;
-  width: 1440px;
-  display: grid;
-  margin: 0 auto;
+  max-width: 1440px;
+  min-height: calc(100vh-160px);
+  margin: 80px auto 0;
 }
 </style>

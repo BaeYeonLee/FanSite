@@ -2,12 +2,22 @@
   <div class="wrapper">
     <!-- <MV /> -->
     <Tab />
-    <Sns />
+    <!-- <Sns /> -->
+    <div class="youtube-box">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/v7bnOxV4jAc?autoplay=1"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
   </div>
 </template>
 
 <script>
-// import Tab from "../components/UIComponents/Tab.vue";
 import Tab from '@/Tab.vue'
 import Sns from '@/Sns.vue'
 
@@ -21,11 +31,16 @@ export default {
   },
   methods: {
     test() {
-      this.$api.getUserList();
+      this.$api.getUserList()
     },
   },
   created() {
-    this.test();
+    this.test()
   },
-};
+}
 </script>
+
+<style lang="scss">
+.youtube-box {
+}
+</style>

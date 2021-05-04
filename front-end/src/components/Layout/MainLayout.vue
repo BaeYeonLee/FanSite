@@ -23,8 +23,7 @@ export default {
 <style>
 .wrapper {
   position: relative;
-  min-height: 100%;
-  height: 100vh;
-  /* overflow: auto; */
+  top: 0;
+  min-height: calc(100vh - 160px);
 }
 </style>

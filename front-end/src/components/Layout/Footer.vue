@@ -10,10 +10,12 @@ export default {}
 
 <style lang="scss" scoped>
 footer {
+  position: relative;
   display: flex;
   left: 0;
   right: 0;
-  height: 100px;
+  bottom: 0;
+  height: 80px;
   justify-content: center;
   align-items: center;
   color: white;
