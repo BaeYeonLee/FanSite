@@ -26,7 +26,7 @@
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { boardList } from '../common/dummy.js'
+import dummy from '../common/dummy.js'
 import UploadAdapter from '../../UploadAdapter'
 export default {
   components: {},
@@ -50,7 +50,7 @@ export default {
   methods: {
     insertBoardData() {
       let tmp = {
-        b_id: boardList.length + 1,
+        b_id: dummy.boardList.length + 1,
         writer: this.userinfo.id,
         pass: this.userinfo.pass,
         date: '2021-04-15',
@@ -58,7 +58,7 @@ export default {
         content: this.editorData,
       }
 
-      boardList.push(tmp)
+      dummy.boardList.push(tmp)
     },
     uploader(editor) {
       editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -95,7 +95,6 @@ export default {
 }
 .input-pass {
   width: 50%;
-
   margin-top: 1px;
   padding-bottom: 5px;
   margin-bottom: 10px;

@@ -87,5 +87,23 @@ const boardList= [
   },
 
   ]
+  const scheduleList=[{
+    s_id:1,
+    date:'2021-5-9',
+    title:'aaa',
+  },
+  {
+    s_id:2,
+    date:'2021-5-9',
+    title:'sss',
+  },
+  {
+    s_id:3,
+    date:'2021-5-11',
+    title:'ddd',
+  },
 
-  export { boardList, replyList } 
+  ]
+
+
+  export default { boardList, replyList,scheduleList } 

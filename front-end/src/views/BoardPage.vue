@@ -11,8 +11,6 @@
         <th>제목</th>
         <th>글쓴이</th>
         <th>작성일</th>
-        <!-- <th>추천</th>
-        <th>조회</th> -->
       </tr>
       <tr v-for="item in listDataTmp" :key="item.b_id" @click="moveDetail(item.b_id)">
         <td>{{ item.b_id }}</td>
@@ -51,7 +49,7 @@
 </template>
 
 <script>
-import { boardList } from '../common/dummy.js'
+import dummy from '../common/dummy.js'
 export default {
   data() {
     return {
@@ -76,13 +74,13 @@ export default {
     },
   },
   created() {
-    this.listData = boardList
+    this.listData = dummy.boardList
     this.listDataTmp = this.listData
   },
 }
 </script>
 
-<style>
+<style scope>
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -93,6 +91,7 @@ td {
   text-align: center;
   border-bottom: 1px solid #f1f1f1;
   padding: 8px;
+  cursor: pointer;
 }
 th {
   height: 45px;
@@ -104,9 +103,7 @@ th {
   text-align: right;
   width: 100%;
 }
-td {
-  cursor: pointer;
-}
+
 .title-cell {
   width: 55%;
   text-align: left !important;
