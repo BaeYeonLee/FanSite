@@ -2,29 +2,36 @@
   <div class="container">
     <div style="text-align: right; margin-bottom: 10px">
       <router-link to="/board">
-        <input type="button" class="btn page-btn" value="최신목록" />
-            </router-link>
+        <input type="button" class="base-btn page-btn" value="최신목록" />
+      </router-link>
       <router-link to="/add-board">
-        <input type="button" class="btn page-btn" value="글쓰기" />
+        <input type="button" class="base-btn page-btn" value="글쓰기" />
       </router-link>
       <router-link :to="{ path: '/edit', query: { b_id: bId } }">
-        <input type="button" value="수정" class="btn" style="margin-right: 10px" />
+        <input type="button" value="수정" class="base-btn" style="margin-right: 10px" />
       </router-link>
-      <input type="button" value="삭제" class="btn" @click="remove" />
+      <input type="button" value="삭제" class="base-btn" @click="remove" />
     </div>
     <div class="detail">
-      <h2 style="font-size: 10px">자유게시판....</h2>
-      <h3>{{ boardData.title }}</h3>
-      <p>
+      <h3 class="board-type-text">Board....</h3>
+      <h2 class="board-title">{{ boardData.title }}</h2>
+      <p class="board-info-div">
         <span>{{ boardData.writer }} &nbsp;</span>
-        <span>추천 : {{ boardData.recommend }} &nbsp;</span>
-        <span>조회 : {{ boardData.hit }} &nbsp;</span>
         <span>작성일 : {{ boardData.date }}</span>
       </p>
-      <p v-html="boardData.content"></p>
+      <hr />
+      <div class="board-content-div">
+        <p v-html="boardData.content"></p>
+      </div>
       <div style="margin-bottom: 40px">
-        <input type="button" value="댓글" class="btn" @click="isShowReply = !isShowReply" style="margin-right: 10px" />
-        <input type="button" value="추천해요" class="btn" style="margin-right: 10px" />
+        <input
+          type="button"
+          value="댓글"
+          class="base-btn"
+          @click="isShowReply = !isShowReply"
+          style="margin-right: 10px"
+        />
+        <input type="button" value="추천해요" class="base-btn" style="margin-right: 10px" />
       </div>
       <div>
         <div class="reply" v-show="isShowReply">
@@ -36,15 +43,20 @@
               <span style="font-size: 13px"> {{ item.date }}</span>
             </p>
             {{ item.content }}
+
             <hr />
           </div>
           <div style="width: 100%; text-align: center">
             <textarea
               style="width: 100%; height: 100px; border: 1px solid lightgray"
               placeholder="댓글을 달아주세요."
-              v-model="reply"
+              v-model="reply.content"
             ></textarea>
-            <input type="button" class="btn" value="입력" style="float: right" @click="inputReply" />
+            <div class="reply-input-bar">
+              <input v-model="reply.id" type="text" class="input-userinfo" placeholder="닉네임" />
+              <input v-model="reply.pass" type="password" class="input-userinfo" placeholder="비밀번호" />
+              <input type="button" class="base-btn" value="입력" style="float: right" @click="inputReply" />
+            </div>
           </div>
         </div>
       </div>
@@ -60,7 +72,11 @@ export default {
       bId: '',
       boardData: {},
       replyList: {},
-      reply: '',
+      reply: {
+        id: '',
+        pass: '',
+        content: '',
+      },
       isShowReply: true,
     }
   },
@@ -75,22 +91,48 @@ export default {
       let tmp = {
         b_id: this.bId,
 
-        writer: '쓴이',
-        content: this.reply,
+        writer: this.reply.id,
+        pass: this.reply.pass,
+        content: this.reply.content,
         date: '21.04.15 09:52',
       }
       this.replyList.push(tmp)
       this.reply = ''
     },
+    getId(url) {
+      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+      var match = url.match(regExp)
+
+      if (match && match[2].length == 11) {
+        return match[2]
+      } else {
+        return 'error'
+      }
+    },
   },
+
   created() {
     this.bId = this.$route.query.b_id
     this.boardData = boardList.find((data) => {
-      console.log(data.b_id)
       return data.b_id == this.$route.query.b_id
     })
-    console.log(this.boardData)
+
     this.replyList = replyList
+    var videoId = this.getId(this.boardData.content)
+    if (videoId != 'error') {
+      let iframeMarkup =
+        '<iframe width="560" height="315" src="//www.youtube.com/embed/' +
+        videoId +
+        '" frameborder="0" allowfullscreen></iframe>'
+
+      this.boardData.content = this.boardData.content.replace(
+        this.boardData.content.substring(
+          this.boardData.content.indexOf('<figure class="media">'),
+          this.boardData.content.indexOf('</figure>') + 9
+        ),
+        iframeMarkup
+      )
+    }
   },
 }
 </script>
@@ -106,11 +148,39 @@ export default {
   padding: 15px;
   padding-bottom: 30px;
 }
-.page-btn {
+.base-btn.page-btn {
   float: left;
   margin-right: 10px;
 }
 hr {
   border: 0.1px solid #ececec;
+}
+.board-type-text {
+  font-size: 15px;
+}
+.board-content-div {
+  padding: 30px;
+}
+.board-info-div {
+  margin-bottom: 10px;
+}
+.input-userinfo {
+  width: 35%;
+  height: 24px;
+  margin-top: 1px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 1px solid #e4e4e4;
+  display: inline-block;
+}
+.input-userinfo::placeholder {
+  font-size: 15px;
+}
+.input-userinfo + .input-userinfo {
+  margin-left: 4%;
+}
+.reply-input-bar {
+  text-align: left;
 }
 </style>

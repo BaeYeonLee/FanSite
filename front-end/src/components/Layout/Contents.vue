@@ -13,5 +13,6 @@ export default {}
   max-width: 1440px;
   min-height: calc(100vh-160px);
   margin: 80px auto 0;
+  padding-left: 240px;
 }
 </style>

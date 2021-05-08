@@ -1,23 +1,24 @@
 <template>
-  <div class="container">
+  <div class="board-container">
     <form>
-      <h4>자유게시판</h4>
-      <div style="width: 100%">
+      <h2 class="board-title">글쓰기</h2>
+      <div class="input-title-div">
+        <input v-model="id" type="text" class="input-id" placeholder="닉네임" />
+        <input v-model="pass" type="password" class="input-pass" placeholder="비밀번호" />
         <input v-model="title" type="text" class="input-title" placeholder="제목을 입력해주세요" />
       </div>
-      <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" style="height: 150px"></ckeditor>
+      <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" class="ckeditor"></ckeditor>
     </form>
-    {{ title }}
-    {{ editorData }}
-    <div style="margin-top: 10px">
+
+    <div class="btn-navbar">
       <router-link to="/board">
-        <input type="button" class="btn" value="최신목록" style="margin-right: 10px" />
+        <input type="button" class="base-btn" value="최신목록" style="margin-right: 10px" />
       </router-link>
       <router-link to="/board">
-        <input type="button" class="btn" value="취소" style="margin-right: 10px" />
+        <input type="button" class="base-btn" value="취소" style="margin-right: 10px" />
       </router-link>
       <router-link to="/board">
-        <input type="button" class="btn" value="등록" @click="insertBoardData" />
+        <input type="button" class="base-btn" value="등록" @click="insertBoardData" />
       </router-link>
     </div>
   </div>
@@ -26,6 +27,7 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { boardList } from '../common/dummy.js'
+import UploadAdapter from '../../UploadAdapter'
 export default {
   components: {},
   data() {
@@ -34,7 +36,10 @@ export default {
       editor: ClassicEditor,
       editorData: '',
       editorConfig: {
-        // The configuration of the editor.
+        table: {
+          toolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
+        },
+        extraPlugins: [this.uploader],
       },
     }
   },
@@ -42,16 +47,19 @@ export default {
     insertBoardData() {
       let tmp = {
         b_id: boardList.length + 1,
-
-        writer: '쓴이1',
-        recommend: '0',
-        hit: '0',
-        date: '21.04.15 09:53',
+        writer: this.id,
+        pass: this.pass,
+        date: '2021-04-15',
         title: this.title,
         content: this.editorData,
       }
 
       boardList.push(tmp)
+    },
+    uploader(editor) {
+      editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new UploadAdapter(loader)
+      }
     },
   },
 }
@@ -60,7 +68,30 @@ export default {
 <style>
 .input-title {
   width: 100%;
-  position: relative;
+  height: 40px;
+  margin-top: 1px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border: 0;
+  border-bottom: 1px solid #e4e4e4;
+  font-size: 20px;
+}
+.input-title::placeholder {
+  font-size: 20px;
+}
+.input-id {
+  width: 45%;
+  margin-right: 4%;
+  margin-top: 1px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border: 0;
+  border-bottom: 1px solid #e4e4e4;
+  display: inline-block;
+}
+.input-pass {
+  width: 50%;
+
   margin-top: 1px;
   padding-bottom: 5px;
   margin-bottom: 10px;
@@ -69,7 +100,13 @@ export default {
 }
 
 .ck.ck-editor__main > .ck-editor__editable {
-  height: 150px;
+  height: 300px;
   border-color: var(--ck-color-base-border);
+}
+.input-title-div {
+  width: 100%;
+}
+.btn-navbar {
+  margin-top: 10px;
 }
 </style>
