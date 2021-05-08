@@ -42,27 +42,35 @@ export default {
 <style lang="scss" scoped>
 .album-garally {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1fr;
   grid-row-gap: 40px;
   margin-bottom: 50px;
   padding-bottom: 30px;
 }
 .thumnail {
+  img {
+    width: 250px;
+  }
+  span {
+    font-weight: bold;
+    font-style: italic;
+    color: gray;
+    display: block;
+    line-height: 2;
+    font-size: 12px;
+    margin-top: 10px;
+  }
   text-align: center;
   height: 300px;
 }
-.thumnail img {
-  width: 250px;
-}
-.thumnail span {
-  font-weight: bold;
-  font-style: italic;
-  color: gray;
-  display: block;
-  line-height: 2;
-  font-size: 12px;
-  margin-top: 10px;
-}
+// .btn + .btn {
+//   margin-left: 10px;
+// }
+// .thumnail + .img {
+//   width: 250px;
+// }
+// .thumnail span {
+// }
 a {
   text-decoration: none;
 }

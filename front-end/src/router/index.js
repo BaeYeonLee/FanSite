@@ -21,6 +21,11 @@ const routes = [
         name: 'album detail',
         component: () => import('@/AlbumDetail.vue'),
       },
+      {
+        path: '/enter',
+        name: 'enter',
+        component: () => import('@layout/Enter.vue'),
+      },
     ],
   },
 ]

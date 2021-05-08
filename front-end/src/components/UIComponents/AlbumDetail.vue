@@ -1,11 +1,11 @@
 <template>
   <div class="album-detail">
-    <!-- <div class="album-cover">
+    <div class="album-cover">
       <img :src="albumCover" />
-    </div> -->
-    <!-- <div class="album-title">
+    </div>
+    <div class="album-title">
       {{ albumTitle }}
-    </div> -->
+    </div>
     <div class="track-list">
       <img :src="trackList" />
     </div>
