@@ -5,6 +5,7 @@
     <!-- <Sns /> -->
     <div class="youtube-box">
       <iframe
+        class="mainpage-youtube"
         width="560"
         height="315"
         src="https://www.youtube.com/embed/v7bnOxV4jAc?autoplay=1"
@@ -13,7 +14,7 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe>
-      <Calendar />
+      <Calendar class="mainpage-calendar" />
     </div>
   </div>
 </template>
@@ -51,5 +52,12 @@ export default {
 
 <style lang="scss">
 .youtube-box {
+  width: 100%;
+}
+.mainpage-youtube {
+  width: 40%;
+}
+mainpage-calendar {
+  width: 40%;
 }
 </style>
