@@ -13,6 +13,7 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe>
+      <Calendar />
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@
 <script>
 import Tab from '@/Tab.vue'
 import Sns from '@/Sns.vue'
+import { Calendar, DatePicker } from 'v-calendar'
 
 // import MV from '@/MV.vue'
 
@@ -27,7 +29,14 @@ export default {
   components: {
     Tab,
     Sns,
+    Calendar,
+    DatePicker,
     // MV,
+  },
+  data() {
+    return {
+      date: new Date(),
+    }
   },
   methods: {
     test() {
