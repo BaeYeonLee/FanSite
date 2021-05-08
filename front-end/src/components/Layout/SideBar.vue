@@ -3,10 +3,14 @@
     <img src="@assets/img/Lilac.jpg" />
     <div class="title"><b>IU FanSite</b></div>
     <div class="category">
-      <div class="categories" v-for="(category, idx) in categories" :key="idx">
-        <router-link :to="category" :style="setSelectedCategory(idx)">
-          {{ category }}
-        </router-link>
+      <div
+        class="categories"
+        v-for="(category, idx) in categories"
+        :key="idx"
+        :style="setSelectedCategory(idx)"
+        @click="movePage(category)"
+      >
+        {{ category }}
       </div>
     </div>
   </div>
@@ -42,6 +46,10 @@ export default {
       //scss 속성으로 접근하는 방법..?
       return this.selectedCategory == idx ? 'color: #784e8d; font-weight: bold;' : ''
     },
+    movePage(category) {
+      let path = '/' + category.toLowerCase()
+      this.$router.push(path)
+    },
   },
   created() {
     this.setSelectedCategory(this.selectedCategory)
@@ -69,14 +77,11 @@ img {
   .categories {
     margin-top: 20px;
     text-align: center;
-    a {
-      text-decoration: none;
-      color: $IUViolet;
-      &:hover {
-        cursor: pointer;
-        font-weight: bold;
-        color: $IUDeepViolet;
-      }
+    color: $IUViolet;
+    &:hover {
+      cursor: pointer;
+      font-weight: bold;
+      color: $IUDeepViolet;
     }
   }
 }
