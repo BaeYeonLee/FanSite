@@ -1,180 +1,167 @@
 const express = require('express')
 const router = express.Router()
 
-const Users = require('../../models/user.js')
+const Program = require('../../models/program.js')
 
 /**
  *  @swagger
  *  tags:
- *    name: users
+ *    name: program
  *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /users:
+ * /program:
  *  get:
- *    summary: Get user data list.
- *    tags: [users]
+ *    summary: Get program data list.
+ *    tags: [program]
  *    responses:
  *      200:
- *        description: Get user data list
+ *        description: Get program data list
  */
 router.get('/', function (req, res, next) {
-  Users.find(req.query, function (err, users) {
+  Program.find(req.query, function (err, program) {
     if (err) {
       return res.status(500).send({ error: 'database failure', msg: err })
     }
 
-    res.status(200).json(users)
+    res.status(200).json(program)
   })
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /program/{id}:
  *  get:
- *    summary: Get user data.
- *    tags: [users]
+ *    summary: Get program data.
+ *    tags: [program]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: user PK
+ *        description: program PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get user data object
+ *        description: Get program data object
  */
 router.get('/:id', function (req, res, next) {
-  Users.findById(req.params.id, (err, users) => {
+  Program.findById(req.params.id, (err, program) => {
     if (err) {
       return res.status(500).send({ error: 'database failure', msg: err })
     }
-    res.status(200).json(users)
+    res.status(200).json(program)
   })
 })
 
 /**
  * @swagger
- * /users:
+ * /program:
  *  post:
- *    summary: Insert user data.
- *    tags: [users]
+ *    summary: Insert program data.
+ *    tags: [program]
  *    parameters:
  *      - in: body
- *        name: user
+ *        name: program
  *        required: true
  *        schema:
  *          type: object
- *          required:
- *            - user_id
  *          properties:
- *            user_id:
+ *            title:
  *              type: string
- *            password:
+ *            role:
  *              type: string
- *            name:
+ *            start_date:
  *              type: string
- *            phone:
+ *            end_date:
  *              type: string
- *            address:
- *              type: string
- *            freind:
- *              type: array
- *              items:
- *                type: string
  *    responses:
  *      200:
- *        description: Insert user data
+ *        description: Insert program data
  */
 router.post('/', function (req, res, next) {
-  let user = new Users({ ...req.body })
+  let program = new Program({ ...req.body })
 
-  user.save((err, users) => {
+  program.save((err, program) => {
     if (err) {
       return res.status(500).send({ error: 'database failure', msg: err })
     }
 
-    res.status(200).json(users)
+    res.status(200).json(program)
   })
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /program/{id}:
  *  put:
- *    summary: Update user data.
- *    tags: [users]
+ *    summary: Update program data.
+ *    tags: [program]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: user PK
+ *        description: program PK
  *        type: Integer
  *      - in: body
- *        name: user
+ *        name: program
+ *        required: true
  *        schema:
  *          type: object
  *          properties:
- *            account:
+ *            title:
  *              type: string
- *            password:
+ *            role:
  *              type: string
- *            name:
+ *            start_date:
  *              type: string
- *            phone:
+ *            end_date:
  *              type: string
- *            address:
- *              type: string
- *            freind:
- *              type: array
- *              items:
- *                type: string
  *    responses:
  *      200:
- *        description: Update user data
+ *        description: Update program data
  */
 router.put('/:id', function (req, res, next) {
   let upadetData = { ...req.body }
 
-  Users.findByIdAndUpdate(
+  Program.findByIdAndUpdate(
     req.params.id,
     upadetData,
     { new: true },
-    (err, users) => {
+    (err, program) => {
       if (err) {
         return res.status(500).send({ error: 'database failure', msg: err })
       }
 
-      res.status(200).json(users)
+      res.status(200).json(program)
     },
   )
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /program/{id}:
  *  delete:
- *    summary: Delete user data.
- *    tags: [users]
+ *    summary: Delete program data.
+ *    tags: [program]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: user PK
+ *        description: program PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete user data
+ *        description: Delete program data
  */
 router.delete('/:id', async function (req, res, next) {
-  Users.findByIdAndRemove(req.params.id, (err, users) => {
+  Program.findByIdAndRemove(req.params.id, (err, program) => {
     if (err) {
       return res.status(500).send({ error: 'database failure', msg: err })
     }
 
-    res.status(200).json(users)
+    res.status(200).json(program)
   })
 })
 

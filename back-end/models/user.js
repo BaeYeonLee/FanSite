@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise
 mongoose.createConnection(config.host, config.options)
 
 const Users = new mongoose.Schema({
-  user_id: String,
+  account: String,
   password: String,
   name: String,
   phone: String,

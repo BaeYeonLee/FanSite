@@ -1,11 +1,22 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+// import MainLayout from "@layout/MainLayout"
 
 const routes = [
   {
     path: '/',
-    component: () => import('@layout/MainLayout.vue'),
-    redirect: '/main',
+    name: 'Intro',
+    component: () => import('@pages/IntroPage'),
+  },
+  {
+    path: '/iu',
+    name: 'Main',
+    component: () => import('../components/Layout/MainLayout.vue'),
     children: [
+      {
+        path: '',
+        name: 'MainPage',
+        component: () => import('@pages/MainPage.vue'),
+      },
       {
         path: '/main',
         name: 'Main',
@@ -22,9 +33,24 @@ const routes = [
         component: () => import('@/AlbumDetail.vue'),
       },
       {
-        path: '/enter',
-        name: 'enter',
-        component: () => import('@layout/Enter.vue'),
+        path: 'board',
+        name: 'Board',
+        component: () => import('@pages/BoardPage.vue'),
+      },
+      {
+        path: 'add-board',
+        name: 'AddBoard',
+        component: () => import('@pages/AddBoard.vue'),
+      },
+      {
+        path: 'detail',
+        name: 'Detail',
+        component: () => import('@pages/BoardDetailPage.vue'),
+      },
+      {
+        path: 'edit',
+        name: 'Edit',
+        component: () => import('@pages/EditBoard.vue'),
       },
     ],
   },

@@ -12,5 +12,5 @@ module.exports = {
       },
     },
   },
-  apis: ['./routes/users/index.js'],
+  apis: ['./routes/*/index.js'],
 }

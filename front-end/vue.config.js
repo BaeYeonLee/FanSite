@@ -1,6 +1,16 @@
 const path = require('path')
 
 module.exports = {
+  css: {
+    loaderOptions: {
+      scss: {
+        additionalData: `@import "src/assets/scss/test.scss";`,
+      },
+    },
+  },
+  chainWebpack: (config) => {
+    config.module.rules.delete('eslint')
+  },
   configureWebpack: {
     resolve: {
       alias: {

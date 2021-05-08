@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="main-panel"
-    :style="{ 'grid-template-columns': setGrid(isNotMain) }"
-  >
+  <div class="main-panel" :style="{ 'grid-template-columns': setGrid(isNotMain) }">
     <SideBar :selected="path" v-if="isNotMain" />
     <router-view />
   </div>
@@ -28,9 +25,7 @@ export default {
   methods: {
     checkURL(path) {
       this.path = path.slice(1, path.length)
-      return path.includes('/main')
-        ? (this.isNotMain = false)
-        : (this.isNotMain = true)
+      return path.includes('/main') ? (this.isNotMain = false) : (this.isNotMain = true)
     },
     setGrid(isNotMain) {
       return isNotMain == true ? '250px 1fr' : '1fr'
@@ -44,12 +39,8 @@ export default {
 
 <style lang="scss">
 .main-panel {
-  position: relative;
-  top: 100px;
-  padding: 30px;
-  width: 1440px;
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  margin: 0 auto;
+  max-width: 1440px;
+  min-height: calc(100vh-160px);
+  margin: 80px auto 0;
 }
 </style>
