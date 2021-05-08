@@ -8,9 +8,9 @@
         </b>
         <br />
         <b class="intro-text__days">
-          B-dey | 1993. 05. 16 <br />
+          B-day | 1993. 05. 16 <br />
           Debut | 2008. 09. 23 <br />
-          With | 4605 Days <br />
+          With | {{ countDate }} Days <br />
           <router-link to="/iu">
             <span class="intro-text__link">
               Go to <span class="accent">Fansite <IntroIcon class="icon-go-to-site" /></span>
@@ -28,6 +28,15 @@ import IntroIcon from '@/Widget/IntroIcon'
 export default {
   components: {
     IntroIcon,
+  },
+  computed: {
+    countDate() {
+      const now = new Date()
+      const debut = new Date(2008, 9 - 1, 23) // 월 -1 로 작성해야 함.
+      const diffDate = now.getTime() - debut.getTime()
+      const count = Math.ceil(diffDate / (1000 * 60 * 60 * 24))
+      return count
+    },
   },
 }
 </script>

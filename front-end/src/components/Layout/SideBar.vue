@@ -3,13 +3,10 @@
     <img src="@assets/img/Lilac.jpg" />
     <div class="title"><b>IU FanSite</b></div>
     <div class="category">
-      <div
-        class="categories"
-        :style="{ 'font-weight': setSelectedCategory(idx) }"
-        v-for="(category, idx) in categories"
-        :key="idx"
-      >
-        {{ category }}
+      <div class="categories" v-for="(category, idx) in categories" :key="idx">
+        <router-link :to="category" :style="setSelectedCategory(idx)">
+          {{ category }}
+        </router-link>
       </div>
     </div>
   </div>
@@ -39,13 +36,11 @@ export default {
   },
   methods: {
     setSelectedCategory(idx) {
-      console.log(this.selected.toUpperCase())
       this.selectedCategory = this.categories.findIndex((category) => {
-        return this.selected.toUpperCase() == category
+        return this.selected.split('/')[0].toUpperCase() == category
       })
-      console.log(this.selectedCategory + ':-=')
-      console.log(':-=' + idx)
-      return this.selectedCategory == idx ? 'bold' : ''
+      //scss 속성으로 접근하는 방법..?
+      return this.selectedCategory == idx ? 'color: #784e8d; font-weight: bold;' : ''
     },
   },
   created() {
@@ -56,8 +51,7 @@ export default {
 <style lang="scss" scoped>
 .side-bar {
   margin: 0 auto;
-  padding: 10px;
-  border: $IUNeon 1px solid;
+  grid-area: side;
 }
 .title {
   text-align: center;
@@ -74,11 +68,15 @@ img {
   margin-top: 30px;
   .categories {
     margin-top: 20px;
-    color: $IUViolet;
     text-align: center;
-    &:hover {
-      cursor: pointer;
-      font-weight: bold;
+    a {
+      text-decoration: none;
+      color: $IUViolet;
+      &:hover {
+        cursor: pointer;
+        font-weight: bold;
+        color: $IUDeepViolet;
+      }
     }
   }
 }

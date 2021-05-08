@@ -16,12 +16,12 @@
     <div class="tab-contents">
       <div class="content">
         <div v-if="currentTab == 0" class="album-content">
-          <img
-            v-for="(img, idx) in albumImages"
-            :key="idx"
-            :src="img"
-            style="width: 250px; margin: 0 40px"
-          />
+          <div class="crop" v-for="(img, idx) in albumImages" :key="idx">
+            <div class="gra" :key="idx">
+              <span>test</span>
+              <img :src="img" />
+            </div>
+          </div>
         </div>
         <div v-if="currentTab == 1" class="drama-content">
           <img
@@ -33,11 +33,7 @@
         </div>
         <div v-if="currentTab == 6" class="board-content">
           <table>
-            <tr
-              v-for="item in 4"
-              :key="item"
-              @click="moveDetail(boardList[item - 1].b_id)"
-            >
+            <tr v-for="item in 4" :key="item" @click="moveDetail(boardList[item - 1].b_id)">
               <td class="id-cell">{{ boardList[item - 1].b_id }}</td>
               <td class="title-cell">{{ boardList[item - 1].title }}</td>
             </tr>
@@ -61,52 +57,52 @@
 </template>
 
 <script>
-import { boardList } from "../../common/dummy.js";
+import { boardList } from '../../common/dummy.js'
 export default {
   data() {
     return {
-      categories: ["ALBUM", "DRAMA", "TV", "SCREEN", "AD", "HISTORY", "BOARD"],
+      categories: ['ALBUM', 'DRAMA', 'TV', 'SCREEN', 'AD', 'HISTORY', 'BOARD'],
       albumImages: [
-        "https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709",
-        "https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028",
-        "https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526",
-        "https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024",
+        'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
+        'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
+        'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
+        'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
       ],
       dramaImages: [
-        "http://img.lifestyler.co.kr/uploads/program/cheditor/2019/07/JEMFAWGGWZWCEQJRS1JL_1024x0.jpg",
-        "http://img.lifestyler.co.kr/uploads/program/cheditor/2018/03/MTMBYURSDUTYOBJFHJJV.jpg",
-        "http://img2.sbs.co.kr/img/sbs/RO/2016/08/12/RO16116109_w1000_h0.jpg",
-        "https://musicmeta-phinf.pstatic.net/album/000/545/545993.jpg?type=r360Fll&v=20200704133012",
+        'http://img.lifestyler.co.kr/uploads/program/cheditor/2019/07/JEMFAWGGWZWCEQJRS1JL_1024x0.jpg',
+        'http://img.lifestyler.co.kr/uploads/program/cheditor/2018/03/MTMBYURSDUTYOBJFHJJV.jpg',
+        'http://img2.sbs.co.kr/img/sbs/RO/2016/08/12/RO16116109_w1000_h0.jpg',
+        'https://musicmeta-phinf.pstatic.net/album/000/545/545993.jpg?type=r360Fll&v=20200704133012',
       ],
       currentTab: 0,
       boardList: [],
-    };
+    }
   },
   methods: {
     move() {
       switch (this.currentTab) {
         case 0:
-          return this.$router.push("/album");
+          return this.$router.push('/album')
         case 6:
-          return this.$router.push("/board");
+          return this.$router.push('/board')
       }
     },
     moveDetail(id) {
-      this.$router.push({ path: "/detail", query: { b_id: id } });
+      this.$router.push({ path: '/detail', query: { b_id: id } })
     },
     isSelectedCategory(index) {
-      this.currentTab = index;
-      console.log(this.currentTab);
+      this.currentTab = index
+      console.log(this.currentTab)
     },
     getBoardList() {
-      this.boardList = boardList.concat();
+      this.boardList = boardList.concat()
     },
   },
   created() {
-    this.isSelectedCategory(0);
-    this.getBoardList();
+    this.isSelectedCategory(0)
+    this.getBoardList()
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .tabs {
@@ -143,5 +139,33 @@ th {
 }
 .id-cell {
   width: 30px;
+}
+.crop {
+  .gra {
+    &:before {
+      position: absolute;
+      bottom: 0;
+      content: '';
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to top, black, transparent);
+    }
+    img {
+      height: 300px;
+      margin-left: -10%;
+    }
+    span {
+      color: white;
+      position: absolute;
+      bottom: 10px;
+      left: 45%;
+    }
+  }
+  height: 300px;
+  width: 250px;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  margin: 0 40px;
 }
 </style>
