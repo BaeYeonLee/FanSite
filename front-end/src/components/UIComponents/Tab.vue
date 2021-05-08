@@ -30,7 +30,10 @@
           <table>
             <tr v-for="item in 4" :key="item" @click="moveDetail(boardList[item - 1].b_id)">
               <td class="id-cell">{{ boardList[item - 1].b_id }}</td>
-              <td class="title-cell">{{ boardList[item - 1].title }}</td>
+              <td class="title-cell" v-if="boardList[item - 1].type == 'notify'">
+                <b> - 공지 - {{ boardList[item - 1].title }}</b>
+              </td>
+              <td class="title-cell" v-else>{{ boardList[item - 1].title }}</td>
             </tr>
           </table>
         </div>
@@ -52,7 +55,7 @@
 </template>
 
 <script>
-import { boardList } from '../../common/dummy.js'
+import dummy from '../../common/dummy.js'
 export default {
   data() {
     return {
@@ -90,7 +93,7 @@ export default {
       console.log(this.currentTab)
     },
     getBoardList() {
-      this.boardList = boardList.concat()
+      this.boardList = dummy.boardList.concat()
     },
   },
   created() {

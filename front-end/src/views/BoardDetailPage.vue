@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { boardList, replyList } from '../common/dummy.js'
+import dummy from '../common/dummy.js'
 export default {
   data() {
     return {
@@ -113,11 +113,11 @@ export default {
 
   created() {
     this.bId = this.$route.query.b_id
-    this.boardData = boardList.find((data) => {
+    this.boardData = dummy.boardList.find((data) => {
       return data.b_id == this.$route.query.b_id
     })
 
-    this.replyList = replyList
+    this.replyList = dummy.replyList
     var videoId = this.getId(this.boardData.content)
     if (videoId != 'error') {
       let iframeMarkup =

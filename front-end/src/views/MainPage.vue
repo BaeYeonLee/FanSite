@@ -4,17 +4,21 @@
     <Tab />
     <!-- <Sns /> -->
     <div class="youtube-box">
-      <iframe
-        class="mainpage-youtube"
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/v7bnOxV4jAc?autoplay=1"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-      <Calendar class="mainpage-calendar" />
+      <div class="column">
+        <iframe
+          class="mainpage-youtube"
+          width="860"
+          height="505"
+          src="https://www.youtube.com/embed/v7bnOxV4jAc?autoplay=1"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="column">
+        <ScheduleCalendar></ScheduleCalendar>
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +26,7 @@
 <script>
 import Tab from '@/Tab.vue'
 import Sns from '@/Sns.vue'
-import { Calendar, DatePicker } from 'v-calendar'
+import ScheduleCalendar from '@/Widget/ScheduleCalendar'
 
 // import MV from '@/MV.vue'
 
@@ -30,15 +34,10 @@ export default {
   components: {
     Tab,
     Sns,
-    Calendar,
-    DatePicker,
+    ScheduleCalendar,
     // MV,
   },
-  data() {
-    return {
-      date: new Date(),
-    }
-  },
+
   methods: {
     test() {
       this.$api.getUserList()
@@ -53,11 +52,14 @@ export default {
 <style lang="scss">
 .youtube-box {
   width: 100%;
+  display: flex;
 }
 .mainpage-youtube {
-  width: 40%;
+  margin-top: 40px;
+  width: 90%;
 }
-mainpage-calendar {
-  width: 40%;
+
+.column {
+  flex: 50%;
 }
 </style>

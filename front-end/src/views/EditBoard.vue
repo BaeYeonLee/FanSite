@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { boardList } from '../common/dummy.js'
+import dummy from '../common/dummy.js'
 export default {
   data() {
     return {
@@ -48,7 +48,7 @@ export default {
   },
   created() {
     this.bId = this.$route.query.b_id
-    this.boardData = boardList.find((data) => {
+    this.boardData = dummy.boardList.find((data) => {
       console.log(data.b_id)
       return data.b_id == this.$route.query.b_id
     })
