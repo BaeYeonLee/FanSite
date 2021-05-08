@@ -22,8 +22,6 @@
         <td v-else class="title-cell">{{ item.title }}</td>
         <td>{{ item.writer }}</td>
         <td>{{ item.date }}</td>
-        <!-- <td>{{ item.recommend }}</td>
-        <td>{{ item.hit }}</td> -->
       </tr>
     </table>
     <div style="text-align: right; width: 100%; margin-top: 10px">
@@ -34,7 +32,6 @@
       <button type="button">Next</button>
     </div>
     <div class="content-action-bar">
-      <input type="button" value="내글보기" style="float: left" class="base-btn" @click="myWriting" />
       <select name="term">
         <option value="">전체기간</option>
         <option value="week">최근 1주</option>
@@ -73,12 +70,7 @@ export default {
       })
       return this.listDataTmp
     },
-    myWriting() {
-      this.listDataTmp = this.listData.filter((data) => {
-        return data.writer == '글쓴이'
-      })
-      return this.listDataTmp
-    },
+
     refresh() {
       this.listDataTmp = this.listData
     },

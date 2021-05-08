@@ -3,8 +3,8 @@
     <form>
       <h2 class="board-title">글쓰기</h2>
       <div class="input-title-div">
-        <input v-model="id" type="text" class="input-id" placeholder="닉네임" />
-        <input v-model="pass" type="password" class="input-pass" placeholder="비밀번호" />
+        <input v-model="userinfo.id" type="text" class="input-id" placeholder="닉네임" />
+        <input v-model="userinfo.pass" type="password" class="input-pass" placeholder="비밀번호" />
         <input v-model="title" type="text" class="input-title" placeholder="제목을 입력해주세요" />
       </div>
       <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" class="ckeditor"></ckeditor>
@@ -32,6 +32,10 @@ export default {
   components: {},
   data() {
     return {
+      userinfo: {
+        id: '',
+        pass: '',
+      },
       title: '',
       editor: ClassicEditor,
       editorData: '',
@@ -47,8 +51,8 @@ export default {
     insertBoardData() {
       let tmp = {
         b_id: boardList.length + 1,
-        writer: this.id,
-        pass: this.pass,
+        writer: this.userinfo.id,
+        pass: this.userinfo.pass,
         date: '2021-04-15',
         title: this.title,
         content: this.editorData,
