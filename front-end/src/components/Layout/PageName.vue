@@ -1,7 +1,7 @@
 <template>
   <div class="page-name">
-    {{ pageName.split('/')[0].toUpperCase() }} <span> ( 28 )</span>
-    <span class="album-title" v-if="pageName.includes('/')"> > &nbsp;&nbsp;&nbsp;Lilac</span>
+    {{ category.toUpperCase() }} <span> ( 28 )</span>
+    <span class="album-title" v-if="title"> > &nbsp;&nbsp;&nbsp; {{ title }}</span>
   </div>
 </template>
 <script>
@@ -11,6 +11,25 @@ export default {
       type: String,
       default: '',
     },
+  },
+  watch: {
+    $route(to) {
+      this.getInfo(to.path)
+    },
+  },
+  data() {
+    return {
+      category: '',
+      title: '',
+    }
+  },
+  methods: {
+    getInfo(path) {
+      ;[this.category, this.title] = path.slice(1, path.length).split('/')
+    },
+  },
+  created() {
+    this.getInfo(this.$route.path)
   },
 }
 </script>

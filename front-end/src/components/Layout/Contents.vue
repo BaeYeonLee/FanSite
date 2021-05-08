@@ -1,7 +1,7 @@
 <template>
   <div class="main-panel" :style="{ 'grid-template-columns': setGrid(isNotMain) }">
-    <SideBar :selected="path" v-if="isNotMain" />
-    <PageName :page-name="path" v-if="isNotMain" />
+    <SideBar v-if="isNotMain" />
+    <PageName v-if="isNotMain" />
     <router-view />
   </div>
 </template>
@@ -27,16 +27,16 @@ export default {
   },
   methods: {
     checkURL(path) {
-      this.path = path.slice(1, path.length)
-      return path.includes('/iu') ? (this.isNotMain = false) : (this.isNotMain = true)
+      /* return ?? */
+      this.isNotMain = !path.includes('/iu')
     },
     setGrid(isNotMain) {
-      return isNotMain == true ? '250px 1fr' : '1fr'
+      /* isNotMain 이 boolean이 아닌지? */
+      return isNotMain ? '250px 1fr' : '1fr'
     },
   },
   created() {
     this.checkURL(this.$route.path)
-    console.log(this.isNotMain)
   },
 }
 </script>
@@ -44,6 +44,7 @@ export default {
 <style lang="scss">
 .main-panel {
   max-width: 1440px;
+  /* - 사이에 공간 필요 */
   min-height: calc(100vh-160px);
   margin: 80px auto 0;
   display: grid;
