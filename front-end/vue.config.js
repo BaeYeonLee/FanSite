@@ -18,6 +18,7 @@ module.exports = {
         '@pages': path.resolve(__dirname, 'src/views'),
         '@layout': path.resolve(__dirname, 'src/components/Layout'),
         '@assets': path.resolve(__dirname, 'src/assets'),
+        '@common': path.resolve(__dirname, 'src/common'),
       },
     },
   },

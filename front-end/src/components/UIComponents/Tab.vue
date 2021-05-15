@@ -7,7 +7,7 @@
           {{ category }}
         </div>
         <div>
-          <hr v-if="currentTab == idx" style="border: #ccb6e1 solid" />
+          <hr v-if="currentTab == idx" style="border: #ccb6e1 solid 3px" />
           <hr v-else />
         </div>
       </div>
@@ -16,23 +16,10 @@
     <div class="tab-contents">
       <div class="content">
         <div v-if="currentTab == 0" class="album-content">
-          <div class="crop" v-for="(album, idx) in albums" :key="idx">
-            <div class="gra" :key="idx">
-              <span>
-                {{ album.title }}<br />
-                {{ album.release }}
-              </span>
-              <img :src="album.img" />
-            </div>
-          </div>
+          <Thumnail :list="albumList" />
         </div>
-        <div v-if="currentTab == 1" class="drama-content">
-          <img
-            v-for="(img, idx) in dramaImages"
-            :key="idx"
-            :src="img"
-            style="width: 200px; height: 280px; margin: 0 40px"
-          />
+        <div v-if="currentTab == 1" class="filmography-content">
+          <Thumnail :list="filmographyList" />
         </div>
         <div v-if="currentTab == 6" class="board-content">
           <table>
@@ -60,39 +47,16 @@
 </template>
 
 <script>
-import { boardList } from '../../common/dummy.js'
+import { boardList, albumList, filmographyList } from '@common/dummy.js'
+import Thumnail from '@/Widget/Thumnail.vue'
 export default {
+  components: {
+    Thumnail,
+  },
   data() {
     return {
-      categories: ['ALBUM', 'DRAMA', 'TV', 'SCREEN', 'AD', 'HISTORY', 'BOARD'],
-      albums: [
-        {
-          title: '라일락',
-          release: '2021.03.25',
-          img: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
-        },
-        {
-          title: 'I-land OST',
-          release: '2020.06.19',
-          img: 'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
-        },
-        {
-          title: '에잇',
-          release: '2020.05.06',
-          img: 'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
-        },
-        {
-          title: '사랑의 불시착 OST',
-          release: '2020.2.15',
-          img: 'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
-        },
-      ],
-      dramaImages: [
-        'http://img.lifestyler.co.kr/uploads/program/cheditor/2019/07/JEMFAWGGWZWCEQJRS1JL_1024x0.jpg',
-        'http://img.lifestyler.co.kr/uploads/program/cheditor/2018/03/MTMBYURSDUTYOBJFHJJV.jpg',
-        'http://img2.sbs.co.kr/img/sbs/RO/2016/08/12/RO16116109_w1000_h0.jpg',
-        'https://musicmeta-phinf.pstatic.net/album/000/545/545993.jpg?type=r360Fll&v=20200704133012',
-      ],
+      categories: ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD'],
+      filmographyList: [],
       currentTab: 0,
       boardList: [],
     }
@@ -111,15 +75,23 @@ export default {
     },
     isSelectedCategory(index) {
       this.currentTab = index
-      console.log(this.currentTab)
     },
     getBoardList() {
       this.boardList = boardList.concat()
+    },
+    getfilmographyList() {
+      this.filmographyList = filmographyList.concat()
+    },
+    getAlbumList() {
+      this.albumList = albumList.concat()
     },
   },
   created() {
     this.isSelectedCategory(0)
     this.getBoardList()
+    this.getfilmographyList()
+
+    this.getAlbumList()
   },
 }
 </script>
@@ -143,8 +115,10 @@ hr {
 .more-button:hover {
   cursor: pointer;
 }
-.cateogry-name:hover {
-  cursor: pointer;
+.cateogry-name {
+  &:hover {
+    cursor: pointer;
+  }
 }
 td,
 th {
@@ -158,38 +132,5 @@ th {
 }
 .id-cell {
   width: 30px;
-}
-.crop {
-  .gra {
-    span {
-      font-size: 14px;
-      color: #ffffffa3;
-      position: absolute;
-      font-style: italic;
-      bottom: 20px;
-      //absolute 요소 중앙정렬
-      transform: translateX(-50%);
-      left: 50%;
-    }
-    &:before {
-      position: absolute;
-      bottom: 0;
-      content: '';
-      width: 100%;
-      height: 50%;
-      background: linear-gradient(to top, black, transparent);
-    }
-    img {
-      height: 300px;
-      margin-left: -10%;
-    }
-    text-align: center;
-  }
-  height: 300px;
-  width: 250px;
-  overflow: hidden;
-  display: inline-block;
-  position: relative;
-  margin: 0 40px;
 }
 </style>
