@@ -16,10 +16,13 @@
     <div class="tab-contents">
       <div class="content">
         <div v-if="currentTab == 0" class="album-content">
-          <div class="crop" v-for="(img, idx) in albumImages" :key="idx">
+          <div class="crop" v-for="(album, idx) in albums" :key="idx">
             <div class="gra" :key="idx">
-              <span>test</span>
-              <img :src="img" />
+              <span>
+                {{ album.title }}<br />
+                {{ album.release }}
+              </span>
+              <img :src="album.img" />
             </div>
           </div>
         </div>
@@ -62,11 +65,27 @@ export default {
   data() {
     return {
       categories: ['ALBUM', 'DRAMA', 'TV', 'SCREEN', 'AD', 'HISTORY', 'BOARD'],
-      albumImages: [
-        'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
-        'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
-        'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
-        'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
+      albums: [
+        {
+          title: '라일락',
+          release: '2021.03.25',
+          img: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
+        },
+        {
+          title: 'I-land OST',
+          release: '2020.06.19',
+          img: 'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
+        },
+        {
+          title: '에잇',
+          release: '2020.05.06',
+          img: 'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
+        },
+        {
+          title: '사랑의 불시착 OST',
+          release: '2020.2.15',
+          img: 'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
+        },
       ],
       dramaImages: [
         'http://img.lifestyler.co.kr/uploads/program/cheditor/2019/07/JEMFAWGGWZWCEQJRS1JL_1024x0.jpg',
@@ -142,6 +161,16 @@ th {
 }
 .crop {
   .gra {
+    span {
+      font-size: 14px;
+      color: #ffffffa3;
+      position: absolute;
+      font-style: italic;
+      bottom: 20px;
+      //absolute 요소 중앙정렬
+      transform: translateX(-50%);
+      left: 50%;
+    }
     &:before {
       position: absolute;
       bottom: 0;
@@ -154,12 +183,7 @@ th {
       height: 300px;
       margin-left: -10%;
     }
-    span {
-      color: white;
-      position: absolute;
-      bottom: 10px;
-      left: 45%;
-    }
+    text-align: center;
   }
   height: 300px;
   width: 250px;

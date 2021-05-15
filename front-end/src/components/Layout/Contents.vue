@@ -44,7 +44,7 @@ export default {
 <style lang="scss">
 .main-panel {
   max-width: 1440px;
-  min-height: calc(100vh-160px);
+  min-height: calc(100vh - 160px);
   margin: 80px auto 0;
   display: grid;
   padding: 40px 0px;
