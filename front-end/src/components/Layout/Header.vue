@@ -112,6 +112,7 @@ header {
       top: 19px;
       fill: $IUDeepViolet;
       z-index: 201;
+      transition-duration: 0.25s;
     }
 
     a {

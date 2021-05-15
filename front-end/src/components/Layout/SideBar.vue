@@ -5,9 +5,8 @@
     <div class="category">
       <div
         class="categories"
-        v-for="(category, idx) in categories"
-        :key="idx"
-        :style="setSelectedCategory(idx)"
+        :class="{ selected: isCurrent(category) }"
+        v-for="category in categories"
         @click="movePage(category)"
       >
         {{ category }}
@@ -17,34 +16,20 @@
 </template>
 <script>
 export default {
-  props: {
-    selected: {
-      type: String,
-      default: '',
+  watch: {
+    $route(to) {
+      this.current_cat = to.path.slice(1, to.path.length).toUpperCase()
     },
   },
-  //   watch: {
-  //     selected(val) {
-  //       console.log(val)
-  //       if (val) {
-  //         console.log(val)
-  //         this.setSelectedCategory()
-  //       }
-  //     },
-  //   },
   data() {
     return {
       categories: ['ALBUM', 'DRAMA', 'TV', 'SCREEN', 'AD', 'HISTORY', 'BOARD'],
-      selectedCategory: 0,
+      current_cat: '',
     }
   },
   methods: {
-    setSelectedCategory(idx) {
-      this.selectedCategory = this.categories.findIndex((category) => {
-        return this.selected.split('/')[0].toUpperCase() == category
-      })
-      //scss 속성으로 접근하는 방법..?
-      return this.selectedCategory == idx ? 'color: #784e8d; font-weight: bold;' : ''
+    isCurrent(category) {
+      return this.current_cat == category
     },
     movePage(category) {
       let path = '/' + category.toLowerCase()
@@ -52,7 +37,8 @@ export default {
     },
   },
   created() {
-    this.setSelectedCategory(this.selectedCategory)
+    let path = this.$route.path
+    this.current_cat = path.slice(1, path.length).toUpperCase()
   },
 }
 </script>
@@ -82,6 +68,11 @@ img {
       cursor: pointer;
       font-weight: bold;
       color: $IUDeepViolet;
+    }
+
+    &.selected {
+      color: $IUDeepViolet;
+      font-weight: bold;
     }
   }
 }

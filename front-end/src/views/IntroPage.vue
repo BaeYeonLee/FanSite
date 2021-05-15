@@ -42,14 +42,25 @@ export default {
 </script>
 <style lang="scss">
 .intro-page {
-  width: 1920px;
+  width: 100%;
   height: 100vh;
   background-image: url('../assets/img/img_iu_1920.jpg');
 }
 
-.intro-text {
+.intro-cover {
+  display: flex;
+  // justify-content: center;
+  align-items: center;
   position: absolute;
-  right: 70px;
+  right: 0;
+  width: 100%;
+  max-width: 650px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), black);
+}
+
+.intro-text {
+  margin: auto;
   display: flex;
   flex-direction: column;
   width: 260px;
@@ -86,16 +97,5 @@ export default {
 .intro-text__link {
   text-decoration: underline;
   cursor: pointer;
-}
-
-.intro-cover {
-  display: flex;
-  // justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), black);
 }
 </style>
