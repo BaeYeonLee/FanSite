@@ -62,4 +62,7 @@ export default {
 .column {
   flex: 50%;
 }
+td {
+  cursor: pointer;
+}
 </style>

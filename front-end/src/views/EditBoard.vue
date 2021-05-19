@@ -9,7 +9,8 @@
         <span>조회 : {{ boardData.hit }} &nbsp;</span>
         <span>작성일 : {{ boardData.date }}</span>
       </p>
-      <textarea v-model="boardData.content" style="width: 100%; height: 150px" />
+      <ckeditor :editor="editor" v-model="boardData.content" :config="editorConfig" class="ckeditor"></ckeditor>
+
       <div style="width: 100%; text-align: right">
         <router-link :to="{ path: '/detail', query: { b_id: bId } }">
           <input type="button" class="base-btn" value="입력" @click="updateBoardData" />
@@ -30,14 +31,29 @@
 
 <script>
 import dummy from '../common/dummy.js'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import UploadAdapter from '../../UploadAdapter'
 export default {
   data() {
     return {
       bId: '',
       boardData: {},
+      editor: ClassicEditor,
+      editorData: '',
+      editorConfig: {
+        table: {
+          toolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
+        },
+        extraPlugins: [this.uploader],
+      },
     }
   },
   methods: {
+    uploader(editor) {
+      editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new UploadAdapter(loader)
+      }
+    },
     remove() {
       let check = confirm('삭제하시겠습니까.')
       if (check) {

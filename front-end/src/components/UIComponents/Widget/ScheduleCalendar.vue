@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <h2 class="subtitle has-text-centered">
-      <button class="button is-small is-primary is-outlined mr-5" @click="calendarData(-1)">&lt;</button>
+      <button class="button is-small mr-5 left-btn" @click="calendarData(-1)">&lt;</button>
       {{ year }}년 {{ month }}월
-      <button class="button is-small is-primary is-outlined ml-5" @click="calendarData(1)">&gt;</button>
+      <button class="button is-small ml-5 right-btn" @click="calendarData(1)">&gt;</button>
     </h2>
     <table class="sch-calendar">
       <colgroup>
@@ -46,14 +46,6 @@
         </tr>
       </tbody>
     </table>
-    <div v-if="isShowModal" id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <p>Title</p>
-        <input v-model="title" type="text" class="input-title" placeholder="제목" />
-        <input type="button" class="base-btn" value="입력" @click="insertSchedule" />
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -74,11 +66,8 @@ export default {
       currentMonth: -1,
       lastMonthStart: 0,
       nextMonthStart: 0,
-      isShowModal: false,
-      title: '',
       scheduleList: [],
       scheduleDetailList: [],
-      selectedDate: -1,
     }
   },
   methods: {
@@ -87,37 +76,19 @@ export default {
         return row.date.indexOf(this.year + '-' + this.month) != -1
       })
     },
-    insertSchedule() {
-      let tmp = {
-        s_id: dummy.scheduleList.length,
-        date: this.year + '-' + this.month + '-' + this.selectedDate,
-        title: this.title,
-      }
 
-      dummy.scheduleList.push(tmp)
-      this.isShowModal = false
-      this.title = ''
-      this.getScheduleList()
-    },
-    selectDetail(day) {
-      this.selectedDate = day
-      this.isShowModal = true
-    },
     setScheduleList(day) {
       return this.scheduleList.filter((row) => {
         return row.date == this.year + '-' + this.month + '-' + day
       })
     },
 
-    closeModal() {
-      this.isShowModal = false
-      this.title = ''
-    },
     calendarData(num) {
       if (num == -1) {
         this.month--
         if (this.month <= 0) {
           this.month = 12
+          this.year--
         }
       } else if (num == 1) {
         this.month++
@@ -258,5 +229,26 @@ export default {
   color: white;
   margin-top: 4px;
   background: #9c9cff;
+}
+.right-btn {
+  border: 0;
+  height: 32px;
+  vertical-align: bottom;
+  background: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  float: right;
+}
+.left-btn {
+  border: 0;
+  height: 32px;
+  vertical-align: bottom;
+  background: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  float: left;
+}
+.subtitle {
+  text-align: center;
 }
 </style>
