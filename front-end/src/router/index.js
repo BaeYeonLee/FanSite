@@ -29,7 +29,7 @@ const routes = [
         component: () => import('@pages/Album.vue'),
       },
       {
-        path: '/album/:album_title',
+        path: '/album/:album_id',
         name: 'album detail',
         component: () => import('@/AlbumDetail.vue'),
       },

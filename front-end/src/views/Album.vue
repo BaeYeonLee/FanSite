@@ -1,7 +1,7 @@
 <template>
   <div class="album-garally">
     <div class="thumnail" v-for="album in albums" :key="album">
-      <router-link :to="`/album/${album.title}`">
+      <router-link :to="`/album/${album.id}`">
         <img :src="album.img" />
         <span>{{ album.title }}</span>
       </router-link>
@@ -9,29 +9,37 @@
   </div>
 </template>
 <script>
+import { albumList } from '@common/dummy.js'
 export default {
   data() {
     return {
       albums: [
-        {
-          img: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
-          title: 'Lilac',
-        },
-
-        {
-          img: 'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
-          title: 'I-Land OST',
-        },
-        {
-          img: 'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
-          title: 'eight',
-        },
-        {
-          img: 'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
-          title: '사랑의 불시착 OST',
-        },
+        // {
+        //   img: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
+        //   title: 'Lilac',
+        // },
+        // {
+        //   img: 'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
+        //   title: 'I-Land OST',
+        // },
+        // {
+        //   img: 'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
+        //   title: 'eight',
+        // },
+        // {
+        //   img: 'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
+        //   title: '사랑의 불시착 OST',
+        // },
       ],
     }
+  },
+  methods: {
+    getAlbumList() {
+      this.albums = albumList.concat()
+    },
+  },
+  created() {
+    this.getAlbumList()
   },
 }
 </script>

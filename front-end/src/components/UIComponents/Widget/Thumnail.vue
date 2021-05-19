@@ -48,8 +48,7 @@ export default {
       background: linear-gradient(to top, black, transparent);
     }
     img {
-      height: 300px;
-      margin-left: -10%;
+      width: 100%;
     }
     text-align: center;
   }

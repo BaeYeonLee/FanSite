@@ -1,17 +1,17 @@
 <template>
   <div class="album-detail">
     <div class="album-cover">
-      <img :src="albumInfo.cover" />
+      <img :src="albumInfo.img" />
     </div>
     <div class="album-info">
       <div class="title">
         {{ albumInfo.title }}
       </div>
       <div>
-        {{ albumInfo.number }}
+        {{ albumInfo.type }}
       </div>
       <div>
-        {{ albumInfo.release }}
+        {{ albumInfo.date }}
       </div>
     </div>
 
@@ -29,56 +29,24 @@
   </div>
 </template>
 <script>
+import { albumList } from '@common/dummy.js'
 export default {
   data() {
     return {
-      albumInfo: {
-        albumTitle: '',
-        cover: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
-        number: 'IU 정규 5집',
-        release: '2021.03.25',
-        trackList: [
-          {
-            no: 1,
-            name: '라일락',
-            lyrics: ['아이유'],
-            composed: ['임수호', 'Dr.JO', '옹킴', 'N!ko'],
-            arranged: ['임수호', '옹킴', 'N!ko'],
-          },
-          {
-            no: 2,
-            name: 'Flu',
-            lyrics: ['아이유'],
-            composed: [
-              '라이언 전',
-              'Martin Coogan',
-              'Madilyn Bailey',
-              'Zacchariah Palmer',
-              'London Jackson',
-              'Jacob Chatelain',
-            ],
-            arranged: ['Jacob Chatelain', 'London Jackson', '라이언 전'],
-          },
-          {
-            no: 3,
-            name: 'Coin',
-            lyrics: ['아이유'],
-            composed: ['Poptime', 'Kako', '아이유'],
-            arranged: ['Poptime'],
-          },
-          {
-            no: 4,
-            name: '봄 안녕 봄',
-            lyrics: ['아이유'],
-            composed: ['나얼'],
-            arranged: ['강화성'],
-          },
-        ],
-      },
+      albumInfo: {},
     }
   },
+  methods: {
+    getAlbumInfo() {
+      let albumID = this.$route.params.album_id
+      this.albumInfo = albumList.concat().find((album) => {
+        return album.id == albumID
+      })
+    },
+  },
   created() {
-    this.albumInfo.title = this.$route.params.album_title
+    this.getAlbumInfo()
+    console.log(this.albumInfo)
   },
 }
 </script>

@@ -3,11 +3,11 @@
     <div class="tabs">
       <!--  tab name -->
       <div class="tab" v-for="(category, idx) in categories" :key="idx">
-        <div class="cateogry-name" @click="isSelectedCategory(idx)">
+        <div class="cateogry-name" @click="isSelectedCategory(idx)" :class="{ selected: selectedTab(idx) }">
           {{ category }}
         </div>
         <div>
-          <hr v-if="currentTab == idx" style="border: #ccb6e1 solid 3px" />
+          <hr v-if="currentTab == idx" class="selected" />
           <hr v-else />
         </div>
       </div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { boardList, albumList, filmographyList } from '@common/dummy.js'
+import { boardList, albumList, filmographyList, categories } from '@common/dummy.js'
 import Thumnail from '@/Widget/Thumnail.vue'
 export default {
   components: {
@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      categories: ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD'],
+      categories: [],
       filmographyList: [],
       currentTab: 0,
       boardList: [],
@@ -73,25 +73,46 @@ export default {
     moveDetail(id) {
       this.$router.push({ path: '/detail', query: { b_id: id } })
     },
+    selectedTab(index) {
+      return this.currentTab == index
+    },
     isSelectedCategory(index) {
       this.currentTab = index
+      switch (index) {
+        case 1:
+          this.getFilmographyList()
+          break
+        case 2:
+          //getTvList()
+          break
+        case 3:
+          //getADList()
+          break
+        case 4:
+          //getHistoryList()
+          break
+        case 5:
+          this.getBoardList()
+          break
+      }
     },
     getBoardList() {
       this.boardList = boardList.concat()
     },
-    getfilmographyList() {
+    getFilmographyList() {
       this.filmographyList = filmographyList.concat()
     },
     getAlbumList() {
       this.albumList = albumList.concat()
     },
+    getCategories() {
+      this.categories = categories.concat()
+    },
   },
   created() {
     this.isSelectedCategory(0)
-    this.getBoardList()
-    this.getfilmographyList()
-
     this.getAlbumList()
+    this.getCategories()
   },
 }
 </script>
@@ -116,8 +137,15 @@ hr {
   cursor: pointer;
 }
 .cateogry-name {
+  margin-bottom: 10px;
   &:hover {
     cursor: pointer;
+    color: $IUViolet;
+    font-weight: bold;
+  }
+  &.selected {
+    color: $IUDeepViolet;
+    font-weight: bold;
   }
 }
 td,
@@ -132,5 +160,8 @@ th {
 }
 .id-cell {
   width: 30px;
+}
+hr.selected {
+  border: #ccb6e1 solid 3px;
 }
 </style>

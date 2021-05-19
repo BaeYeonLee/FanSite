@@ -15,6 +15,7 @@
   </div>
 </template>
 <script>
+import { categories } from '@common/dummy.js'
 export default {
   watch: {
     $route(to) {
@@ -23,22 +24,29 @@ export default {
   },
   data() {
     return {
-      categories: ['ALBUM', 'DRAMA', 'TV', 'SCREEN', 'AD', 'HISTORY', 'BOARD'],
+      categories: [],
       current_cat: '',
     }
   },
   methods: {
     isCurrent(category) {
+      this.current_cat = this.current_cat.includes('/')
+        ? this.current_cat.slice(0, this.current_cat.indexOf('/'))
+        : this.current_cat
       return this.current_cat == category
     },
     movePage(category) {
       let path = '/' + category.toLowerCase()
       this.$router.push(path)
     },
+    getCategories() {
+      this.categories = categories.concat()
+    },
   },
   created() {
     let path = this.$route.path
     this.current_cat = path.slice(1, path.length).toUpperCase()
+    this.getCategories()
   },
 }
 </script>

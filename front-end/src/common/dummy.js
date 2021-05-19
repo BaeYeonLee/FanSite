@@ -81,21 +81,63 @@ const replyList = [
 
 const albumList = [
   {
+    id: 4,
     title: '라일락',
     img: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
     date: '2021.03.25',
+    album_type: 'IU 정규 5집',
+    trackList: [
+      {
+        no: 1,
+        name: '라일락',
+        lyrics: ['아이유'],
+        composed: ['임수호', 'Dr.JO', '옹킴', 'N!ko'],
+        arranged: ['임수호', '옹킴', 'N!ko'],
+      },
+      {
+        no: 2,
+        name: 'Flu',
+        lyrics: ['아이유'],
+        composed: [
+          '라이언 전',
+          'Martin Coogan',
+          'Madilyn Bailey',
+          'Zacchariah Palmer',
+          'London Jackson',
+          'Jacob Chatelain',
+        ],
+        arranged: ['Jacob Chatelain', 'London Jackson', '라이언 전'],
+      },
+      {
+        no: 3,
+        name: 'Coin',
+        lyrics: ['아이유'],
+        composed: ['Poptime', 'Kako', '아이유'],
+        arranged: ['Poptime'],
+      },
+      {
+        no: 4,
+        name: '봄 안녕 봄',
+        lyrics: ['아이유'],
+        composed: ['나얼'],
+        arranged: ['강화성'],
+      },
+    ],
   },
   {
+    id: 3,
     title: 'I-land OST',
     img: 'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
     date: '2020.06.19',
   },
   {
+    id: 2,
     title: '에잇',
     img: 'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
     date: '2020.05.06',
   },
   {
+    id: 1,
     title: '사랑의 불시착 OST',
     img: 'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
     date: '2020.2.15',
@@ -120,9 +162,11 @@ const filmographyList = [
   },
   {
     title: '프로듀사',
-    img: 'https://musicmeta-phinf.pstatic.net/album/000/545/545993.jpg?type=r360Fll&v=20200704133012',
+    img: 'https://www.themoviedb.org/t/p/original/pa2lC5R2eiGT9LecBPfa1FSCWUR.jpg',
     date: '2015/05/15 - 2015/06/20',
   },
 ]
 
-export { boardList, replyList, albumList, filmographyList }
+const categories = ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD']
+
+export { boardList, replyList, albumList, filmographyList, categories }
