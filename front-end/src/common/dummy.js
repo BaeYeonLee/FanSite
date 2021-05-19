@@ -102,8 +102,7 @@ const boardList= [
     date:'2021-5-11',
     title:'ddd',
   },
-
   ]
 
 
-  export default { boardList, replyList,scheduleList } 
+  export default { boardList, replyList, scheduleList } 

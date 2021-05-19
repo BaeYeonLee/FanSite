@@ -21,7 +21,7 @@
       </p>
       <hr />
       <div class="board-content-div">
-        <p v-html="boardData.content"></p>
+        <p v-html="content"></p>
       </div>
       <div style="margin-bottom: 40px">
         <input
@@ -78,6 +78,7 @@ export default {
         content: '',
       },
       isShowReply: true,
+      content: '',
     }
   },
   methods: {
@@ -100,10 +101,10 @@ export default {
       this.reply = ''
     },
     getId(url) {
-      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+      var regExp = /^.*(?:youtu\.?be(?:\.com)?\/)(?:embed\/)?(?:(?:(?:(?:watch\?)?(?:time_continue=(?:[0-9]+))?.+v=)?([a-zA-Z0-9_-]+))(?:\?t\=(?:[0-9a-zA-Z]+))?)/
       var match = url.match(regExp)
 
-      if (match && match[2].length == 11) {
+      if (match) {
         return match[2]
       } else {
         return 'error'
@@ -125,7 +126,7 @@ export default {
         videoId +
         '" frameborder="0" allowfullscreen></iframe>'
 
-      this.boardData.content = this.boardData.content.replace(
+      this.content = this.boardData.content.replace(
         this.boardData.content.substring(
           this.boardData.content.indexOf('<figure class="media">'),
           this.boardData.content.indexOf('</figure>') + 9
