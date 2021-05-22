@@ -16,10 +16,15 @@
     <div class="tab-contents">
       <div class="content">
         <div v-if="currentTab == 0" class="album-content">
-          <Thumnail :list="albumList" />
+          <Thumnail :list="albumList" :tab="currentTab" />
         </div>
         <div v-if="currentTab == 1" class="filmography-content">
           <Thumnail :list="filmographyList" />
+        </div>
+        <div v-if="currentTab == 4" class="history-content">
+          <ul>
+            <li v-for="history in historyList" :key="history">{{ history }}</li>
+          </ul>
         </div>
         <div v-if="currentTab == 6" class="board-content">
           <table>
@@ -47,7 +52,7 @@
 </template>
 
 <script>
-import { boardList, albumList, filmographyList, categories } from '@common/dummy.js'
+import { boardList, albumList, filmographyList, categories, history } from '@common/dummy.js'
 import Thumnail from '@/Widget/Thumnail.vue'
 export default {
   components: {
@@ -59,6 +64,7 @@ export default {
       filmographyList: [],
       currentTab: 0,
       boardList: [],
+      historyList: [],
     }
   },
   methods: {
@@ -66,6 +72,8 @@ export default {
       switch (this.currentTab) {
         case 0:
           return this.$router.push('/album')
+        case 1:
+          return this.$router.push('/filmography')
         case 6:
           return this.$router.push('/board')
       }
@@ -83,13 +91,13 @@ export default {
           this.getFilmographyList()
           break
         case 2:
-          //getTvList()
+          //this.getTvList()
           break
         case 3:
-          //getADList()
+          //this.getADList()
           break
         case 4:
-          //getHistoryList()
+          this.getHistoryList()
           break
         case 5:
           this.getBoardList()
@@ -107,6 +115,9 @@ export default {
     },
     getCategories() {
       this.categories = categories.concat()
+    },
+    getHistoryList() {
+      this.historyList = history.concat()
     },
   },
   created() {
@@ -163,5 +174,10 @@ th {
 }
 hr.selected {
   border: #ccb6e1 solid 3px;
+}
+.history-content {
+  height: 355px;
+  overflow: hidden;
+  padding: 30px;
 }
 </style>

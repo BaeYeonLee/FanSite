@@ -51,6 +51,7 @@ export default {
   grid-template-areas:
     'side page-name'
     'side content';
+  grid-template-rows: 50px;
   grid-column-gap: 30px;
 }
 </style>

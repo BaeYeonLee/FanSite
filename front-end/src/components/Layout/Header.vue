@@ -72,7 +72,7 @@ header {
   left: 0;
   right: 0;
   height: 80px;
-  background: #eeeeff;
+  background: $IULightViolet;
   z-index: 3000;
 }
 

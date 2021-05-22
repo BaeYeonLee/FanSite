@@ -1,28 +1,34 @@
 <template>
   <div class="album-detail">
-    <div class="album-cover">
-      <img :src="albumInfo.img" />
+    <div class="section-left">
+      <div class="album-cover">
+        <img :src="albumInfo.img" />
+      </div>
+      <div class="album-info">
+        <div class="title">
+          {{ albumInfo.title }}
+        </div>
+        <div>
+          {{ albumInfo.album_type }}
+        </div>
+        <div>
+          {{ albumInfo.date }}
+        </div>
+      </div>
     </div>
-    <div class="album-info">
-      <div class="title">
-        {{ albumInfo.title }}
-      </div>
-      <div>
-        {{ albumInfo.type }}
-      </div>
-      <div>
-        {{ albumInfo.date }}
-      </div>
-    </div>
-
-    <h2>Track List</h2>
-    <div class="track-list">
-      <div class="list-content" v-for="tl in albumInfo.trackList" :key="tl">
-        <div class="content">
-          <b class="song-title">{{ tl.no }} {{ tl.name }} </b><br /><br />
-          <b>lyrics by </b> {{ tl.lyrics.join(', ') }}<br />
-          <b>composed by </b> {{ tl.composed.join(', ') }}<br />
-          <b>arranged by </b> {{ tl.arranged.join(', ') }}<br />
+    <div class="section-right">
+      <h3>Track List</h3>
+      <div class="track-list">
+        <div class="list-content" v-for="tl in albumInfo.trackList" :key="tl">
+          <div class="song-title">{{ tl.no }}. {{ tl.name }}</div>
+          <div class="infos">
+            <div class="lyrics">lyrics by</div>
+            <div>{{ tl.lyrics.join(', ') }}</div>
+            <div class="compose">composed by</div>
+            <div>{{ tl.composed.join(', ') }}</div>
+            <div class="arrange">arranged by</div>
+            <div>{{ tl.arranged.join(', ') }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -52,46 +58,65 @@ export default {
 </script>
 <style lang="scss" scoped>
 .album-detail {
-  padding: 100px 0;
-  display: grid;
   grid-template-areas:
-    'cover info'
-    'tracks tracks'
-    'track track';
-}
-.album-cover {
-  margin: 0 auto;
-  grid-area: cover;
-  img {
-    width: 350px;
-  }
-}
-.album-info {
-  text-align: center;
-  grid-area: info;
-
-  .title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-}
-h2 {
-  grid-area: tracks;
-  text-align: center;
-  margin: 30px 0 20px;
-}
-.track-list {
-  grid-area: track;
+    'section-left section-right'
+    'section-left section-right';
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  text-align: right;
-  .content {
-    .song-title {
-      font-size: 18px;
+  padding: 40px;
+  grid-column-gap: 10%;
+  background: $IULightViolet;
+}
+.section-left {
+  grid-area: section-left;
+  margin-left: 30px;
+  .album-cover {
+    img {
+      width: 300px;
     }
-    margin-top: 20px;
-    padding-left: 30px;
+  }
+  .album-info {
+    text-align: center;
+    display: grid;
+    align-items: center;
+    div {
+      padding: 20px 0;
+      &.title {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+.section-right {
+  grid-area: section-right;
+  h3 {
+    text-align: center;
+  }
+  .track-list {
+    display: grid;
+    margin: 50px 0 0 50px;
+  }
+}
+.list-content {
+  padding: 20px;
+  .song-title {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  .infos {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    div {
+      font-size: 14px;
+      &.lyrics,
+      &.arrange,
+      &.compose {
+        margin-right: 25px;
+        font-weight: bold;
+        text-align: right;
+      }
+    }
   }
 }
 </style>

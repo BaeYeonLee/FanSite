@@ -146,27 +146,43 @@ const albumList = [
 
 const filmographyList = [
   {
+    id: 4,
     title: '호텔 델루나',
     img: 'http://img.lifestyler.co.kr/uploads/program/cheditor/2019/07/JEMFAWGGWZWCEQJRS1JL_1024x0.jpg',
     date: '2019/07/13 - 2019/09/01',
+    home: 'http://program.tving.com/tvn/hoteldelluna?rcnt=1',
   },
   {
+    id: 3,
     title: '나의 아저씨',
     img: 'http://img.lifestyler.co.kr/uploads/program/cheditor/2018/03/MTMBYURSDUTYOBJFHJJV.jpg',
     date: '2018/03/21 - 2018/05/17',
+    home: 'http://program.tving.com/tvn/mymister?rcnt=1',
   },
   {
+    id: 2,
     title: '달의 연인',
     img: 'http://img2.sbs.co.kr/img/sbs/RO/2016/08/12/RO16116109_w1000_h0.jpg',
     date: '2016/08/29 - 2016/11/01일',
+    home: 'https://programs.sbs.co.kr/drama/scarletheart/main',
   },
   {
+    id: 1,
     title: '프로듀사',
     img: 'https://www.themoviedb.org/t/p/original/pa2lC5R2eiGT9LecBPfa1FSCWUR.jpg',
     date: '2015/05/15 - 2015/06/20',
+    home: 'https://program.kbs.co.kr/2tv/drama/produca/pc/index.html',
   },
+]
+
+const history = [
+  '2021 - 2020 APAN MUSIC AWARDS 아이돌챔프 인기상 국내 여자 솔로 부문',
+  '2021 - 제10회 가온차트 뮤직 어워즈 올해의 작사가상',
+  '2021 - 제10회 가온차트 뮤직 어워즈 올해의 롱런 음원상',
+  '2021 - 제10회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 5월',
+  '2021 - 제35회 골든디스크 어워즈 디지털음원부문 대상',
 ]
 
 const categories = ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD']
 
-export { boardList, replyList, albumList, filmographyList, categories }
+export { boardList, replyList, albumList, filmographyList, categories, history }

@@ -1,17 +1,12 @@
 <template>
   <div class="page-name">
-    {{ category.toUpperCase() }} <span> ( 28 )</span>
+    {{ category.toUpperCase() }} <span> ( {{ count }} )</span>
     <span class="album-title" v-if="title"> > &nbsp;&nbsp;&nbsp; {{ title }}</span>
   </div>
 </template>
 <script>
+import { albumList, filmographyList } from '@common/dummy.js'
 export default {
-  props: {
-    pageName: {
-      type: String,
-      default: '',
-    },
-  },
   watch: {
     $route(to) {
       this.getInfo(to.path)
@@ -21,11 +16,30 @@ export default {
     return {
       category: '',
       title: '',
+      count: -1,
     }
   },
   methods: {
     getInfo(path) {
-      ;[this.category, this.title] = path.slice(1, path.length).split('/')
+      let id = -1
+      ;[this.category, id] = path.slice(1, path.length).split('/')
+
+      switch (this.category) {
+        case 'album':
+          albumList.find((album) => {
+            if (album.id == id) {
+              this.title = album.title
+              return album.id == id
+            } else {
+              this.title = ''
+            }
+          })
+          this.count = albumList.length
+          break
+        case 'filmography':
+          this.count = filmographyList.length
+          this.title = ''
+      }
     },
   },
   created() {

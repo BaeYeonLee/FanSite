@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="crop" v-for="(item, idx) in list" :key="idx">
-      <div class="gra" :key="idx">
+      <div class="gra" :key="idx" @click="moveDetail(item)">
         <span>
           {{ item.title }}<br />
           {{ item.date }}
         </span>
-        <img :src="item.img" />
+        <img :src="item.img" :class="{ albums: tab == 0 }" />
       </div>
     </div>
   </div>
@@ -18,11 +18,25 @@ export default {
       type: Array,
       default: '',
     },
+    tab: {
+      type: Number,
+      default: -1,
+    },
   },
   data() {
     return {}
   },
-  methods: {},
+  methods: {
+    moveDetail(item) {
+      if (this.$route.path.indexOf('album') > -1) {
+        this.$router.push({ path: `/album/${item.id}` })
+      } else {
+        //해당 방송사 및 영화 상세 정보 사이트 link
+        window.open(item.home)
+        console.log('this is not albums')
+      }
+    },
+  },
   created() {},
 }
 </script>
@@ -31,28 +45,50 @@ export default {
   .gra {
     span {
       font-size: 14px;
-      color: #ffffffa3;
+      color: $OverGray;
       position: absolute;
       font-style: italic;
       bottom: 20px;
       //absolute 요소 중앙정렬
       transform: translateX(-50%);
       left: 50%;
+      z-index: 1;
+    }
+    &:hover {
+      // ? hover 시 amimate
+      cursor: pointer;
+      span {
+        color: white;
+        bottom: 45%;
+      }
+      &:before {
+        height: 100%;
+        background: linear-gradient(to top, black, #00000096);
+      }
     }
     &:before {
       position: absolute;
+      left: 0;
       bottom: 0;
       content: '';
       width: 100%;
       height: 50%;
       background: linear-gradient(to top, black, transparent);
+      z-index: 1;
     }
     img {
       width: 100%;
+      position: absolute;
+      transform: translateX(-50%);
+      left: 50%;
+      &.albums {
+        //album cover div에 가득 차게
+        width: 150%;
+      }
     }
     text-align: center;
   }
-  height: 300px;
+  height: 350px;
   width: 250px;
   overflow: hidden;
   display: inline-block;

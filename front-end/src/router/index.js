@@ -25,8 +25,8 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'album',
-        component: () => import('@pages/Album.vue'),
+        name: 'Album',
+        component: () => import('@pages/OverView.vue'),
       },
       {
         path: '/album/:album_id',
@@ -36,18 +36,13 @@ const routes = [
     ],
   },
   {
-    path: '/drama',
+    path: '/filmography',
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [
       {
         path: '',
-        name: 'drama',
-        component: () => import('@pages/Album.vue'),
-      },
-      {
-        path: '/drama/:drama_title',
-        name: 'drama detail',
-        component: () => import('@/AlbumDetail.vue'),
+        name: 'Filmography',
+        component: () => import('@pages/OverView.vue'),
       },
     ],
   },
