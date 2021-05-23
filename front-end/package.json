@@ -16,6 +16,7 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@ckeditor/ckeditor5-alignment": "^18.0.0",
     "@ckeditor/ckeditor5-build-classic": "^27.0.0",
     "@ckeditor/ckeditor5-vue": "^2.0.1",
     "@popperjs/core": "^2.9.2",
