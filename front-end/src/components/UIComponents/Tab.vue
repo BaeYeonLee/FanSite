@@ -3,7 +3,7 @@
     <div class="tabs">
       <!--  tab name -->
       <div class="tab" v-for="(category, idx) in categories" :key="idx">
-        <div class="cateogry-name" @click="isSelectedCategory(idx)" :class="{ selected: selectedTab(idx) }">
+        <div class="cateogry-name" @click="selectedTab(idx)" :class="{ selected: isSelectedCategory(idx) }">
           {{ category }}
         </div>
         <div>
@@ -81,10 +81,10 @@ export default {
     moveDetail(id) {
       this.$router.push({ path: '/detail', query: { b_id: id } })
     },
-    selectedTab(index) {
+    isSelectedCategory(index) {
       return this.currentTab == index
     },
-    isSelectedCategory(index) {
+    selectedTab(index) {
       this.currentTab = index
       switch (index) {
         case 1:
@@ -118,10 +118,11 @@ export default {
     },
     getHistoryList() {
       this.historyList = history.concat()
+      //concat 안 쓰면 주소값을 참조하게 됨. concat 사용하면 새로운 배열로 리턴해줌
     },
   },
   created() {
-    this.isSelectedCategory(0)
+    this.selectedTab(0)
     this.getAlbumList()
     this.getCategories()
   },

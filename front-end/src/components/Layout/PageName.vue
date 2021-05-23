@@ -24,21 +24,19 @@ export default {
       let id = -1
       ;[this.category, id] = path.slice(1, path.length).split('/')
 
+      this.title = ''
       switch (this.category) {
         case 'album':
           albumList.find((album) => {
             if (album.id == id) {
               this.title = album.title
               return album.id == id
-            } else {
-              this.title = ''
             }
           })
           this.count = albumList.length
           break
         case 'filmography':
           this.count = filmographyList.length
-          this.title = ''
       }
     },
   },

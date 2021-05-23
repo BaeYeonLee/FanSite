@@ -72,7 +72,6 @@ export default {
       z-index: 1;
     }
     &:hover {
-      // ? hover 시 amimate
       cursor: pointer;
       span {
         color: white;
@@ -81,6 +80,8 @@ export default {
       &:before {
         height: 100%;
         background: linear-gradient(to top, black, #00000096);
+        //hover 시 animate -> 모든 요소에 width 설정도 가능
+        transition: 0.5s;
       }
     }
     &.thumnailAlbum {

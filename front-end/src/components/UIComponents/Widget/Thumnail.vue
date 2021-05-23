@@ -28,12 +28,11 @@ export default {
   },
   methods: {
     moveDetail(item) {
-      if (this.$route.path.indexOf('album') > -1) {
-        this.$router.push({ path: `/album/${item.id}` })
+      if (item.album_type) {
+        this.$router.push({ path: `/album/${item.id}` }) //string이랑 같이 사용할 시 `` 사용하면 편함
       } else {
         //해당 방송사 및 영화 상세 정보 사이트 link
         window.open(item.home)
-        console.log('this is not albums')
       }
     },
   },
@@ -55,7 +54,6 @@ export default {
       z-index: 1;
     }
     &:hover {
-      // ? hover 시 amimate
       cursor: pointer;
       span {
         color: white;
@@ -64,6 +62,7 @@ export default {
       &:before {
         height: 100%;
         background: linear-gradient(to top, black, #00000096);
+        transition: 0.5s;
       }
     }
     &:before {

@@ -17,9 +17,15 @@
 <script>
 import { categories } from '@common/dummy.js'
 export default {
+  computed: {
+    currentLabel() {
+      //매번 uppder case 함수 쓰는 것보다 computed로 계산해서 사용하는 게 더 효율 성이 좋을 듯
+      return this.current_cat.slice(1, this.current_cat.length).toUpperCase()
+    },
+  },
   watch: {
     $route(to) {
-      this.current_cat = to.path.slice(1, to.path.length).toUpperCase()
+      this.current_cat = to.path
     },
   },
   data() {
@@ -30,10 +36,10 @@ export default {
   },
   methods: {
     isCurrent(category) {
-      this.current_cat = this.current_cat.includes('/')
-        ? this.current_cat.slice(0, this.current_cat.indexOf('/'))
-        : this.current_cat
-      return this.current_cat == category
+      // this.current_cat = this.currentLabel.split('/')[0]
+      //? this.current_cat.slice(0, this.current_cat.indexOf('/'))
+      //: this.current_cat
+      return this.currentLabel.split('/')[0] == category
     },
     movePage(category) {
       let path = '/' + category.toLowerCase()
@@ -44,8 +50,7 @@ export default {
     },
   },
   created() {
-    let path = this.$route.path
-    this.current_cat = path.slice(1, path.length).toUpperCase()
+    this.current_cat = this.$route.path
     this.getCategories()
   },
 }
