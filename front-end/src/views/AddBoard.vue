@@ -1,5 +1,8 @@
 <template>
   <div class="board-container">
+    <transition name="fade">
+      <div class="toast" v-if="isNotValidation">Fail Validation</div>
+    </transition>
     <form>
       <h2 class="board-title">글쓰기</h2>
       <div class="input-title-div">
@@ -17,9 +20,7 @@
       <router-link to="/board">
         <input type="button" class="base-btn" value="취소" style="margin-right: 10px" />
       </router-link>
-      <router-link to="/board">
-        <input type="button" class="base-btn" value="등록" @click="insertBoardData" />
-      </router-link>
+      <input type="button" class="base-btn" value="등록" @click="insertBoardData" />
     </div>
   </div>
 </template>
@@ -45,20 +46,39 @@ export default {
         },
         extraPlugins: [this.uploader],
       },
+      isNotValidation: false,
     }
   },
   methods: {
     insertBoardData() {
-      let tmp = {
-        b_id: dummy.boardList.length + 1,
-        writer: this.userinfo.id,
-        pass: this.userinfo.pass,
-        date: '2021-04-15',
-        title: this.title,
-        content: this.editorData,
-      }
+      if (this.validationAction()) {
+        let tmp = {
+          b_id: dummy.boardList.length + 1,
+          writer: this.userinfo.id,
+          pass: this.userinfo.pass,
+          date: '2021-04-15',
+          title: this.title,
+          content: this.editorData,
+        }
 
-      dummy.boardList.push(tmp)
+        dummy.boardList.push(tmp)
+        this.$router.push('/board')
+      } else {
+        this.toastAction()
+      }
+    },
+    validationAction() {
+      if (this.userinfo.id && this.userinfo.pass && this.title && this.editorData) {
+        return true
+      } else {
+        return false
+      }
+    },
+    toastAction() {
+      this.isNotValidation = true
+      setTimeout(() => {
+        this.isNotValidation = false
+      }, 2000)
     },
     uploader(editor) {
       editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -111,5 +131,26 @@ export default {
 }
 .btn-navbar {
   margin-top: 10px;
+}
+.toast {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  padding: 15px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  overflow: hidden;
+  font-size: 18px;
+  background: #ef4f69;
+  color: #fff;
+  z-index: 10000;
+  transform: translate(-50%, 10px);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
