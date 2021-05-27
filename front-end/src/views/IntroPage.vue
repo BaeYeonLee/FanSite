@@ -8,9 +8,9 @@
         </b>
         <br />
         <b class="intro-text__days">
-          B-dey | 1993. 05. 16 <br />
+          B-day | 1993. 05. 16 <br />
           Debut | 2008. 09. 23 <br />
-          With | 4605 Days <br />
+          With | {{ countDate }} Days <br />
           <router-link to="/iu">
             <span class="intro-text__link">
               Go to <span class="accent">Fansite <IntroIcon class="icon-go-to-site" /></span>
@@ -29,18 +29,38 @@ export default {
   components: {
     IntroIcon,
   },
+  computed: {
+    countDate() {
+      const now = new Date()
+      const debut = new Date(2008, 9 - 1, 23) // 월 -1 로 작성해야 함.
+      const diffDate = now.getTime() - debut.getTime()
+      const count = Math.ceil(diffDate / (1000 * 60 * 60 * 24))
+      return count
+    },
+  },
 }
 </script>
 <style lang="scss">
 .intro-page {
-  width: 1920px;
+  width: 100%;
   height: 100vh;
   background-image: url('../assets/img/img_iu_1920.jpg');
 }
 
-.intro-text {
+.intro-cover {
+  display: flex;
+  // justify-content: center;
+  align-items: center;
   position: absolute;
-  right: 70px;
+  right: 0;
+  width: 100%;
+  max-width: 650px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), black);
+}
+
+.intro-text {
+  margin: auto;
   display: flex;
   flex-direction: column;
   width: 260px;
@@ -77,16 +97,5 @@ export default {
 .intro-text__link {
   text-decoration: underline;
   cursor: pointer;
-}
-
-.intro-cover {
-  display: flex;
-  // justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), black);
 }
 </style>

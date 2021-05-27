@@ -3,11 +3,11 @@
     <div class="tabs">
       <!--  tab name -->
       <div class="tab" v-for="(category, idx) in categories" :key="idx">
-        <div class="cateogry-name" @click="isSelectedCategory(idx)">
+        <div class="cateogry-name" @click="selectedTab(idx)" :class="{ selected: isSelectedCategory(idx) }">
           {{ category }}
         </div>
         <div>
-          <hr v-if="currentTab == idx" style="border: #ccb6e1 solid" />
+          <hr v-if="currentTab == idx" class="selected" />
           <hr v-else />
         </div>
       </div>
@@ -16,15 +16,15 @@
     <div class="tab-contents">
       <div class="content">
         <div v-if="currentTab == 0" class="album-content">
-          <img v-for="(img, idx) in albumImages" :key="idx" :src="img" style="width: 250px; margin: 0 40px" />
+          <Thumnail :list="albumList" :tab="currentTab" />
         </div>
-        <div v-if="currentTab == 1" class="drama-content">
-          <img
-            v-for="(img, idx) in dramaImages"
-            :key="idx"
-            :src="img"
-            style="width: 200px; height: 280px; margin: 0 40px"
-          />
+        <div v-if="currentTab == 1" class="filmography-content">
+          <Thumnail :list="filmographyList" />
+        </div>
+        <div v-if="currentTab == 4" class="history-content">
+          <ul>
+            <li v-for="history in historyList" :key="history">{{ history }}</li>
+          </ul>
         </div>
         <div v-if="currentTab == 6" class="board-content">
           <table>
@@ -55,11 +55,19 @@
 </template>
 
 <script>
-import dummy from '../../common/dummy.js'
+import { boardList, albumList, filmographyList, categories, history } from '@common/dummy.js'
+import Thumnail from '@/Widget/Thumnail.vue'
 export default {
+  components: {
+    Thumnail,
+  },
   data() {
     return {
-      categories: ['ALBUM', 'DRAMA', 'TV', 'SCREEN', 'AD', 'HISTORY', 'BOARD'],
+      categories: [],
+      filmographyList: [],
+      currentTab: 0,
+      boardList: [],
+      historyList: [],
       albumImages: [
         'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
         'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
@@ -72,8 +80,6 @@ export default {
         'http://img2.sbs.co.kr/img/sbs/RO/2016/08/12/RO16116109_w1000_h0.jpg',
         'https://musicmeta-phinf.pstatic.net/album/000/545/545993.jpg?type=r360Fll&v=20200704133012',
       ],
-      currentTab: 0,
-      boardList: [],
     }
   },
   methods: {
@@ -81,24 +87,59 @@ export default {
       switch (this.currentTab) {
         case 0:
           return this.$router.push('/album')
+        case 1:
+          return this.$router.push('/filmography')
         case 6:
-          return this.$router.push('iu/board')
+          return this.$router.push('/board')
       }
     },
     moveDetail(id) {
       this.$router.push({ path: '/detail', query: { b_id: id } })
     },
     isSelectedCategory(index) {
+      return this.currentTab == index
+    },
+    selectedTab(index) {
       this.currentTab = index
-      console.log(this.currentTab)
+      switch (index) {
+        case 1:
+          this.getFilmographyList()
+          break
+        case 2:
+          //this.getTvList()
+          break
+        case 3:
+          //this.getADList()
+          break
+        case 4:
+          this.getHistoryList()
+          break
+        case 5:
+          this.getBoardList()
+          break
+      }
     },
     getBoardList() {
-      this.boardList = dummy.boardList.concat()
+      this.boardList = boardList.concat()
+    },
+    getFilmographyList() {
+      this.filmographyList = filmographyList.concat()
+    },
+    getAlbumList() {
+      this.albumList = albumList.concat()
+    },
+    getCategories() {
+      this.categories = categories.concat()
+    },
+    getHistoryList() {
+      this.historyList = history.concat()
+      //concat 안 쓰면 주소값을 참조하게 됨. concat 사용하면 새로운 배열로 리턴해줌
     },
   },
   created() {
-    this.isSelectedCategory(0)
-    this.getBoardList()
+    this.selectedTab(0)
+    this.getAlbumList()
+    this.getCategories()
   },
 }
 </script>
@@ -122,8 +163,17 @@ hr {
 .more-button:hover {
   cursor: pointer;
 }
-.cateogry-name:hover {
-  cursor: pointer;
+.cateogry-name {
+  margin-bottom: 10px;
+  &:hover {
+    cursor: pointer;
+    color: $IUViolet;
+    font-weight: bold;
+  }
+  &.selected {
+    color: $IUDeepViolet;
+    font-weight: bold;
+  }
 }
 td,
 th {
@@ -137,5 +187,13 @@ th {
 }
 .id-cell {
   width: 30px;
+}
+hr.selected {
+  border: #ccb6e1 solid 3px;
+}
+.history-content {
+  height: 355px;
+  overflow: hidden;
+  padding: 30px;
 }
 </style>

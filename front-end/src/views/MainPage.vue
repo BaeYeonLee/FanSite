@@ -1,8 +1,6 @@
 <template>
   <div class="wrapper">
-    <!-- <MV /> -->
     <Tab />
-    <!-- <Sns /> -->
     <div class="youtube-box">
       <div class="column">
         <iframe
@@ -28,14 +26,11 @@ import Tab from '@/Tab.vue'
 import Sns from '@/Sns.vue'
 import ScheduleCalendar from '@/Widget/ScheduleCalendar'
 
-// import MV from '@/MV.vue'
-
 export default {
   components: {
     Tab,
     Sns,
     ScheduleCalendar,
-    // MV,
   },
 
   methods: {
@@ -66,3 +61,4 @@ td {
   cursor: pointer;
 }
 </style>
+

@@ -1,7 +1,9 @@
 <template>
   <header>
     <div class="header-contents">
-      <span class="title"> WITH U, <span class="accent"> IU </span> </span>
+      <router-link to="/iu">
+        <span class="title"> WITH U, <span class="accent"> IU </span> </span>
+      </router-link>
       <div class="sns-box">
         <LinkIcon class="icon-sns-link"></LinkIcon>
         <a v-for="icon in icons" :href="icon.link" :key="icon.name">
@@ -70,7 +72,7 @@ header {
   left: 0;
   right: 0;
   height: 80px;
-  background: #eeeeff;
+  background: $IULightViolet;
   z-index: 3000;
 }
 
@@ -80,11 +82,14 @@ header {
   font-size: 50px;
   line-height: 80px;
 
+  a {
+    text-decoration-line: none;
+  }
   .title {
     color: #bf8dd9;
 
     .accent {
-      color: #784e8d;
+      color: $IUDeepViolet;
     }
   }
 
@@ -105,8 +110,9 @@ header {
       position: relative;
       float: right;
       top: 19px;
-      fill: #784e8d;
+      fill: $IUDeepViolet;
       z-index: 201;
+      transition-duration: 0.25s;
     }
 
     a {

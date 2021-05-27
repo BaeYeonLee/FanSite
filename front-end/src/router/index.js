@@ -17,21 +17,39 @@ const routes = [
         name: 'MainPage',
         component: () => import('@pages/MainPage.vue'),
       },
+    ],
+  },
+  {
+    path: '/album',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
       {
-        path: '/main',
-        name: 'Main',
-        component: () => import('@pages/MainPage.vue'),
+        path: '',
+        name: 'Album',
+        component: () => import('@pages/OverView.vue'),
       },
       {
-        path: '/album',
-        name: 'album',
-        component: () => import('@pages/Album.vue'),
-      },
-      {
-        path: '/album/:album_title',
+        path: '/album/:album_id',
         name: 'album detail',
         component: () => import('@/AlbumDetail.vue'),
       },
+    ],
+  },
+  {
+    path: '/filmography',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Filmography',
+        component: () => import('@pages/OverView.vue'),
+      },
+    ],
+  },
+  {
+    path: '/board',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
       {
         path: '/board',
         name: 'Board',
