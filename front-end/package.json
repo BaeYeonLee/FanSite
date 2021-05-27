@@ -16,8 +16,10 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@ckeditor/ckeditor5-alignment": "^18.0.0",
     "@ckeditor/ckeditor5-build-classic": "^27.0.0",
     "@ckeditor/ckeditor5-vue": "^2.0.1",
+    "@popperjs/core": "^2.9.2",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
@@ -35,6 +37,7 @@
     "prettier": "^2.2.1",
     "sass-loader": "^10.0.2",
     "tiptap": "^1.32.2",
+    "v-calendar": "^3.0.0-alpha.4",
     "vue-cli-plugin-axios": "~0.0.4"
   }
 }

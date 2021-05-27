@@ -51,22 +51,22 @@ const routes = [
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [
       {
-        path: 'board',
+        path: '/board',
         name: 'Board',
         component: () => import('@pages/BoardPage.vue'),
       },
       {
-        path: 'add-board',
+        path: '/add-board',
         name: 'AddBoard',
         component: () => import('@pages/AddBoard.vue'),
       },
       {
-        path: 'detail',
+        path: '/detail',
         name: 'Detail',
         component: () => import('@pages/BoardDetailPage.vue'),
       },
       {
-        path: 'edit',
+        path: '/edit',
         name: 'Edit',
         component: () => import('@pages/EditBoard.vue'),
       },

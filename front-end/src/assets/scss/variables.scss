@@ -7,3 +7,42 @@ $OverGray: #ffffffa3;
 * {
   margin: 0;
 }
+.base-btn {
+  border: 0;
+  border-radius: 6px;
+  background: white;
+  font-size: 22px;
+  font-weight: bold;
+  color: #bf8dd9;
+  background-color: transparent;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+.base-btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+.base-btn:hover {
+  color: #fff;
+  background-color: #bf8dd9;
+}
+.base-btn:focus,
+.base-btn:hover {
+  text-decoration: none;
+}
+.board-container {
+  padding: 30px;
+}
+.board-title {
+  font-size: 30px;
+  margin-bottom: 20px;
+}

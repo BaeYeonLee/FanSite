@@ -7,6 +7,7 @@ mongoose.createConnection(config.host, config.options)
 const Program = new mongoose.Schema({
   title: String,
   role: String,
+  program_type: String,
   start_date: String,
   end_date: String,
 })

@@ -1,10 +1,7 @@
 const express = require('express')
-
 const router = express.Router()
 
-const Database = require('../../mysql')
-
-const TABLE_NAME = 't_album'
+const Album = require('../../models/album.js')
 
 /**
  *  @swagger
@@ -23,15 +20,14 @@ const TABLE_NAME = 't_album'
  *      200:
  *        description: Get album data list
  */
-router.get('/', async function (req, res, next) {
-  try {
-    let query = await Database.select(TABLE_NAME, [], req.query)
+router.get('/', function (req, res, next) {
+  Album.find(req.query, function (err, album) {
+    if (err) {
+      return res.status(500).send({ error: 'database failure', msg: err })
+    }
 
-    res.status(200).json(query)
-  } catch (e) {
-    console.log(e)
-    res.status(400).send(e)
-  }
+    res.status(200).json(album)
+  })
 })
 
 /**
@@ -50,19 +46,13 @@ router.get('/', async function (req, res, next) {
  *      200:
  *        description: Get album data object
  */
-router.get('/:id', async function (req, res, next) {
-  try {
-    let query = await Database.select(TABLE_NAME, [], { id: req.params.id })
-
-    if (query.length == 1) {
-      res.status(200).json(query[0])
-    } else {
-      res.status(200).json(query)
+router.get('/:id', function (req, res, next) {
+  Album.findById(req.params.id, (err, album) => {
+    if (err) {
+      return res.status(500).send({ error: 'database failure', msg: err })
     }
-  } catch (e) {
-    console.log(e.message)
-    res.status(400).send(e)
-  }
+    res.status(200).json(album)
+  })
 })
 
 /**
@@ -78,36 +68,40 @@ router.get('/:id', async function (req, res, next) {
  *        schema:
  *          type: object
  *          properties:
- *            album_name:
+ *            name:
  *              type: string
- *            album_type:
+ *            titles:
+ *              type: array
+ *              items:
+ *                type: string
+ *            tracks:
+ *              type: array
+ *              items:
+ *                type: string
+ *            cover:
  *              type: string
- *            cover_image:
+ *            desc:
  *              type: string
  *            release_data:
  *              type: string
  *            links:
  *              type: array
  *              items:
- *                type: object
- *                properties:
- *                  site:
- *                    type: string
- *                  link:
- *                    type: string
+ *                type: string
  *    responses:
  *      200:
  *        description: Insert album data
  */
-router.post('/', async function (req, res, next) {
-  try {
-    let query = await Database.insert(TABLE_NAME, req.body)
+router.post('/', function (req, res, next) {
+  let album = new Album({ ...req.body })
 
-    res.status(200).json(query)
-  } catch (e) {
-    console.log(e)
-    res.status(400).send(e)
-  }
+  album.save((err, album) => {
+    if (err) {
+      return res.status(500).send({ error: 'database failure', msg: err })
+    }
+
+    res.status(200).json(album)
+  })
 })
 
 /**
@@ -152,22 +146,21 @@ router.post('/', async function (req, res, next) {
  *      200:
  *        description: Update album data
  */
-router.put('/:id', async function (req, res, next) {
-  try {
-    let query = await Database.insert(TABLE_NAME, req.body, {
-      id: req.params.id,
-    })
+router.put('/:id', function (req, res, next) {
+  let upadetData = { ...req.body }
 
-    if (query != 'NOT FOUND') {
-      res.status(200).json(query)
-    } else {
-      res
-        .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] ALBUM NOT FOUND' })
-    }
-  } catch (e) {
-    res.status(400).send(e)
-  }
+  Album.findByIdAndUpdate(
+    req.params.id,
+    upadetData,
+    { new: true },
+    (err, album) => {
+      if (err) {
+        return res.status(500).send({ error: 'database failure', msg: err })
+      }
+
+      res.status(200).json(album)
+    },
+  )
 })
 
 /**
@@ -187,19 +180,13 @@ router.put('/:id', async function (req, res, next) {
  *        description: Delete album data
  */
 router.delete('/:id', async function (req, res, next) {
-  try {
-    let query = await Database.delete(TABLE_NAME, { id: req.params.id })
-
-    if (query.affectedRows > 0) {
-      res.status(200).json({ resultCode: 'success' })
-    } else {
-      res
-        .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] ALBUM NOT FOUND' })
+  Album.findByIdAndRemove(req.params.id, (err, album) => {
+    if (err) {
+      return res.status(500).send({ error: 'database failure', msg: err })
     }
-  } catch (e) {
-    res.status(400).send(e)
-  }
+
+    res.status(200).json(album)
+  })
 })
 
 module.exports = router

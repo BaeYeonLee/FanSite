@@ -72,7 +72,6 @@ const replyList = [
   {
     r_id: 2,
     b_id: 1,
-
     writer: '쓴이1',
     content: '리플입니다1',
     date: '21.04.15 09:53',
@@ -183,6 +182,23 @@ const history = [
   '2021 - 제35회 골든디스크 어워즈 디지털음원부문 대상',
 ]
 
+const scheduleList=[{
+    s_id:1,
+    date:'2021-5-9',
+    title:'aaa',
+  },
+  {
+    s_id:2,
+    date:'2021-5-9',
+    title:'sss',
+  },
+  {
+    s_id:3,
+    date:'2021-5-11',
+    title:'ddd',
+  },
+]
+
 const categories = ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD']
 
-export { boardList, replyList, albumList, filmographyList, categories, history }
+export { boardList, replyList, albumList, filmographyList, categories, history, scheduleList }

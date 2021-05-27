@@ -30,7 +30,10 @@
           <table>
             <tr v-for="item in 4" :key="item" @click="moveDetail(boardList[item - 1].b_id)">
               <td class="id-cell">{{ boardList[item - 1].b_id }}</td>
-              <td class="title-cell">{{ boardList[item - 1].title }}</td>
+              <td class="title-cell" v-if="boardList[item - 1].type == 'notify'">
+                <b> - 공지 - {{ boardList[item - 1].title }}</b>
+              </td>
+              <td class="title-cell" v-else>{{ boardList[item - 1].title }}</td>
             </tr>
           </table>
         </div>
@@ -65,6 +68,18 @@ export default {
       currentTab: 0,
       boardList: [],
       historyList: [],
+      albumImages: [
+        'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
+        'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
+        'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
+        'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
+      ],
+      dramaImages: [
+        'http://img.lifestyler.co.kr/uploads/program/cheditor/2019/07/JEMFAWGGWZWCEQJRS1JL_1024x0.jpg',
+        'http://img.lifestyler.co.kr/uploads/program/cheditor/2018/03/MTMBYURSDUTYOBJFHJJV.jpg',
+        'http://img2.sbs.co.kr/img/sbs/RO/2016/08/12/RO16116109_w1000_h0.jpg',
+        'https://musicmeta-phinf.pstatic.net/album/000/545/545993.jpg?type=r360Fll&v=20200704133012',
+      ],
     }
   },
   methods: {

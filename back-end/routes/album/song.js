@@ -4,24 +4,24 @@ const router = express.Router()
 
 const Database = require('../../mysql')
 
-const TABLE_NAME = 't_album'
+const TABLE_NAME = 't_song'
 
 /**
  *  @swagger
  *  tags:
- *    name: album
+ *    name: song
  *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /album:
+ * /song:
  *  get:
- *    summary: Get album data list.
- *    tags: [album]
+ *    summary: Get song data list.
+ *    tags: [song]
  *    responses:
  *      200:
- *        description: Get album data list
+ *        description: Get song data list
  */
 router.get('/', async function (req, res, next) {
   try {
@@ -36,19 +36,19 @@ router.get('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /album/{id}:
+ * /song/{id}:
  *  get:
- *    summary: Get album data.
- *    tags: [album]
+ *    summary: Get song data.
+ *    tags: [song]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: album PK
+ *        description: song PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get album data object
+ *        description: Get song data object
  */
 router.get('/:id', async function (req, res, next) {
   try {
@@ -67,13 +67,13 @@ router.get('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /album:
+ * /song:
  *  post:
- *    summary: Insert album data.
- *    tags: [album]
+ *    summary: Insert song data.
+ *    tags: [song]
  *    parameters:
  *      - in: body
- *        name: album
+ *        name: song
  *        required: true
  *        schema:
  *          type: object
@@ -97,7 +97,7 @@ router.get('/:id', async function (req, res, next) {
  *                    type: string
  *    responses:
  *      200:
- *        description: Insert album data
+ *        description: Insert song data
  */
 router.post('/', async function (req, res, next) {
   try {
@@ -112,18 +112,18 @@ router.post('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /album/{id}:
+ * /song/{id}:
  *  put:
- *    summary: Update album data.
- *    tags: [album]
+ *    summary: Update song data.
+ *    tags: [song]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: album PK
+ *        description: song PK
  *        type: Integer
  *      - in: body
- *        name: album
+ *        name: song
  *        required: true
  *        schema:
  *          type: object
@@ -150,7 +150,7 @@ router.post('/', async function (req, res, next) {
  *                type: string
  *    responses:
  *      200:
- *        description: Update album data
+ *        description: Update song data
  */
 router.put('/:id', async function (req, res, next) {
   try {
@@ -172,19 +172,19 @@ router.put('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /album/{id}:
+ * /song/{id}:
  *  delete:
- *    summary: Delete album data.
- *    tags: [album]
+ *    summary: Delete song data.
+ *    tags: [song]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: album PK
+ *        description: song PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete album data
+ *        description: Delete song data
  */
 router.delete('/:id', async function (req, res, next) {
   try {
