@@ -47,6 +47,22 @@ const routes = [
     ],
   },
   {
+    path: '/history',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'History',
+        component: () => import('@pages/History.vue'),
+      },
+      // {
+      //   path: '/album/:album_id',
+      //   name: 'album detail',
+      //   component: () => import('@/AlbumDetail.vue'),
+      // },
+    ],
+  },
+  {
     path: '/board',
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [

@@ -23,13 +23,11 @@
 
 <script>
 import Tab from '@/Tab.vue'
-import Sns from '@/Sns.vue'
 import ScheduleCalendar from '@/Widget/ScheduleCalendar'
 
 export default {
   components: {
     Tab,
-    Sns,
     ScheduleCalendar,
   },
 
@@ -61,4 +59,3 @@ td {
   cursor: pointer;
 }
 </style>
-
