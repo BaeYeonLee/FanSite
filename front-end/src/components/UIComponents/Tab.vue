@@ -55,7 +55,8 @@
 </template>
 
 <script>
-import { boardList, albumList, filmographyList, categories, history } from '@common/dummy.js'
+import { boardList, albumList,categories, history } from '@common/dummy.js'
+import filmographyList from '@common/dummy/filmography.js'
 import Thumnail from '@/Widget/Thumnail.vue'
 export default {
   components: {
@@ -123,7 +124,27 @@ export default {
       this.boardList = boardList.concat()
     },
     getFilmographyList() {
-      this.filmographyList = filmographyList.concat()
+      // id: 4,
+      // title: '호텔 델루나',
+      // img: 'http://img.lifestyler.co.kr/uploads/program/cheditor/2019/07/JEMFAWGGWZWCEQJRS1JL_1024x0.jpg',
+      // date: '2019/07/13 - 2019/09/01',
+      // home:
+
+      // title: '호텔 델루나',
+      // cast: '장만월',
+      // startDate: '2019.07.13',
+      // endDate: '2019.09.01',
+      // image: 'https://image.tving.com/upload/cms/caip/CAIP0900/P000941062.png/dims/resize/240',
+      // link: 'http://program.tving.com/tvn/hoteldelluna',
+
+      this.filmographyList = filmographyList.concat().map( item => {
+        return {
+          title: item.title,
+          date: item.startDate == item.endDate ? item.startDate : `${item.startDate} ~ ${item.endDate}`,
+          img: item.image,
+          home: item.link
+        }
+      })
     },
     getAlbumList() {
       this.albumList = albumList.concat()

@@ -49,7 +49,7 @@
   </div>
 </template>
 <script>
-import dummy from '../../../common/dummy.js'
+import { scheduleList } from '../../../common/dummy.js'
 export default {
   computed: {
     monthIndex() {
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     getScheduleList() {
-      this.scheduleList = dummy.scheduleList.filter((row) => {
+      this.scheduleList = scheduleList.filter((row) => {
         return row.date.indexOf(this.year + '-' + this.month) != -1
       })
     },

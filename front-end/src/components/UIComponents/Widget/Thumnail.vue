@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div class="crop" v-for="(item, idx) in list" :key="idx">
-      <div class="gra" :key="idx" @click="moveDetail(item)">
-        <span>
-          {{ item.title }}<br />
-          {{ item.date }}
-        </span>
-        <img :src="item.img" :class="{ albums: tab == 0 }" />
+    <div class="crop" v-for="idx in 4" :key="idx">
+      <div class="gra" :key="idx" @click="moveDetail(list[idx-1])">
+        <template v-if="list[idx-1]">
+          <span>
+            {{ list[idx-1].title }}<br />
+            {{ list[idx-1].date }}
+          </span>
+          <img :src="list[idx-1].img" :class="{ albums: tab == 0 }" />
+        </template>
       </div>
     </div>
   </div>

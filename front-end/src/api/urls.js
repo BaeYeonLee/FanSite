@@ -13,4 +13,4 @@ export const ALBUM = {
   UPSERT: 'album',
   GET_OR_DELETE: 'album/',
   GET_LIST: 'album',
-},
+}
