@@ -49,8 +49,7 @@
   </div>
 </template>
 <script>
-import { scheduleList } from '@common/dummy.js'
-
+import { scheduleList } from '../../../common/dummy.js'
 export default {
   computed: {
     monthIndex() {

@@ -180,47 +180,25 @@ const history = [
   '2021 - 제10회 가온차트 뮤직 어워즈 올해의 롱런 음원상',
   '2021 - 제10회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 5월',
   '2021 - 제35회 골든디스크 어워즈 디지털음원부문 대상',
-  '제35회 골든디스크 어워즈 디지털음원부문 본상',
-  '엠넷 아시안 뮤직 어워즈 여자 가수상',
-  '엠넷 아시안 뮤직 어워즈 베스트 보컬 퍼포먼스 솔로',
-  '엠넷 아시안 뮤직 어워즈 베스트 컬래버레이션',
-  '제12회 멜론뮤직어워드 TOP10',
 ]
 
-const scheduleList = [
-  {
-    s_id: 1,
-    date: '2021-5-9',
-    title: 'aaa',
+const scheduleList=[{
+    s_id:1,
+    date:'2021-5-9',
+    title:'aaa',
   },
   {
-    s_id: 2,
-    date: '2021-5-9',
-    title: 'sss',
+    s_id:2,
+    date:'2021-5-9',
+    title:'sss',
   },
   {
-    s_id: 3,
-    date: '2021-5-11',
-    title: 'ddd',
+    s_id:3,
+    date:'2021-5-11',
+    title:'ddd',
   },
 ]
 
-const tvList = [
-  {
-    id: 1,
-    prod: '[TV온에어]',
-    title: '하이트진로 참이슬',
-    image: 'https://i.imgur.com/SsgijKR.gif',
-    date: '(2015 ~ 2018, 2020 ~)',
-  },
-  {
-    id: 2,
-    prod: '[TV온에어]',
-    title: '경동제약 그날엔 ',
-    img: 'https://i.imgur.com/lWJ51Hq.gif',
-    date: '(2017 ~)',
-  },
-]
 const categories = ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD']
 
-export { boardList, replyList, albumList, filmographyList, categories, history, scheduleList, tvList }
+export { boardList, replyList, albumList, filmographyList, categories, history, scheduleList }

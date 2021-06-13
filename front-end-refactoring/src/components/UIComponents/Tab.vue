@@ -21,9 +21,6 @@
         <div v-if="currentTab == 1" class="filmography-content">
           <Thumnail :list="filmographyList" />
         </div>
-        <div v-if="currentTab == 2" class="filmography-content">
-          <Thumnail :list="filmographyList" />
-        </div>
         <div v-if="currentTab == 4" class="history-content">
           <ul>
             <li v-for="history in historyList" :key="history">{{ history }}</li>
@@ -93,8 +90,6 @@ export default {
           return this.$router.push('/album')
         case 1:
           return this.$router.push('/filmography')
-        case 4:
-          return this.$router.push('/history')
         case 6:
           return this.$router.push('/board')
       }
@@ -166,7 +161,6 @@ export default {
     this.selectedTab(0)
     this.getAlbumList()
     this.getCategories()
-    this.getHistoryList()
   },
 }
 </script>
@@ -218,9 +212,9 @@ th {
 hr.selected {
   border: #ccb6e1 solid 3px;
 }
-// .history-content {
-//   height: 355px;
-//   overflow: hidden;
-//   padding: 30px;
-// }
+.history-content {
+  height: 355px;
+  overflow: hidden;
+  padding: 30px;
+}
 </style>
