@@ -6,7 +6,7 @@
       <b v-else calss="sub-title"> TITLE</b>
     </div>
     <div class="contents-page">
-      <router-view />
+      <router-view class="iu-page" />
       <Footer />
     </div>
   </div>
@@ -67,7 +67,7 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
 
   .contents-title {
     width: 100%;
-    height: 300px;
+    height: 600px;
     background: $IU-Black-A20;
 
     &.is-main-page {

@@ -1,3 +1,24 @@
 * {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.iu-page {
+  min-height: 420px;
+  padding: 40px 15px 50px;
+}
+
+.grid-view {
+  display: grid;
+  // TODO CHECK :: 1080px under
+  // grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  grid-template-columns: repeat(auto-fit, 330px);
+
+  grid-gap: 30px;
 }

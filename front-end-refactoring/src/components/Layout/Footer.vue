@@ -10,11 +10,7 @@ export default {}
 
 <style lang="scss">
 footer {
-  position: relative;
   display: flex;
-  left: 0;
-  right: 0;
-  bottom: 0;
   height: 80px;
   justify-content: center;
   align-items: center;
