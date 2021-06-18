@@ -1,8 +1,23 @@
-import { createStore } from "vuex";
+import { createStore } from 'vuex'
 
 export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    title: '',
+  },
+  getters: {
+    getTitle(state) {
+      return state.title
+    },
+  },
+  mutations: {
+    setTitle(state, newValue) {
+      state.title = newValue
+    },
+  },
+  actions: {
+    set_title(context, payload) {
+      return context.commit('setTitle', payload.title)
+    },
+  },
   modules: {},
-});
+})

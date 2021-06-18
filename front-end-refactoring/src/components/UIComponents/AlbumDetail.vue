@@ -39,6 +39,7 @@
 </template>
 <script>
 import albumList from '@common/dummy/album.js'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -46,6 +47,11 @@ export default {
     }
   },
   methods: {
+    /* ------------------------------ VUEX ------------------------------ */
+    ...mapActions(['set_title']),
+    setSubTitle() {
+      this.set_title({ title: this.albumInfo.title })
+    },
     getAlbumInfo() {
       let albumID = this.$route.params.album_id
       this.albumInfo = albumList.concat().find(album => {
@@ -58,7 +64,7 @@ export default {
   },
   created() {
     this.getAlbumInfo()
-    console.log(this.albumInfo)
+    this.setSubTitle()
   },
 }
 </script>

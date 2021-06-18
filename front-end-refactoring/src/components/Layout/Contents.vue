@@ -4,7 +4,7 @@
     <div class="contents-title" :class="{ 'is-main-page': isMainPage }">
       <b v-if="isMainPage" class="main-title"> With U, <span class="accent"> IU </span> </b>
       <!-- <b v-else calss="sub-title"> TITLE</b> -->
-      <b class="sub-title" v-else> TITLE </b>
+      <b class="sub-title" v-else> {{ getTitle }} </b>
     </div>
     <div class="contents-page">
       <router-view class="iu-page" />
@@ -15,6 +15,7 @@
 
 <script>
 import Footer from '@layout/Footer'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -25,6 +26,9 @@ export default {
       /* ------------------------------ FLAG DATA ------------------------------ */
       isMainPage: false,
     }
+  },
+  computed: {
+    ...mapGetters(['getTitle']),
   },
   created() {
     this.setHeaderFlag(this.$route.path)

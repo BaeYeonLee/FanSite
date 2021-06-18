@@ -13,8 +13,8 @@
 <script>
 import SelectedTab from '@/Widget/SelectedTab'
 import Thumnail from '@/Widget/Thumnail'
-
 import albumList from '@common/dummy/album.js'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -52,6 +52,7 @@ export default {
   },
   created() {
     console.log('------------> mouted')
+    this.setSubTitle()
     this.albumList = albumList.concat()
 
     this.albumList.forEach(album => {
@@ -69,6 +70,11 @@ export default {
     })
   },
   methods: {
+    /* ------------------------------ VUEX ------------------------------ */
+    ...mapActions(['set_title']),
+    setSubTitle() {
+      this.set_title({ title: 'ALBUM' })
+    },
     onChangeFilter(filterKey) {
       this.filterKey = filterKey
     },
