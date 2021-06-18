@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import { albumList } from '@common/dummy.js'
+import albumList from '@common/dummy/album.js'
 export default {
   data() {
     return {
@@ -39,7 +39,7 @@ export default {
   methods: {
     getAlbumInfo() {
       let albumID = this.$route.params.album_id
-      this.albumInfo = albumList.concat().find((album) => {
+      this.albumInfo = albumList.concat().find(album => {
         return album.id == albumID
       })
     },

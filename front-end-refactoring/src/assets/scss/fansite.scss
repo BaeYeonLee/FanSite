@@ -22,3 +22,20 @@
 
   grid-gap: 30px;
 }
+
+body::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  width: 0.7em;
+}
+
+body::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track {
+  // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #eeeeff;
+}
+
+body::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb {
+  background-color: #ccb6e1;
+  border-radius: 40px;
+}

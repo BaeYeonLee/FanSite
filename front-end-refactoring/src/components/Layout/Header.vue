@@ -7,7 +7,13 @@
         </span>
       </router-link>
       <div class="page-menu">
-        <router-link v-for="menu in menuList" class="menu-item" :to="menu.toLowerCase()" :key="menu">
+        <router-link
+          v-for="menu in menuList"
+          class="menu-item"
+          :class="{ selected: selectedTab(menu) }"
+          :to="`/${menu.toLowerCase()}`"
+          :key="menu"
+        >
           {{ menu }}
         </router-link>
       </div>
@@ -41,6 +47,9 @@ export default {
     /* ------------------------------ SETTER METHOD ------------------------------ */
     setHeaderFlag(path) {
       this.isMainPage = path.includes('/iu')
+    },
+    selectedTab(item) {
+      return this.$route.path.includes(item.toLowerCase()) ? true : false
     },
   },
 }
@@ -102,13 +111,15 @@ header {
     width: 700px;
     height: 50px;
     margin: 15px;
-
     .menu-item {
       flex: 1;
       line-height: 40px;
       margin: 5px 10px;
       text-align: center;
       color: $IU-LightViolet;
+      &.selected {
+        color: $IU-DeepViolet;
+      }
     }
   }
 

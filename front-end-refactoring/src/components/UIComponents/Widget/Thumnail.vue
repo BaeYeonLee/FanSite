@@ -1,11 +1,12 @@
 <template>
   <div class="thumnail">
     <img :src="img" />
-    <div class="thumnail-hover">
+    <div class="thumnail-hover" @click="move">
       {{ title }}
       <template v-if="date">
         <br />
-        {{ date }}
+        {{ date }} <br />
+        {{ type.toUpperCase() }}
       </template>
     </div>
   </div>
@@ -25,14 +26,24 @@ export default {
       type: String,
       default: '',
     },
-    album_type: {
+    type: {
       type: String,
       default: '',
+    },
+    id: {
+      type: Number,
+      default: -1,
+    },
+  },
+  methods: {
+    move() {
+      this.$router.push(`/album/${this.id}`)
     },
   },
   created() {
     console.log('------------> thumnail')
     console.log(this.title)
+    console.log(this.id)
   },
 }
 </script>

@@ -205,4 +205,4 @@ const scheduleList = [
 
 const categories = ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD']
 
-export { boardList, replyList, albumList, filmographyList, categories, history, scheduleList }
+export { boardList, replyList, filmographyList, categories, history, scheduleList }

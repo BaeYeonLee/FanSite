@@ -1,41 +1,44 @@
 <template>
-  <div class="album-detail">
-    <div class="section-left">
-      <div class="album-cover">
-        <img :src="albumInfo.img" />
-      </div>
-      <div class="album-info">
-        <div class="title">
-          {{ albumInfo.title }}
+  <div class="detail">
+    <div class="album-detail">
+      <div class="section-left">
+        <div class="cover">
+          <img :src="albumInfo.img" />
         </div>
-        <div>
-          {{ albumInfo.album_type }}
-        </div>
-        <div>
-          {{ albumInfo.date }}
-        </div>
-      </div>
-    </div>
-    <div class="section-right">
-      <h3>Track List</h3>
-      <div class="track-list">
-        <div class="list-content" v-for="tl in albumInfo.trackList" :key="tl">
-          <div class="song-title">{{ tl.no }}. {{ tl.name }}</div>
-          <div class="infos">
-            <div class="lyrics">lyrics by</div>
-            <div>{{ tl.lyrics.join(', ') }}</div>
-            <div class="compose">composed by</div>
-            <div>{{ tl.composed.join(', ') }}</div>
-            <div class="arrange">arranged by</div>
-            <div>{{ tl.arranged.join(', ') }}</div>
+        <div class="album-info">
+          <div class="title">
+            {{ albumInfo.title }}
+          </div>
+          <div class="info">
+            <div class="type">{{ albumInfo.type }}</div>
+            <div class="date">{{ albumInfo.date }}</div>
           </div>
         </div>
       </div>
+      <!-- Section Left End-->
+      <!-- Section Right Start -->
+      <div class="section-right">
+        <h4>Track List</h4>
+        <div class="track-list">
+          <div class="list-content" v-for="tl in albumInfo.trackList" :key="tl">
+            <div class="song-title">{{ number(tl.no) }}. {{ tl.name }}</div>
+            <div class="infos">
+              <div class="lyrics">작사</div>
+              <div>{{ tl.lyrics.join(', ') }}</div>
+              <div class="compose">작곡</div>
+              <div>{{ tl.composed.join(', ') }}</div>
+              <div class="arrange">편곡</div>
+              <div>{{ tl.arranged.join(', ') }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Section Rigth END -->
     </div>
   </div>
 </template>
 <script>
-import { albumList } from '@common/dummy.js'
+import albumList from '@common/dummy/album.js'
 export default {
   data() {
     return {
@@ -45,9 +48,12 @@ export default {
   methods: {
     getAlbumInfo() {
       let albumID = this.$route.params.album_id
-      this.albumInfo = albumList.concat().find((album) => {
+      this.albumInfo = albumList.concat().find(album => {
         return album.id == albumID
       })
+    },
+    number(item) {
+      return item > 9 ? item : `0${item}`
     },
   },
   created() {
@@ -57,62 +63,78 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.album-detail {
-  grid-template-areas:
-    'section-left section-right'
-    'section-left section-right';
-  display: grid;
-  padding: 40px;
-  grid-column-gap: 10%;
-  background: $IULightViolet;
+// .detail::-webkit-scrollbar-thumb {
+//   background-color: red;
+// border-radius: 10px;
+// }
+.detail {
+  max-width: 1080px;
+  margin: 0 auto;
+  .album-detail {
+    height: 670px;
+    margin: 40px auto 30px;
+    grid-template-areas:
+      'section-left section-right'
+      'section-left section-right';
+    display: grid;
+    grid-column-gap: 10%;
+    margin: 40px 0;
+    overflow: auto;
+    color: $IU-BlueViolet;
+  }
 }
 .section-left {
   grid-area: section-left;
-  margin-left: 30px;
-  .album-cover {
-    img {
-      width: 300px;
-    }
-  }
+  max-width: 360px;
   .album-info {
-    text-align: center;
-    display: grid;
-    align-items: center;
-    div {
-      padding: 20px 0;
-      &.title {
-        font-size: 20px;
-        font-weight: bold;
+    .title {
+      font-weight: bold;
+      margin-top: 40px;
+      text-align: center;
+    }
+    .info {
+      position: relative;
+      .type {
+        position: absolute;
+        top: 15px;
+        left: 15%;
+      }
+      .date {
+        position: absolute;
+        top: 15px;
+        right: 10%;
       }
     }
   }
 }
 .section-right {
   grid-area: section-right;
-  h3 {
+  color: $IU-BlueViolet;
+  h4 {
     text-align: center;
   }
   .track-list {
     display: grid;
-    margin: 50px 0 0 50px;
+    margin: 20px 0 0 50px;
   }
 }
 .list-content {
-  padding: 20px;
+  padding: 40px;
   .song-title {
     display: block;
     margin-bottom: 20px;
     font-weight: bold;
+    font-size: 18px;
   }
   .infos {
     display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 90px 1fr;
     div {
       font-size: 14px;
       &.lyrics,
       &.arrange,
       &.compose {
-        margin-right: 25px;
+        margin-right: 35px;
         font-weight: bold;
         text-align: right;
       }

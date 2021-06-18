@@ -55,7 +55,8 @@
 </template>
 
 <script>
-import { boardList, albumList,categories, history } from '@common/dummy.js'
+import { boardList, categories, history } from '@common/dummy.js'
+import albumList from '@common/dummy/album.js'
 import filmographyList from '@common/dummy/filmography.js'
 import Thumnail from '@/Widget/Thumnail.vue'
 export default {
@@ -137,12 +138,12 @@ export default {
       // image: 'https://image.tving.com/upload/cms/caip/CAIP0900/P000941062.png/dims/resize/240',
       // link: 'http://program.tving.com/tvn/hoteldelluna',
 
-      this.filmographyList = filmographyList.concat().map( item => {
+      this.filmographyList = filmographyList.concat().map(item => {
         return {
           title: item.title,
           date: item.startDate == item.endDate ? item.startDate : `${item.startDate} ~ ${item.endDate}`,
           img: item.image,
-          home: item.link
+          home: item.link,
         }
       })
     },

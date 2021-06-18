@@ -14,7 +14,7 @@
 import SelectedTab from '@/Widget/SelectedTab'
 import Thumnail from '@/Widget/Thumnail'
 
-import { albumList } from '../common/dummy.js'
+import albumList from '@common/dummy/album.js'
 
 export default {
   components: {
@@ -30,8 +30,8 @@ export default {
         { key: 'Studio', count: 0 },
         { key: 'Mini', count: 0 },
         { key: 'Remake', count: 0 },
-        { key: 'Single', count: 0 },
-        { key: 'Digital', count: 0 },
+        { key: 'OST', count: 0 },
+        { key: 'Digital Single', count: 0 },
       ],
       // Filter Data
       filterKey: 'all',
@@ -46,7 +46,7 @@ export default {
       }
 
       return this.albumList.filter(album => {
-        return album.album_type == this.filterKey
+        return album.type == this.filterKey
       })
     },
   },
@@ -62,7 +62,7 @@ export default {
         }
 
         const type = tab.key.toLowerCase()
-        if (album.album_type == type) {
+        if (album.type == type) {
           tab.count += 1
         }
       })

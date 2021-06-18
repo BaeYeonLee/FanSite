@@ -3,7 +3,8 @@
   <div class="main-panel">
     <div class="contents-title" :class="{ 'is-main-page': isMainPage }">
       <b v-if="isMainPage" class="main-title"> With U, <span class="accent"> IU </span> </b>
-      <b v-else calss="sub-title"> TITLE</b>
+      <!-- <b v-else calss="sub-title"> TITLE</b> -->
+      <b class="sub-title" v-else> TITLE </b>
     </div>
     <div class="contents-page">
       <router-view class="iu-page" />
@@ -73,6 +74,16 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
     &.is-main-page {
       height: 830px;
     }
+    .sub-title {
+      position: absolute;
+      top: 300px;
+      left: 800px;
+      font-family: Roboto;
+      font-size: 70px;
+      font-weight: bold;
+      font-style: italic;
+      color: $IU-Title-Violte;
+    }
   }
 
   .main-title {
@@ -86,12 +97,10 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
     font-style: italic;
 
     .accent {
+      width: 100%;
+      height: 600px;
       color: $IU-Neon-A90;
     }
-  }
-
-  .sub-title {
-    color: $IU-Title-Violte;
   }
 
   .contents-page {

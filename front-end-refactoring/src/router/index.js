@@ -39,11 +39,11 @@ const routes = [
         name: 'Album',
         component: () => import('@pages/AlbumPage.vue'),
       },
-      // {
-      //   path: '/album/:album_id',
-      //   name: 'album detail',
-      //   component: () => import('@/AlbumDetail.vue'),
-      // },
+      {
+        path: '/album/:album_id',
+        name: 'album detail',
+        component: () => import('@/AlbumDetail.vue'),
+      },
     ],
   },
   {
