@@ -2,7 +2,7 @@ export default [
   {
     id: 44,
     title: '라일락',
-    img: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
+    image: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
     date: '2021.03.25',
     type: 'studio',
     trackList: [
@@ -106,7 +106,7 @@ export default [
   {
     id: 43,
     title: 'I-LAND Part 1 Signal Song',
-    img: 'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
+    image: 'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
     date: '2020.06.19',
     type: 'ost',
     trackList: [
@@ -141,7 +141,7 @@ export default [
   {
     id: 42,
     title: '에잇',
-    img: 'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
+    image: 'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
     date: '2020.05.06',
     type: 'digital single',
     trackList: [
@@ -158,7 +158,7 @@ export default [
   {
     id: 41,
     title: '사랑의 불시착 OST Part 11',
-    img: 'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
+    image: 'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
     date: '2020.2.15',
     type: 'ost',
     trackList: [
@@ -175,7 +175,7 @@ export default [
   {
     id: 40,
     title: '첫 겨울 이니까',
-    img: 'https://musicmeta-phinf.pstatic.net/album/003/719/3719484.jpg?type=r360Fll&v=20210303124023',
+    image: 'https://musicmeta-phinf.pstatic.net/album/003/719/3719484.jpg?type=r360Fll&v=20210303124023',
     date: '2019.12.9',
     type: 'digital single',
     trackList: [
@@ -192,7 +192,7 @@ export default [
   {
     id: 39,
     title: 'Love poem',
-    img: 'https://musicmeta-phinf.pstatic.net/album/003/399/3399860.jpg?type=r360Fll&v=20210530010527',
+    image: 'https://musicmeta-phinf.pstatic.net/album/003/399/3399860.jpg?type=r360Fll&v=20210530010527',
     date: '2019.11.18',
     type: 'mini',
     trackList: [

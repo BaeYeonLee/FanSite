@@ -1,12 +1,17 @@
 <template>
   <div class="thumnail">
-    <img :src="img" />
+    <img :src="image" />
     <div class="thumnail-hover" @click="move">
       {{ title }}
       <template v-if="date">
         <br />
         {{ date }} <br />
         {{ type.toUpperCase() }}
+      </template>
+      <template v-else-if="startDate">
+        <br />
+        {{ startDate }} - {{ endDate }} <br />
+        {{ cast }}<br />
       </template>
     </div>
   </div>
@@ -18,7 +23,7 @@ export default {
       type: String,
       default: '',
     },
-    img: {
+    image: {
       type: String,
       default: '',
     },
@@ -34,10 +39,30 @@ export default {
       type: Number,
       default: -1,
     },
+    cast: {
+      type: String,
+      default: '',
+    },
+    startDate: {
+      type: String,
+      default: '',
+    },
+    endDate: {
+      type: String,
+      default: '',
+    },
+    link: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     move() {
-      this.$router.push(`/album/${this.id}`)
+      if (this.$route.path.includes('album')) {
+        this.$router.push(`/album/${this.id}`)
+      } else {
+        window.open(this.link)
+      }
     },
   },
   created() {
