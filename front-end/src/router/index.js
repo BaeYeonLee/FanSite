@@ -47,6 +47,17 @@ const routes = [
     ],
   },
   {
+    path: '/ad',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'AD',
+        component: () => import('@pages/AD.vue'),
+      },
+    ],
+  },
+  {
     path: '/history',
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [

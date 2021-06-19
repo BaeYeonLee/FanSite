@@ -1,13 +1,17 @@
 <template>
-  <div>
-    <div class="step start" v-for="(history, idx) in historyList" :key="history">
-      <div class="stepper-field">
-        <div class="content" :style="[idx % 2 == 0 ? { left: '0%' } : { left: '52%' }]">{{ history }}</div>
-        <div class="v-stepper">
-          <div class="circle"></div>
-          <div class="line"></div>
-        </div>
-        <!-- <div class="right-content" v-if="idx % 2 == 1">test.</div> -->
+  <div class="hist-content">
+    <div style="width: 100%; hieght: auto" v-for="year in yearList">
+      <div class="left-hist-content">
+        <p v-if="year % 2 != 0" class="year-font">{{ year }}</p>
+        <p v-if="year % 2 != 0" v-for="(hist, idx) in yearToHistory(year)">{{ hist.content }}</p>
+      </div>
+      <div class="center-hist-content" :style="{ height: 34 + yearToHistory(year).length * 22 + 'px' }">
+        <div class="circle"></div>
+        <div class="line"></div>
+      </div>
+      <div class="right-hist-content">
+        <p v-if="year % 2 == 0" class="year-font">{{ year }}</p>
+        <p v-if="year % 2 == 0" v-for="(hist, idx) in yearToHistory(year)">{{ hist.content }}</p>
       </div>
     </div>
   </div>
@@ -16,11 +20,26 @@
 import { history } from '@common/dummy.js'
 export default {
   data() {
-    return {}
+    return {
+      historyList: [],
+      yearList: [],
+    }
   },
   methods: {
     getHistoryList() {
       this.historyList = history.concat()
+      const tmp = []
+      this.historyList.map((item) => {
+        tmp.push(item.year)
+      })
+      this.yearList = [...new Set(tmp)]
+      console.log(this.yearList)
+    },
+    yearToHistory(year) {
+      const tmp = this.historyList.filter((item) => {
+        return year == item.year
+      })
+      return tmp
     },
   },
   created() {
@@ -45,7 +64,7 @@ export default {
 }
 
 /* regular step */
-.step .circle {
+.circle {
   background-color: white;
   border: 3px solid gray;
   border-radius: 100%;
@@ -54,9 +73,10 @@ export default {
   display: inline-block;
 }
 
-.step .line {
+.line {
   top: 23px;
-  left: 12px;
+  left: 22px;
+  z-index: -2;
   /*   height: 120px; */
   height: 100%;
 
@@ -68,6 +88,28 @@ export default {
   visibility: visible;
   background-color: rgb(6, 150, 215);
   border-color: rgb(6, 150, 215);
+}
+.center-hist-content {
+  width: 4%;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  vertical-align: top;
+}
+.right-hist-content {
+  width: 48%;
+  display: inline-block;
+  text-align: left;
+}
+.left-hist-content {
+  width: 48%;
+  display: inline-block;
+  text-align: right;
+}
+.year-font {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f9d9d;
 }
 
 .step.start .line {
@@ -89,10 +131,10 @@ export default {
   z-index: -1; /* behind the circle to completely hide */
 }
 
-.content {
-  display: inline-block;
-  position: absolute;
-}
+// .content {
+//   display: inline-block;
+//   position: absolute;
+// }
 .right-content {
   display: inline-block;
   position: absolute;

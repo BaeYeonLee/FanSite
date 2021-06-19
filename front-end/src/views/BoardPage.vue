@@ -1,111 +1,256 @@
 <template>
-  <div class="board-container">
-    <h2 class="board-title">
-      Borad<span>
-        <!-- <input type="button" class="base-btn" value="새로고침" @click="refresh" /> -->
-      </span>
-    </h2>
-    <table>
-      <tr>
-        <th>글번호</th>
-        <th>제목</th>
-        <th>글쓴이</th>
-        <th>작성일</th>
-      </tr>
-      <tr v-for="item in listDataTmp" :key="item.b_id" @click="moveDetail(item.b_id)">
-        <td>{{ item.b_id }}</td>
-        <td v-if="item.type == 'notify'" class="title-cell">
-          <b>- 공지 - {{ item.title }}</b>
-        </td>
-        <td v-else class="title-cell">{{ item.title }}</td>
-        <td>{{ item.writer }}</td>
-        <td>{{ item.date }}</td>
-      </tr>
-    </table>
-    <div style="text-align: right; width: 100%; margin-top: 10px">
-      <button type="button" class="page-link">Previous</button>
-      <button type="button">1</button>
-      <button type="button">2</button>
-      <button type="button">3</button>
-      <button type="button">Next</button>
+  <div class="tab-box">
+    <div class="tabs">
+      <!--  tab name -->
+      <div class="tab" v-for="(category, idx) in categories" :key="idx">
+        <div class="cateogry-name" @click="selectedTab(idx)" :class="{ selected: isSelectedCategory(idx) }">
+          {{ category }}
+        </div>
+        <div>
+          <hr v-if="currentTab == idx" class="selected" />
+          <hr v-else />
+        </div>
+      </div>
     </div>
-    <div class="content-action-bar">
-      <select name="term">
-        <option value="">전체기간</option>
-        <option value="week">최근 1주</option>
-        <option value="month">최근 한달</option>
-      </select>
-      <select name="category">
-        <option value="">제목+내용</option>
-        <option value="title">글제목</option>
-        <option value="writer">글쓴이</option>
-        <option value="b_id">글번호</option>
-      </select>
-      <input type="text" v-model="searchKeyword" @keyup="search" />
-
-      <router-link to="/add-board"><input type="button" class="base-btn" value="글쓰기" /></router-link>
+    <!-- content -->
+    <div class="tab-contents">
+      <div class="garally">
+        <div class="thumnail-wrapper" v-for="board in boardList">
+          <div class="thumnail-poster">
+            <div class="board-title-bar">
+              <p>{{ board.title }}</p>
+            </div>
+            <img :src="board.img" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="myModal" class="modal" v-if="showModal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <input v-model="title" type="text" class="input-title" placeholder="제목을 입력해주세요." />
+        <span class="close" @click="closeModal">&times;</span>
+        <p>+</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import dummy from '../common/dummy.js'
+import { boardList } from '@common/dummy.js'
 export default {
   data() {
     return {
-      searchKeyword: '',
-      listData: [],
-      listDataTmp: [],
+      boardList: [],
+      categories: [],
+      currentTab: '',
+      showModal: false,
+      title: '',
     }
   },
   methods: {
-    moveDetail(id) {
-      this.$router.push({ path: '/detail', query: { b_id: id } })
+    isSelectedCategory(index) {
+      return this.currentTab == index
     },
-    search() {
-      this.listDataTmp = this.listData.filter((data) => {
-        return data.title.includes(this.searchKeyword)
-      })
-      return this.listDataTmp
+    getCategories() {
+      this.categories = ['Board', 'Like', 'ADD+']
     },
-
-    refresh() {
-      this.listDataTmp = this.listData
+    getBoardList() {
+      this.boardList = boardList.concat()
+    },
+    closeModal() {
+      this.showModal = false
+    },
+    selectedTab(index) {
+      this.currentTab = index
+      switch (index) {
+        case 1:
+          break
+        case 2:
+          this.showModal = true
+          break
+        case 3:
+          break
+        case 4:
+          break
+        case 5:
+          break
+      }
     },
   },
   created() {
-    this.listData = dummy.boardList
-    this.listDataTmp = this.listData
+    this.getCategories()
+    this.getBoardList()
   },
 }
 </script>
 
-<style scope>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
+<style lang="scss" scope>
+.tabs {
+  display: flex;
+}
+.tab {
   width: 100%;
+  text-align: center;
+}
+hr {
+  color: lightgray;
+  border: solid 3px;
+}
+.tab-contents {
+  margin: 20px 0;
+  white-space: nowrap;
+  overflow: auto;
+}
+.cateogry-name {
+  margin-bottom: 10px;
+  &:hover {
+    cursor: pointer;
+    color: $IUViolet;
+    font-weight: bold;
+  }
+  &.selected {
+    color: $IUDeepViolet;
+    font-weight: bold;
+  }
+}
+.board-images {
+  width: 32%;
+  display: inline-block;
+}
+.garally {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-row-gap: 40px;
+  grid-area: content;
+}
+.thumnail-wrapper {
+  .thumnail-poster {
+    border-radius: 12px;
+    height: 280px;
+    width: 250px;
+    overflow: hidden;
+    position: relative;
+    &:before {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      content: '';
+      width: 100%;
+      height: 50%;
+      z-index: 1;
+    }
+    .board-title-bar {
+      width: 100%;
+      height: 35px;
+      background: #d1d1d1;
+      color: white;
+      font-weight: bold;
+      display: table;
+    }
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    &:hover {
+      cursor: pointer;
+      span {
+        color: white;
+        bottom: 45%;
+      }
+    }
+    &.thumnailAlbum {
+      height: 250px;
+      overflow: hidden;
+      &:before {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        content: '';
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to top, black, transparent);
+        z-index: 1;
+      }
+      &:hover {
+        // ? hover 시 amimate
+        cursor: pointer;
+        span {
+          color: white;
+          bottom: 45%;
+        }
+        &:before {
+          height: 100%;
+          background: linear-gradient(to top, black, #00000096);
+        }
+      }
+    }
+    img {
+      width: 250px;
+      height: inherit;
+    }
+  }
+  span {
+    font-weight: bold;
+    font-style: italic;
+    color: $OverGray;
+    font-size: 12px;
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    //absolute 요소 중앙정렬
+    transform: translateX(-50%);
+    left: 50%;
+    z-index: 1;
+  }
+  text-align: center;
 }
 
-td {
-  text-align: center;
-  border-bottom: 1px solid #f1f1f1;
-  padding: 8px;
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  border-radius: 10px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
   cursor: pointer;
 }
-th {
-  height: 45px;
-  background: #eeeeff;
+.input-title {
   text-align: center;
-}
-.content-action-bar {
-  margin-top: 10px;
-  text-align: right;
-  width: 100%;
-}
-
-.title-cell {
-  width: 55%;
-  text-align: left !important;
+  width: 90%;
+  margin-right: 4%;
+  margin-top: 1px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border: 0;
+  border-bottom: 1px solid #e4e4e4;
+  display: inline-block;
 }
 </style>

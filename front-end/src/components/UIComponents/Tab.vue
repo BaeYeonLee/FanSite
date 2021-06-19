@@ -24,9 +24,12 @@
         <div v-if="currentTab == 2" class="filmography-content">
           <Thumnail :list="filmographyList" />
         </div>
+        <div v-if="currentTab == 3" class="filmography-content">
+          <Thumnail :list="adList" />
+        </div>
         <div v-if="currentTab == 4" class="history-content">
           <ul>
-            <li v-for="history in historyList" :key="history">{{ history }}</li>
+            <li v-for="item in 4" :key="item">{{ historyList[item - 1].content }}</li>
           </ul>
         </div>
         <div v-if="currentTab == 6" class="board-content">
@@ -58,7 +61,7 @@
 </template>
 
 <script>
-import { boardList, albumList,categories, history } from '@common/dummy.js'
+import { boardList, albumList, categories, history, adList } from '@common/dummy.js'
 import filmographyList from '@common/dummy/filmography.js'
 import Thumnail from '@/Widget/Thumnail.vue'
 export default {
@@ -69,6 +72,7 @@ export default {
     return {
       categories: [],
       filmographyList: [],
+      adList: [],
       currentTab: 0,
       boardList: [],
       historyList: [],
@@ -93,9 +97,11 @@ export default {
           return this.$router.push('/album')
         case 1:
           return this.$router.push('/filmography')
+        case 3:
+          return this.$router.push('/ad')
         case 4:
           return this.$router.push('/history')
-        case 6:
+        case 5:
           return this.$router.push('/board')
       }
     },
@@ -115,7 +121,7 @@ export default {
           //this.getTvList()
           break
         case 3:
-          //this.getADList()
+          this.getADList()
           break
         case 4:
           this.getHistoryList()
@@ -142,12 +148,12 @@ export default {
       // image: 'https://image.tving.com/upload/cms/caip/CAIP0900/P000941062.png/dims/resize/240',
       // link: 'http://program.tving.com/tvn/hoteldelluna',
 
-      this.filmographyList = filmographyList.concat().map( item => {
+      this.filmographyList = filmographyList.concat().map((item) => {
         return {
           title: item.title,
           date: item.startDate == item.endDate ? item.startDate : `${item.startDate} ~ ${item.endDate}`,
           img: item.image,
-          home: item.link
+          home: item.link,
         }
       })
     },
@@ -156,6 +162,9 @@ export default {
     },
     getCategories() {
       this.categories = categories.concat()
+    },
+    getADList() {
+      this.adList = adList.concat()
     },
     getHistoryList() {
       this.historyList = history.concat()

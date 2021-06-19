@@ -1,63 +1,51 @@
 const boardList = [
   {
-    b_id: 1,
-    title: '제목1',
-    writer: '글쓴이',
-    date: '21.04.15',
-    recommend: '10',
-    hit: '81812',
-    content:
-      'editor지시어는 에디터 빌드 (편집기 생성자)을 지정합니다. <br />이 v-model지시문은 즉시 사용 가능한 양방향 데이터 바인딩을 가능하게합니다. <br />config지시자는 에디터 인스턴스에 구성을 통과하는 데 도움이됩니다',
+    title: 'WAVVE',
+    img: 'https://blog.kakaocdn.net/dn/caUjFr/btqWLY51BRz/95Eyf7jQ39xSOCEvvEl5V1/img.jpg',
   },
   {
-    b_id: 2,
-    title: '제목2',
-    writer: '글쓴이',
-    date: '21.04.15',
-    recommend: '10',
-    hit: '81812',
-    content:
-      'editor지시어는 에디터 빌드 (편집기 생성자)을 지정합니다. <br />이 v-model지시문은 즉시 사용 가능한 양방향 데이터 바인딩을 가능하게합니다. <br />config지시자는 에디터 인스턴스에 구성을 통과하는 데 도움이됩니다',
+    title: '반올림피자샵',
+    img: 'https://blog.kakaocdn.net/dn/Tgzdb/btqWzsOadXo/C79qtBSudEdU110hSb55BK/img.jpg',
   },
   {
-    b_id: 3,
-    title: '제목3',
-    writer: '글쓴이',
-    date: '21.04.15',
-    recommend: '10',
-    hit: '81812',
-    content:
-      'editor지시어는 에디터 빌드 (편집기 생성자)을 지정합니다. <br />이 v-model지시문은 즉시 사용 가능한 양방향 데이터 바인딩을 가능하게합니다. <br />config지시자는 에디터 인스턴스에 구성을 통과하는 데 도움이됩니다',
+    title: '한두이서',
+    img: 'https://blog.kakaocdn.net/dn/nsKgU/btqWKkhrp77/Ak298WfXiSnjxoJUxsIDhk/img.jpg',
   },
   {
-    b_id: 4,
-    title: '제목4',
-    writer: '글쓴이1',
-    date: '21.04.15',
-    recommend: '10',
-    hit: '81812',
-    content:
-      'editor지시어는 에디터 빌드 (편집기 생성자)을 지정합니다. <br />이 v-model지시문은 즉시 사용 가능한 양방향 데이터 바인딩을 가능하게합니다. <br />config지시자는 에디터 인스턴스에 구성을 통과하는 데 도움이됩니다',
+    title: 'CNP',
+    img: 'https://blog.kakaocdn.net/dn/bcWZps/btqWNdu5yLj/K4EOVBGnOPqYjSzac6UuhK/img.jpg',
   },
   {
-    b_id: 5,
-    title: '제목5',
-    writer: '글쓴이2',
-    date: '21.04.15',
-    recommend: '10',
-    hit: '81812',
-    content:
-      'editor지시어는 에디터 빌드 (편집기 생성자)을 지정합니다. <br />이 v-model지시문은 즉시 사용 가능한 양방향 데이터 바인딩을 가능하게합니다. <br />config지시자는 에디터 인스턴스에 구성을 통과하는 데 도움이됩니다',
+    title: '=',
+    img: 'https://blog.kakaocdn.net/dn/dE0ORx/btqWGLzDR5I/cCziNhPY6rskhICHmaAUVk/img.jpg',
   },
   {
-    b_id: 6,
-    title: '제목6',
-    writer: '글쓴이3',
-    date: '21.04.15',
-    recommend: '10',
-    hit: '81812',
-    content:
-      'editor지시어는 에디터 빌드 (편집기 생성자)을 지정합니다. <br />이 v-model지시문은 즉시 사용 가능한 양방향 데이터 바인딩을 가능하게합니다. <br />config지시자는 에디터 인스턴스에 구성을 통과하는 데 도움이됩니다',
+    title: 'BLACK YAK',
+    img: 'https://blog.kakaocdn.net/dn/bikYUd/btqWKYypYle/f2ecoTk1BBOxNlmpHMpAJK/img.jpg',
+  },
+  {
+    title: '이브자리',
+    img: 'https://blog.kakaocdn.net/dn/nmgqF/btqWGLNaCvA/KK1AdGJuQeg3K6EGk2yv2K/img.jpg ',
+  },
+  {
+    title: 'W',
+    img: 'https://blog.kakaocdn.net/dn/dd3kQI/btqWzurIaxO/Uh9ksoLoTvHydZhDSwprz1/img.jpg',
+  },
+  {
+    title: '그날엔',
+    img: 'https://blog.kakaocdn.net/dn/97klF/btqWOfzpTO5/JW3by6M7Yzk0sYdM28OoE0/img.jpg',
+  },
+  {
+    title: '하이트 진로',
+    img: 'https://blog.kakaocdn.net/dn/tvQ8y/btqWGLGmnVq/kzkokRp3CNed5OpNwvKBtK/img.jpg ',
+  },
+  {
+    title: '=',
+    img: 'https://blog.kakaocdn.net/dn/cegHbd/btqWKku1V2I/Na9ukBtocn1NCJrP0mNKEk/img.jpg',
+  },
+  {
+    title: '삼다수',
+    img: 'https://blog.kakaocdn.net/dn/MYtun/btqWzud9Zar/wHfkK9hhttpnkR68HaPN40/img.jpg',
   },
 ]
 const replyList = [
@@ -175,16 +163,126 @@ const filmographyList = [
 ]
 
 const history = [
-  '2021 - 2020 APAN MUSIC AWARDS 아이돌챔프 인기상 국내 여자 솔로 부문',
-  '2021 - 제10회 가온차트 뮤직 어워즈 올해의 작사가상',
-  '2021 - 제10회 가온차트 뮤직 어워즈 올해의 롱런 음원상',
-  '2021 - 제10회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 5월',
-  '2021 - 제35회 골든디스크 어워즈 디지털음원부문 대상',
-  '제35회 골든디스크 어워즈 디지털음원부문 본상',
-  '엠넷 아시안 뮤직 어워즈 여자 가수상',
-  '엠넷 아시안 뮤직 어워즈 베스트 보컬 퍼포먼스 솔로',
-  '엠넷 아시안 뮤직 어워즈 베스트 컬래버레이션',
-  '제12회 멜론뮤직어워드 TOP10',
+  { content: '2020 APAN MUSIC AWARDS 아이돌챔프 인기상 국내 여자 솔로 부문', year: '2021' },
+  { content: '제10회 가온차트 뮤직 어워즈 올해의 작사가상', year: '2021' },
+  { content: '제10회 가온차트 뮤직 어워즈 올해의 롱런 음원상', year: '2021' },
+  { content: '제10회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 5월', year: '2021' },
+  { content: '제35회 골든디스크 어워즈 디지털음원부문 대상', year: '2021' },
+  { content: '제35회 골든디스크 어워즈 디지털음원부문 본상', year: '2021' },
+  { content: '엠넷 아시안 뮤직 어워즈 여자 가수상', year: '2020' },
+  { content: '엠넷 아시안 뮤직 어워즈 베스트 보컬 퍼포먼스 솔로', year: '2020' },
+  { content: '엠넷 아시안 뮤직 어워즈 베스트 컬래버레이션', year: '2020' },
+  { content: '제12회 멜론뮤직어워드 TOP10', year: '2020' },
+  { content: '제12회 멜론뮤직어워드 장르상록부문', year: '2020' },
+  { content: '제9회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 11월', year: '2020' },
+  { content: '제55회 백상예술대상 V LIVE 인기상', year: '2019' },
+  { content: '제8회 가온차트 뮤직어워즈 디지털음원부문 올해의 가수상 10월', year: '2019' },
+  { content: '제10회 멜론뮤직어워드 뮤직스타일상 R&B소울부문', year: '2018' },
+  { content: '아시아 아티스트 어워즈 베스트 액터', year: '2018' },
+  { content: '아시아 아티스트 어워즈 배우부문 올해의 아티스트', year: '2018' },
+  { content: '아시아 아티스트 어워즈 배우부문 아시아 핫티스트', year: '2018' },
+  { content: '아시아 아티스트 어워즈 배우부문 스타페이 인기상', year: '2018' },
+  { content: '제6회 아시아태평양 스타 어워즈 중편드라마 여자 최우수연기상', year: '2018' },
+  { content: '제15회 한국대중음악상 종합분야 최우수 팝 음반상', year: '2018' },
+  { content: '제7회 가온차트 뮤직 어워즈 디지털음원 부문 올해의 가수상 4월', year: '2018' },
+  { content: '제7회 가온차트 뮤직 어워즈 디지털음원 부문 올해의 가수상 3월', year: '2018' },
+  { content: '제7회 가온차트 뮤직 어워즈 올해의 롱런 음원상', year: '2018' },
+  { content: '제7회 가온차트 뮤직 어워즈 올해의 작사가상', year: '2018' },
+  { content: '제27회 하이원 서울가요대상 최고앨범상', year: '2018' },
+  { content: '제32회 골든디스크 어워즈 디지털음원부문 대상', year: '2018' },
+  { content: '제32회 골든디스크 어워즈 디지털음원부문 본상', year: '2018' },
+  { content: '제9회 멜론뮤직어워드 올해의 앨범상', year: '2017' },
+  { content: '제9회 멜론뮤직어워드 송라이터상', year: '2017' },
+  { content: '제9회 멜론뮤직어워드 TOP10', year: '2017' },
+  { content: 'Mnet 아시안 뮤직 어워드 여자가수상', year: '2017' },
+  { content: 'SAF 연기대상 베스트 커플상', year: '2016' },
+  { content: '제13회 한국대중음악상 네티즌이 뽑은 올해의 음악인 여자부문', year: '2016' },
+  { content: '제6회 대한민국 대중문화예술상 국무총리표창', year: '2015' },
+  { content: 'Mnet 아시안 뮤직 어워드 더 모스트 파퓰러 보컬리스트상', year: '2014' },
+  { content: 'Mnet 아시안 뮤직 어워드 여자가수상', year: '2014' },
+  { content: '제6회 멜론뮤직어워드 아티스트상', year: '2014' },
+  { content: '제6회 멜론뮤직어워드 TOP10', year: '2014' },
+  { content: '제3회 가온차트 K-POP 어워드 올해의 가수상 음원부문 10월', year: '2014' },
+  { content: 'KBS 연기대상 여자 신인연기상', year: '2013' },
+  { content: 'KBS 연기대상 베스트 커플상', year: '2013' },
+  { content: '제5회 멜론뮤직어워드 TOP10', year: '2013' },
+  { content: '한류 10주년 대상 뮤직대상 여자 솔로아티스트부문', year: '2013' },
+  { content: '제27회 일본 골드디스크상 베스트3 뉴아티스트 아시아부문', year: '2013' },
+  { content: '제4회 멜론뮤직어워드 TOP10', year: '2012' },
+  { content: 'Mnet 아시안 뮤직 어워드 여자솔로상', year: '2012' },
+  { content: '제24회 한국PD대상 가수부문 출연자상', year: '2012' },
+  { content: '제9회 한국대중음악상 올해의 노래상', year: '2012' },
+  { content: '제9회 한국대중음악상 노래부문 최우수 팝 노래상', year: '2012' },
+  { content: '제9회 한국대중음악상 네티즌이 뽑은 올해의 여자 아티스트상', year: '2012' },
+  { content: '제1회 가온차트 K-POP 어워드 올해의 가수상 음원부문 12월', year: '2012' },
+  { content: '제1회 가온차트 K-POP 어워드 올해의 가수상 음원부문 2월', year: '2012' },
+  { content: '2011 올케이팝 어워드 여자 솔로 아티스트상', year: '2012' },
+  { content: '제21회 하이원 서울가요대상 본상', year: '2012' },
+  { content: '제21회 하이원 서울가요대상 최고앨범상', year: '2012' },
+  { content: '제7회 아시아 모델상 시상식  BBF 인기가수상', year: '2012' },
+  { content: 'Mnet 아시안 뮤직 어워드 베스트 보컬 퍼포먼스 솔로상', year: '2011' },
+  { content: '제3회 멜론뮤직어워드 SK플래닛 베스트송상', year: '2011' },
+  { content: '제3회 멜론뮤직어워드 TOP10', year: '2011' },
+  { content: '제4회 스타일 아이콘 어워드 본상', year: '2011' },
+  { content: '한국광고주협회 광고주가 뽑은 좋은 모델상', year: '2011' },
+  { content: "제5회 Mnet 20's Choice 핫 CF스타상", year: '2011' },
+  { content: '제1회 올레-롯데 스마트폰 영화제 시상식 특별상', year: '2011' },
+  { content: '제20회 하이원 서울가요대상 디지털음원상', year: '2011' },
+  { content: '제20회 하이원 서울가요대상 본상', year: '2011' },
+  { content: 'SBS 연예대상 예능 뉴스타상', year: '2010' },
+  { content: '제2회 멜론뮤직어워드 TOP10', year: '2010' },
+  { content: '제25회 골든디스크 시상식 디지털음원부문 본상', year: '2010' },
+  { content: '제11회 대한민국 영상대전 가수부문 포토제닉상', year: '2010' },
+]
+const adList = [
+  {
+    title: 'WAVVE',
+    img: 'https://blog.kakaocdn.net/dn/caUjFr/btqWLY51BRz/95Eyf7jQ39xSOCEvvEl5V1/img.jpg',
+  },
+  {
+    title: '반올림피자샵',
+    img: 'https://blog.kakaocdn.net/dn/Tgzdb/btqWzsOadXo/C79qtBSudEdU110hSb55BK/img.jpg',
+  },
+  {
+    title: '한두이서',
+    img: 'https://blog.kakaocdn.net/dn/nsKgU/btqWKkhrp77/Ak298WfXiSnjxoJUxsIDhk/img.jpg',
+  },
+  {
+    title: 'CNP',
+    img: 'https://blog.kakaocdn.net/dn/bcWZps/btqWNdu5yLj/K4EOVBGnOPqYjSzac6UuhK/img.jpg',
+  },
+  {
+    title: '=',
+    img: 'https://blog.kakaocdn.net/dn/dE0ORx/btqWGLzDR5I/cCziNhPY6rskhICHmaAUVk/img.jpg',
+  },
+  {
+    title: 'BLACK YAK',
+    img: 'https://blog.kakaocdn.net/dn/bikYUd/btqWKYypYle/f2ecoTk1BBOxNlmpHMpAJK/img.jpg',
+  },
+  {
+    title: '이브자리',
+    img: 'https://blog.kakaocdn.net/dn/nmgqF/btqWGLNaCvA/KK1AdGJuQeg3K6EGk2yv2K/img.jpg ',
+  },
+  {
+    title: 'W',
+    img: 'https://blog.kakaocdn.net/dn/dd3kQI/btqWzurIaxO/Uh9ksoLoTvHydZhDSwprz1/img.jpg',
+  },
+  {
+    title: '그날엔',
+    img: 'https://blog.kakaocdn.net/dn/97klF/btqWOfzpTO5/JW3by6M7Yzk0sYdM28OoE0/img.jpg',
+  },
+  {
+    title: '하이트 진로',
+    img: 'https://blog.kakaocdn.net/dn/tvQ8y/btqWGLGmnVq/kzkokRp3CNed5OpNwvKBtK/img.jpg ',
+  },
+  {
+    title: '=',
+    img: 'https://blog.kakaocdn.net/dn/cegHbd/btqWKku1V2I/Na9ukBtocn1NCJrP0mNKEk/img.jpg',
+  },
+  {
+    title: '삼다수',
+    img: 'https://blog.kakaocdn.net/dn/MYtun/btqWzud9Zar/wHfkK9hhttpnkR68HaPN40/img.jpg',
+  },
 ]
 
 const scheduleList = [
@@ -223,4 +321,4 @@ const tvList = [
 ]
 const categories = ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD']
 
-export { boardList, replyList, albumList, filmographyList, categories, history, scheduleList, tvList }
+export { boardList, replyList, albumList, filmographyList, categories, history, scheduleList, tvList, adList }
