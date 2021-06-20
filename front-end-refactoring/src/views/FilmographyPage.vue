@@ -66,11 +66,12 @@ export default {
     })
   },
   methods: {
-    /* ------------------------------ VUEX ------------------------------ */
+    /* ------------------------------ VUEX METHOD ------------------------------ */
     ...mapActions(['set_title']),
     setSubTitle() {
       this.set_title({ title: 'Filmograpy' })
     },
+    /* ------------------------------ EVENT METHOD ------------------------------ */
     onChangeFilter(filterKey) {
       this.filterKey = filterKey
     },

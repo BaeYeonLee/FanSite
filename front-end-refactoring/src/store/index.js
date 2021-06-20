@@ -16,7 +16,7 @@ export default createStore({
   },
   actions: {
     set_title(context, payload) {
-      return context.commit('setTitle', payload.title)
+      context.commit('setTitle', payload.title)
     },
   },
   modules: {},

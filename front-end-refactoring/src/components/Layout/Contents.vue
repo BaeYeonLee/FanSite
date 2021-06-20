@@ -28,6 +28,7 @@ export default {
     }
   },
   computed: {
+    /* ------------------------------ VUEX METHOD ------------------------------ */
     ...mapGetters(['getTitle']),
   },
   created() {

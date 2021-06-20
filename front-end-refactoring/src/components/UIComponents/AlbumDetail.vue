@@ -3,7 +3,7 @@
     <div class="album-detail">
       <div class="section-left">
         <div class="cover">
-          <img :src="albumInfo.img" />
+          <img :src="albumInfo.image" />
         </div>
         <div class="album-info">
           <div class="title">
@@ -47,18 +47,26 @@ export default {
     }
   },
   methods: {
-    /* ------------------------------ VUEX ------------------------------ */
+    /* ------------------------------ VUEX METHOD ------------------------------ */
     ...mapActions(['set_title']),
     setSubTitle() {
       this.set_title({ title: this.albumInfo.title })
     },
+
+    /* ------------------------------ GETTER METHOD ------------------------------ */
     getAlbumInfo() {
       let albumID = this.$route.params.album_id
       this.albumInfo = albumList.concat().find(album => {
         return album.id == albumID
       })
     },
+
+    /* ------------------------------ SETTER METHOD ------------------------------ */
     number(item) {
+      /**
+       * SET LIST NUMBERING
+       * 01, 02, 03 ...
+       */
       return item > 9 ? item : `0${item}`
     },
   },

@@ -57,6 +57,7 @@ export default {
     },
   },
   methods: {
+    /* ------------------------------ EVENT METHOD ------------------------------ */
     move() {
       if (this.$route.path.includes('album')) {
         this.$router.push(`/album/${this.id}`)
@@ -67,8 +68,6 @@ export default {
   },
   created() {
     console.log('------------> thumnail')
-    console.log(this.title)
-    console.log(this.id)
   },
 }
 </script>

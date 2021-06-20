@@ -5,6 +5,7 @@
       <div style="margin-top: 10px; padding: 30px 15px">
         <div class="grid-view">
           <Thumnail v-for="album in showingList" v-bind="album" />
+          <!-- v-bind :: props 여러개 넘겨 줄 때 / 받는 쪽에서는 하나하나 설정 -->
         </div>
       </div>
     </div>
@@ -70,11 +71,12 @@ export default {
     })
   },
   methods: {
-    /* ------------------------------ VUEX ------------------------------ */
+    /* ------------------------------ VUEX METHOD ------------------------------ */
     ...mapActions(['set_title']),
     setSubTitle() {
       this.set_title({ title: 'ALBUM' })
     },
+    /* ------------------------------ EVENT METHOD ------------------------------ */
     onChangeFilter(filterKey) {
       this.filterKey = filterKey
     },
