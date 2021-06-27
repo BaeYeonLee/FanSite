@@ -11,24 +11,40 @@
           v-for="menu in menuList"
           class="menu-item"
           :class="{ selected: selectedTab(menu) }"
+          :style="moveScroll()"
           :to="`/${menu.toLowerCase()}`"
           :key="menu"
         >
           {{ menu }}
         </router-link>
       </div>
+      <!-- <div class="switch-div">
+        <label class="switch">
+          <input type="checkbox" v-model="isChecked" />
+          <span class="slider"></span>
+        </label>
+      </div> -->
     </div>
   </header>
 </template>
 
 <script>
 export default {
+  props: {
+    scrollPostion: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
       isMainPage: false,
       /* ------------------------------ LIST DATA ------------------------------ */
       menuList: ['Album', 'Filmography', 'AD', 'History', 'Board'],
+      /* ------------------------------ DARK MODE DATA ------------------------------ */
+      isChecked: false,
+      /* ------------------------------ STYLE DATA ------------------------------ */
     }
   },
   created() {
@@ -43,6 +59,17 @@ export default {
     /* ------------------------------ EVENT METHOD ------------------------------ */
     goToMain() {
       this.$router.push('/')
+    },
+    moveScroll() {
+      let max = 200 //기본
+
+      if (this.isMainPage) {
+        if (this.scrollPostion > max) {
+          return 'color :rgba(242, 226, 220, 0); transition: 1.5s;'
+        } else if (this.scrollPostion < max) {
+          return 'color : rgba(242, 226, 220, 0.9); transition: 1.5s;'
+        }
+      }
     },
     /* ------------------------------ SETTER METHOD ------------------------------ */
     setHeaderFlag(path) {
@@ -125,6 +152,14 @@ header {
 
   a {
     text-decoration-line: none;
+  }
+
+  .switch-div {
+    display: inline-block;
+    float: right;
+    position: absolute;
+    right: 300px;
+    top: 35px;
   }
 }
 </style>

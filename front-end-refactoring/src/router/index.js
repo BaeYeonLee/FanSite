@@ -100,7 +100,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    return { top: 0 }
+    return { x: 0, y: 0 }
   },
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <Header></Header>
+  <Header :scrollPostion="scrollPostion"></Header>
   <Contents />
 </template>
 
@@ -11,6 +11,19 @@ export default {
   components: {
     Header,
     Contents,
+  },
+  data() {
+    return {
+      scrollPostion: 0,
+    }
+  },
+  methods: {
+    handleScroll() {
+      this.scrollPostion = window.scrollY
+    },
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
   },
 }
 </script>
