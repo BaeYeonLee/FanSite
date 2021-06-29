@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="crop" v-for="idx in 4" :key="idx">
-      <div class="gra" :key="idx" @click="moveDetail(list[idx-1])">
-        <template v-if="list[idx-1]">
+      <div class="gra" :key="idx" @click="moveDetail(list[idx - 1])">
+        <template v-if="list[idx - 1]">
           <span>
-            {{ list[idx-1].title }}<br />
-            {{ list[idx-1].date }}
+            {{ list[idx - 1].title }}<br />
+            {{ list[idx - 1].date }}
           </span>
-          <img :src="list[idx-1].img" :class="{ albums: tab == 0 }" />
+          <img :src="list[idx - 1].img" :class="{ albums: tab == 0 }" />
         </template>
       </div>
     </div>
@@ -82,6 +82,7 @@ export default {
       position: absolute;
       transform: translateX(-50%);
       left: 50%;
+      height: -webkit-fill-available;
       &.albums {
         //album cover div에 가득 차게
         width: 150%;

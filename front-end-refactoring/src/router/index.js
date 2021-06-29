@@ -19,6 +19,39 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/history',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'History',
+        component: () => import('@pages/History.vue'),
+      },
+    ],
+  },
+  {
+    path: '/board',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '/board',
+        name: 'Board',
+        component: () => import('@pages/BoardPage.vue'),
+      },
+    ],
+  },
+  {
+    path: '/ad',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'AD',
+        component: () => import('@pages/AD.vue'),
+      },
+    ],
+  },
   // {
   //   path: '/album',
   //   component: () => import('../components/Layout/MainLayout.vue'),

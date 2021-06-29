@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-# 나무위키
+
 URL = 'https://truegirlsave2.tistory.com/373'
 
 # Naver

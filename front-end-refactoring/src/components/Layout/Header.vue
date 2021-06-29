@@ -5,7 +5,7 @@
         <span class="page-title"> WITH U, <span class="accent"> IU </span> </span>
       </router-link>
       <div class="page-menu">
-        <a v-for="menu in menuList" class="menu-item" :href="`/${menu.toLowerCase()}`" :key="menu">
+        <a v-for="menu in menuList" class="menu-item" :href="`/#/${menu.toLowerCase()}`" :key="menu">
           {{ menu }}
         </a>
       </div>

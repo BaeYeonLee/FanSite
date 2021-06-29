@@ -2,7 +2,7 @@
   <div class="main-page">
     <div class="main-menu">
       <div class="menu-card menu-history">
-        <div class="menu-hover">History</div>
+        <div class="menu-hover" @click="move(0)">History</div>
       </div>
       <div class="menu-card menu-album">
         <div class="menu-hover">Album</div>
@@ -15,7 +15,7 @@
         <div class="menu-hover">Filmography</div>
       </div>
       <div class="menu-card menu-board">
-        <div class="menu-hover">Board</div>
+        <div class="menu-hover" @click="move(4)">Board</div>
       </div>
     </div>
   </div>
@@ -23,7 +23,22 @@
 
 <script>
 export default {
-  methods: {},
+  methods: {
+    move(index) {
+      switch (index) {
+        case 0:
+          return this.$router.push('/history')
+        case 1:
+          return this.$router.push('/album')
+        case 3:
+          return this.$router.push('/ad')
+        case 4:
+          return this.$router.push('/board')
+        case 5:
+          return this.$router.push('/filmography')
+      }
+    },
+  },
   created() {},
 }
 </script>

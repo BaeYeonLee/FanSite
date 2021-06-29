@@ -124,7 +124,14 @@ hr {
   grid-row-gap: 40px;
   grid-area: content;
 }
+.tab-box {
+  width: 60%;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 10px;
+}
 .thumnail-wrapper {
+  margin: 0 auto;
   .thumnail-poster {
     border-radius: 12px;
     height: 280px;
