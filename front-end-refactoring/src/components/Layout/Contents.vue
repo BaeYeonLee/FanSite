@@ -1,5 +1,11 @@
 <template>
-  <div class="contents-background" />
+  <div
+    class="contents-background"
+    :class="{
+      'slide-fade-out': isMainPage && scrollPosition > 150,
+      'silde-fade-in': isMainPage && scrollPosition < 150,
+    }"
+  />
   <div class="main-panel">
     <div class="contents-title" :class="{ 'is-main-page': isMainPage }">
       <b v-if="isMainPage" class="main-title"> With U, <span class="accent"> IU </span> </b>
@@ -22,24 +28,15 @@ export default {
     Footer,
   },
   props: {
-    // scrollPosition: {
-    //   type: Number,
-    //   default: 0,
-    // },
-  },
-  watch: {
-    scrollPosition(val, oldVal) {
-      this.oldScrollPosition = oldVal
-      this.moveScroll()
+    scrollPosition: {
+      type: Number,
+      default: 0,
     },
   },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
       isMainPage: false,
-      /* ------------------------------ SCROLL DATA ------------------------------ */
-      scrollPosition: window.scrollY,
-      oldScrollPosition: 0,
     }
   },
   computed: {
@@ -59,22 +56,6 @@ export default {
     setHeaderFlag(path) {
       this.isMainPage = path.includes('/iu')
     },
-    /* ------------------------------ SCROLL EVENT METHOD ------------------------------ */
-    moveScroll() {
-      let start = 0
-      let now = this.scrollPosition
-      let old = this.oldScrollPosition
-      let condition = this.isMainPage && now > start && now > old
-      return condition
-    },
-    // let max = 200 //기본
-    // if (this.isMainPage) {
-    //   if (this.scrollPosition > max) {
-    //     return 'color :rgba(242, 226, 220, 0); transition: 1.5s;'
-    //   } else if (this.scrollPosition < max) {
-    //     return 'color : rgba(242, 226, 220, 0.9); transition: 1.5s;'
-    //   }
-    // }
   },
 }
 </script>
@@ -93,6 +74,14 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
+  &.slide-fade-out {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+    opacity: 0.5;
+  }
+  &.silde-fade-in {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+    opacity: 1;
+  }
 }
 
 .main-panel {
