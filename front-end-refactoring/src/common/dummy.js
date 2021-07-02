@@ -72,7 +72,7 @@ const albumList = [
     title: '라일락',
     img: 'https://musicmeta-phinf.pstatic.net/album/005/211/5211473.jpg?type=r360Fll&v=20210326102709',
     date: '2021.03.25',
-    album_type: 'IU 정규 5집',
+    album_type: 'studio',
     trackList: [
       {
         no: 1,
@@ -116,18 +116,21 @@ const albumList = [
     title: 'I-land OST',
     img: 'https://musicmeta-phinf.pstatic.net/album/004/600/4600362.jpg?type=r360Fll&amp;v=20210303145028',
     date: '2020.06.19',
+    album_type: 'mini',
   },
   {
     id: 2,
     title: '에잇',
     img: 'https://musicmeta-phinf.pstatic.net/album/004/550/4550593.jpg?type=r360Fll&v=20210303143526',
     date: '2020.05.06',
+    album_type: 'digital',
   },
   {
     id: 1,
     title: '사랑의 불시착 OST',
     img: 'https://musicmeta-phinf.pstatic.net/album/004/448/4448098.jpg?type=r360Fll&v=20210303130024',
     date: '2020.2.15',
+    album_type: 'mini',
   },
 ]
 
@@ -321,4 +324,4 @@ const tvList = [
 ]
 const categories = ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD']
 
-export { boardList, replyList, albumList, filmographyList, categories, history, scheduleList, tvList, adList }
+export { boardList, replyList, filmographyList, categories, history, scheduleList, tvList, adList }

@@ -8,6 +8,7 @@ export default [
     image:
       'https://img1.daumcdn.net/thumb/C408x596/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F30a2cb7df4e2fcb33409cfefe76cb11cd279bdad',
     link: 'https://movie.daum.net/moviedb/main?movieId=135762',
+    type: 'movie',
   },
   {
     id: 11,
@@ -17,6 +18,7 @@ export default [
     endDate: '2021.03.31',
     image: 'https://t1.daumcdn.net/movie/845a3ab98e57c285df70bd910248d7559084b9f6',
     link: 'https://movie.daum.net/moviedb/main?movieId=129990',
+    type: 'movie',
   },
   {
     id: 10,
@@ -26,6 +28,7 @@ export default [
     endDate: '2019.09.01',
     image: 'https://image.tving.com/upload/cms/caip/CAIP0900/P000941062.png/dims/resize/240',
     link: 'http://program.tving.com/tvn/hoteldelluna',
+    type: 'drama',
   },
   {
     id: 9,
@@ -33,9 +36,9 @@ export default [
     cast: '딸, 은, 한나, 지은',
     startDate: '2019.04.05',
     endDate: '2019.04.05',
-    image:
-      'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile5.uf.tistory.com%2Fimage%2F990C5F4E5CA446F227E269',
+    image: 'https://spnimage.edaily.co.kr/images/photo/files/NP/S/2019/04/PS19040300233.jpg',
     link: 'https://www.netflix.com/kr/title/81044884',
+    type: 'movie',
   },
   {
     id: 8,
@@ -45,6 +48,7 @@ export default [
     endDate: '2018.05.17',
     image: 'https://image.tving.com/upload/cms/caip/CAIP0900/P000497140.jpg/dims/resize/240',
     link: 'http://program.tving.com/tvn/mymister',
+    type: 'drama',
   },
   {
     id: 7,
@@ -52,8 +56,9 @@ export default [
     cast: '고하진/해수',
     startDate: '2016.08.29',
     endDate: '2016.11.01',
-    image: 'http://img2.sbs.co.kr/img/sbs_cms/PG/2016/08/23/PG19641654_w1280_h720.jpg',
+    image: 'http://img2.sbs.co.kr/img/sbs/RO/2016/08/12/RO20461587_w900_h1405.gif',
     link: 'https://programs.sbs.co.kr/drama/scarletheart/main?pc_searchclick=all_Pro_title_00_00',
+    type: 'drama',
   },
   {
     id: 6,
@@ -61,8 +66,10 @@ export default [
     cast: '신디',
     startDate: '2015.05.15',
     endDate: '2015.06.20',
-    image: 'https://img.kbs.co.kr/kbs/278x156/img.kbs.co.kr/pgm/resource/program/T2015/T2015-0165/T2015-0165_00_04.png',
+    image:
+      'https://an2-img.amz.wtchn.net/image/v2/c607337b7d9a0d3c2a5df06343128593.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKaVlXTnJaM0p2ZFc1a0lqcDdJbklpT2pJMU5Td2laeUk2TWpVMUxDSmlJam95TlRWOUxDSmpjbTl3SWpwMGNuVmxMQ0pvWldsbmFIUWlPalF3TUN3aWNHRjBhQ0k2SWk5Mk1TOW1lREp1ZHpVMlkzcG9lWFJ1ZVRoamJUVnFkQ0lzSW5GMVlXeHBkSGtpT2pnd0xDSjNhV1IwYUNJNk1qZ3dmUS5YUVdiS19TVjBuazlYMzRCdVZvVERJQ0NMNE1JNFdLcXpxczVfNmRua0Jn',
     link: 'https://program.kbs.co.kr/2tv/drama/produca/pc/index.html',
+    type: 'drama',
   },
   {
     id: 5,
@@ -70,9 +77,9 @@ export default [
     cast: '김보통',
     startDate: '2013.11.20',
     endDate: '2014.01.09',
-    image:
-      'https://img.kbs.co.kr/kbs/278x156/img.kbs.co.kr/pgm/resource/program/T2013/T2013-0623/T2013-0623_02_02_04.png',
+    image: 'https://kaareklint.co.kr/file_data/kaareklint/6988c82edf51e9e5832c0ba4fe3b7821.jpg',
     link: 'https://program.kbs.co.kr/2tv/drama/belami/pc/index.html',
+    type: 'drama',
   },
   {
     id: 4,
@@ -81,8 +88,9 @@ export default [
     startDate: '2013.03.09',
     endDate: '2013.08.25',
     image:
-      'https://img.kbs.co.kr/kbs/278x156/img.kbs.co.kr/test/metahubtest/program/T2013/T2013-0017/PS-2013130401-01-000/PS-2013130401-01-000_01_01_04.png',
+      'https://upload.wikimedia.org/wikipedia/ko/thumb/0/07/%EC%B5%9C%EA%B3%A0%EB%8B%A4_%EC%9D%B4%EC%88%9C%EC%8B%A0.jpg/250px-%EC%B5%9C%EA%B3%A0%EB%8B%A4_%EC%9D%B4%EC%88%9C%EC%8B%A0.jpg',
     link: 'https://program.kbs.co.kr/2tv/drama/soonsin/pc/index.html',
+    type: 'drama',
   },
 
   {
@@ -93,6 +101,7 @@ export default [
     endDate: '2012.08.01',
     image: 'http://t1.daumcdn.net/cfile/1543E74B50008D1735',
     link: 'https://movie.daum.net/moviedb/main?movieId=71343',
+    type: 'movie',
   },
   {
     id: 2,
@@ -102,6 +111,7 @@ export default [
     endDate: '2011.01.30',
     image: 'http://t1.daumcdn.net/cfile/1854BC574D42136C04',
     link: 'https://movie.daum.net/moviedb/main?movieId=63135',
+    type: 'movie',
   },
   {
     id: 1,
@@ -109,7 +119,8 @@ export default [
     cast: '김필숙',
     startDate: '2011.01.03',
     endDate: '2011.02.28',
-    image: 'https://img.kbs.co.kr/kbs/278x156/programres.kbs.co.kr/t2011-0004/2020/1/30/1580371274452_239962.png',
+    image: 'https://www.themoviedb.org/t/p/original/vqlPVNTnYNoXTqyIaW2oN1qV2lZ.jpg',
     link: 'https://program.kbs.co.kr/2tv/drama/dreamhigh/pc/index.html',
+    type: 'drama',
   },
 ]
