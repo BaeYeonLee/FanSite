@@ -1,7 +1,6 @@
 <template>
-  <Header></Header>
-  <Contents />
-  <!-- <Contents :scrollPosition="scrollPosition" /> -->
+  <Header :scrollPosition="scrollPosition" />
+  <Contents :scrollPosition="scrollPosition" />
 </template>
 
 <script>
@@ -13,18 +12,18 @@ export default {
     Header,
     Contents,
   },
-  // data() {
-  //   return {
-  //     scrollPosition: 0,
-  //   }
-  // },
-  // methods: {
-  //   handleScroll() {
-  //     this.scrollPosition = window.scrollY
-  //   },
-  // },
-  // mounted() {
-  //   window.addEventListener('scroll', this.handleScroll)
-  // },
+  data() {
+    return {
+      scrollPosition: 0,
+    }
+  },
+  methods: {
+    handleScroll() {
+      this.scrollPosition = window.scrollY
+    },
+  },
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
 }
 </script>
