@@ -1,22 +1,32 @@
 <template>
   <div class="main-page">
-    <div class="main-menu">
-      <div class="menu-card menu-history">
-        <div class="menu-hover" @click="move(0)">History</div>
-      </div>
-      <div class="menu-card menu-album">
-        <div class="menu-hover">Album</div>
-      </div>
-      <div class="menu-card menu-ad">
-        <img src="@assets/img/advertising.jpg" />
-        <div class="menu-hover">AD</div>
-      </div>
-      <div class="menu-card menu-filmography">
-        <div class="menu-hover">Filmography</div>
-      </div>
-      <div class="menu-card menu-board">
-        <div class="menu-hover" @click="move(4)">Board</div>
-      </div>
+    <div class="container main-menu">
+      <router-link to="history">
+        <div class="menu-card menu-history">
+          <div class="menu-hover">History</div>
+        </div>
+      </router-link>
+      <router-link to="album">
+        <div class="menu-card menu-album">
+          <div class="menu-hover">Album</div>
+        </div>
+      </router-link>
+      <router-link to="ad">
+        <div class="menu-card menu-ad">
+          <img src="@assets/img/advertising.jpg" />
+          <div class="menu-hover">AD</div>
+        </div>
+      </router-link>
+      <router-link to="filmography">
+        <div class="menu-card menu-filmography">
+          <div class="menu-hover">Filmography</div>
+        </div>
+      </router-link>
+      <router-link to="board">
+        <div class="menu-card menu-board">
+          <div class="menu-hover">Board</div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -47,14 +57,13 @@ export default {
 $IU-Hover-Black: rgba(0, 0, 0, 0.3);
 
 .main-page {
-  height: 830px;
+  height: 820px;
   display: flex;
   align-items: center;
 
   .main-menu {
-    max-width: 1080px;
     height: 670px;
-    margin: auto;
+    margin: 40px auto 30px;
 
     .menu-card {
       display: inline-block;
@@ -62,6 +71,36 @@ $IU-Hover-Black: rgba(0, 0, 0, 0.3);
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
+      cursor: pointer;
+      overflow: hidden;
+
+      &:hover {
+        &:before {
+          transform: scaleX(1);
+          transition: transform 0.25s ease-in-out;
+          transform-origin: left;
+          // transition-delay: 0s;
+        }
+
+        .menu-hover {
+          transform: translateX(0);
+          transition-delay: 0.25s;
+        }
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $IU-Hover-Black;
+        transform: scaleX(0);
+        transition: transform 0.25s ease-in-out;
+        transform-origin: right;
+        transition-delay: 0.25s;
+      }
 
       img {
         width: auto;
@@ -74,24 +113,16 @@ $IU-Hover-Black: rgba(0, 0, 0, 0.3);
         align-items: center;
         justify-content: center;
         top: 0;
+        left: 0;
         width: 100%;
-        height: 0;
-        background-color: $IU-Hover-Black;
+        height: 100%;
         color: $IU-Neon-A90;
         font-size: 40px;
         font-style: italic;
         font-weight: bold;
-        visibility: hidden;
-        transition: 0.35s;
-        transform-origin: 0 100%;
-      }
-
-      &:hover .menu-hover {
-        height: 100%;
-        visibility: visible;
-        transition: 0.35s;
-        transform-origin: 0 100%;
-        // transform-origin: bottom;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease-in-out;
+        transition-delay: 0s;
       }
 
       &.menu-history {
@@ -122,8 +153,8 @@ $IU-Hover-Black: rgba(0, 0, 0, 0.3);
       }
 
       &.menu-board {
-        left: 40px;
         top: -110px;
+        left: 40px;
         width: 290px;
         height: 355px;
         background-image: url('http://1.bp.blogspot.com/-GGv4y5Cyw80/Ur6psSKg8KI/AAAAAAAAFS4/mMd1aMWA_NM/s1600/OUdogbaby2.gif');

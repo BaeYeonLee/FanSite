@@ -45,6 +45,9 @@ export default {
   width: 100%;
   height: 100vh;
   background-image: url('../assets/img/img_iu_1920.jpg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
 }
 
 .intro-cover {

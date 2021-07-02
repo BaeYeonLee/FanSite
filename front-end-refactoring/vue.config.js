@@ -11,8 +11,13 @@ module.exports = {
       },
     },
   },
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config.module.rules.delete('eslint')
+    /*---------------- HTML WEBPACK PLUGIN STTING ----------------*/
+    config.plugin('html').tap(args => {
+      args[0].title = 'With U, IU'
+      return args
+    })
   },
   configureWebpack: {
     resolve: {

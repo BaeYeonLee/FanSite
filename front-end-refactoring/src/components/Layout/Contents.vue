@@ -3,10 +3,11 @@
   <div class="main-panel">
     <div class="contents-title" :class="{ 'is-main-page': isMainPage }">
       <b v-if="isMainPage" class="main-title"> With U, <span class="accent"> IU </span> </b>
-      <b v-else calss="sub-title"> TITLE</b>
+      <!-- <b v-else calss="sub-title"> TITLE</b> -->
+      <b class="sub-title" v-else> {{ getTitle }} </b>
     </div>
     <div class="contents-page">
-      <router-view />
+      <router-view class="iu-page" />
       <Footer />
     </div>
   </div>
@@ -14,16 +15,36 @@
 
 <script>
 import Footer from '@layout/Footer'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     Footer,
   },
+  props: {
+    // scrollPosition: {
+    //   type: Number,
+    //   default: 0,
+    // },
+  },
+  watch: {
+    scrollPosition(val, oldVal) {
+      this.oldScrollPosition = oldVal
+      this.moveScroll()
+    },
+  },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
       isMainPage: false,
+      /* ------------------------------ SCROLL DATA ------------------------------ */
+      scrollPosition: window.scrollY,
+      oldScrollPosition: 0,
     }
+  },
+  computed: {
+    /* ------------------------------ VUEX METHOD ------------------------------ */
+    ...mapGetters(['getTitle']),
   },
   created() {
     this.setHeaderFlag(this.$route.path)
@@ -38,6 +59,22 @@ export default {
     setHeaderFlag(path) {
       this.isMainPage = path.includes('/iu')
     },
+    /* ------------------------------ SCROLL EVENT METHOD ------------------------------ */
+    moveScroll() {
+      let start = 0
+      let now = this.scrollPosition
+      let old = this.oldScrollPosition
+      let condition = this.isMainPage && now > start && now > old
+      return condition
+    },
+    // let max = 200 //기본
+    // if (this.isMainPage) {
+    //   if (this.scrollPosition > max) {
+    //     return 'color :rgba(242, 226, 220, 0); transition: 1.5s;'
+    //   } else if (this.scrollPosition < max) {
+    //     return 'color : rgba(242, 226, 220, 0.9); transition: 1.5s;'
+    //   }
+    // }
   },
 }
 </script>
@@ -67,11 +104,21 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
 
   .contents-title {
     width: 100%;
-    height: 300px;
+    height: 600px;
     background: $IU-Black-A20;
 
     &.is-main-page {
       height: 830px;
+    }
+    .sub-title {
+      position: absolute;
+      top: 300px;
+      left: 800px;
+      font-family: Roboto;
+      font-size: 70px;
+      font-weight: bold;
+      font-style: italic;
+      color: $IU-Title-Violte;
     }
   }
 
@@ -86,12 +133,10 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
     font-style: italic;
 
     .accent {
+      width: 100%;
+      height: 600px;
       color: $IU-Neon-A90;
     }
-  }
-
-  .sub-title {
-    color: $IU-Title-Violte;
   }
 
   .contents-page {

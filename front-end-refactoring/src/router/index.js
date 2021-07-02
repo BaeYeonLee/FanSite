@@ -13,7 +13,7 @@ const routes = [
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [
       {
-        path: '',
+        path: '/iu',
         name: 'MainPage',
         component: () => import('@pages/MainPage.vue'),
       },
@@ -31,13 +31,18 @@ const routes = [
     ],
   },
   {
-    path: '/board',
+    path: '/album',
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [
       {
-        path: '/board',
-        name: 'Board',
-        component: () => import('@pages/BoardPage.vue'),
+        path: '/album',
+        name: 'Album',
+        component: () => import('@pages/AlbumPage.vue'),
+      },
+      {
+        path: '/album/:album_id',
+        name: 'album detail',
+        component: () => import('@/AlbumDetail.vue'),
       },
     ],
   },
@@ -46,70 +51,57 @@ const routes = [
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [
       {
-        path: '',
+        path: '/ad',
         name: 'AD',
-        component: () => import('@pages/AD.vue'),
+        component: () => import('@pages/AdvertisingPage.vue'),
       },
     ],
   },
-  // {
-  //   path: '/album',
-  //   component: () => import('../components/Layout/MainLayout.vue'),
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'Album',
-  //       component: () => import('@pages/OverView.vue'),
-  //     },
-  //     {
-  //       path: '/album/:album_id',
-  //       name: 'album detail',
-  //       component: () => import('@/AlbumDetail.vue'),
-  //     },
-  //   ],
-  // },
-  // {
-  //   path: '/filmography',
-  //   component: () => import('../components/Layout/MainLayout.vue'),
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'Filmography',
-  //       component: () => import('@pages/OverView.vue'),
-  //     },
-  //   ],
-  // },
-  // {
-  //   path: '/board',
-  //   component: () => import('../components/Layout/MainLayout.vue'),
-  //   children: [
-  //     {
-  //       path: '/board',
-  //       name: 'Board',
-  //       component: () => import('@pages/BoardPage.vue'),
-  //     },
-  //     {
-  //       path: '/add-board',
-  //       name: 'AddBoard',
-  //       component: () => import('@pages/AddBoard.vue'),
-  //     },
-  //     {
-  //       path: '/detail',
-  //       name: 'Detail',
-  //       component: () => import('@pages/BoardDetailPage.vue'),
-  //     },
-  //     {
-  //       path: '/edit',
-  //       name: 'Edit',
-  //       component: () => import('@pages/EditBoard.vue'),
-  //     },
-  //   ],
-  // },
+  {
+    path: '/filmography',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '/filmography',
+        name: 'Filmography',
+        component: () => import('@pages/FilmographyPage.vue'),
+      },
+    ],
+  },
+  {
+    path: '/board',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '/board',
+        name: 'Board',
+        component: () => import('@pages/BoardPage.vue'),
+      },
+      //   {
+      //     path: '/add-board',
+      //     name: 'AddBoard',
+      //     component: () => import('@pages/AddBoard.vue'),
+      //   },
+      //   {
+      //     path: '/detail',
+      //     name: 'Detail',
+      //     component: () => import('@pages/BoardDetailPage.vue'),
+      //   },
+      //   {
+      //     path: '/edit',
+      //     name: 'Edit',
+      //     component: () => import('@pages/EditBoard.vue'),
+      //   },
+    ],
+  },
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
 })
 
 export default router
