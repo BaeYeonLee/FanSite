@@ -21,10 +21,25 @@ export default {
   components: {
     Footer,
   },
+  props: {
+    // scrollPosition: {
+    //   type: Number,
+    //   default: 0,
+    // },
+  },
+  watch: {
+    scrollPosition(val, oldVal){
+      this.oldScrollPosition = oldVal
+      this.moveScroll()
+    }
+  },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
       isMainPage: false,
+      /* ------------------------------ SCROLL DATA ------------------------------ */
+      scrollPosition: window.scrollY,
+      oldScrollPosition: 0,
     }
   },
   computed: {
@@ -43,6 +58,24 @@ export default {
     /* ------------------------------ SETTER METHOD ------------------------------ */
     setHeaderFlag(path) {
       this.isMainPage = path.includes('/iu')
+    },
+    /* ------------------------------ SCROLL EVENT METHOD ------------------------------ */
+    moveScroll() {
+      let start = 0
+      let now = this.scrollPosition
+      let old = this.oldScrollPosition
+      let condition = this.isMainPage && now > start && now > old
+      return condition
+
+      }
+      // let max = 200 //기본
+      // if (this.isMainPage) {
+      //   if (this.scrollPosition > max) {
+      //     return 'color :rgba(242, 226, 220, 0); transition: 1.5s;'
+      //   } else if (this.scrollPosition < max) {
+      //     return 'color : rgba(242, 226, 220, 0.9); transition: 1.5s;'
+      //   }
+      // }
     },
   },
 }

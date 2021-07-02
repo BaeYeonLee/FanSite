@@ -11,7 +11,6 @@
           v-for="menu in menuList"
           class="menu-item"
           :class="{ selected: selectedTab(menu) }"
-          :style="moveScroll()"
           :to="`/${menu.toLowerCase()}`"
           :key="menu"
         >
@@ -30,12 +29,6 @@
 
 <script>
 export default {
-  props: {
-    scrollPostion: {
-      type: Number,
-      default: 0,
-    },
-  },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
@@ -44,7 +37,6 @@ export default {
       menuList: ['Album', 'Filmography', 'AD', 'History', 'Board'],
       /* ------------------------------ DARK MODE DATA ------------------------------ */
       isChecked: false,
-      /* ------------------------------ STYLE DATA ------------------------------ */
     }
   },
   created() {
@@ -59,17 +51,6 @@ export default {
     /* ------------------------------ EVENT METHOD ------------------------------ */
     goToMain() {
       this.$router.push('/')
-    },
-    moveScroll() {
-      let max = 200 //기본
-
-      if (this.isMainPage) {
-        if (this.scrollPostion > max) {
-          return 'color :rgba(242, 226, 220, 0); transition: 1.5s;'
-        } else if (this.scrollPostion < max) {
-          return 'color : rgba(242, 226, 220, 0.9); transition: 1.5s;'
-        }
-      }
     },
     /* ------------------------------ SETTER METHOD ------------------------------ */
     setHeaderFlag(path) {
