@@ -3,11 +3,6 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
-// const bodyParser = require('body-parser')
-
-const swaggerUi = require('swagger-ui-express')
-const swaggerJSDoc = require('swagger-jsdoc')
-const swaggerOpt = require('./config/swagger')
 
 const app = express()
 const cors = require('cors')
@@ -21,44 +16,36 @@ require('dotenv').config()
 /*-----------------------------------------------
   Body-parser
 ------------------------------------------------*/
-// app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(bodyParser.json())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-/*-----------------------------------------------
-  Swagger
-------------------------------------------------*/
-const swaggerSpec = swaggerJSDoc(swaggerOpt)
-
-/*-----------------------------------------------
-  Modules
-------------------------------------------------*/
-const indexRouter = require('./routes/index')
-const users = require('./routes/users')
-const album = require('./routes/album')
-const history = require('./routes/history')
-const program = require('./routes/program')
 
 /*-----------------------------------------------
   Routes
 ------------------------------------------------*/
-app.use('/', indexRouter)
-app.use('/users', users)
-app.use('/album', album)
-app.use('/history', history)
-app.use('/program', program)
+const routes = require('./routes');
+app.use('/api/', routes);
 
+
+/*-----------------------------------------------
+  Swagger
+------------------------------------------------*/
+const swaggerUi = require('swagger-ui-express')
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerOpt = require('./config/swagger')
+
+const swaggerSpec = swaggerJSDoc(swaggerOpt)
 // Swagger routes
 app.use(
-  '/api-docs',
+  '/api/swagger',
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, { explorer: true }),
 )
-app.get('/api-docs.json', function (req, res) {
+app.get('/api/swagger.json', function (req, res) {
   res.setHeader('Content-Type', 'application/json')
   res.send(swaggerSpec)
 })
+
 
 /*-----------------------------------------------
   Auto-generated code
