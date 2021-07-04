@@ -17,13 +17,7 @@ export default {
       scrollPosition: 0,
     }
   },
-  methods: {
-    handleScroll() {
-      this.scrollPosition = window.scrollY
-    },
-  },
-  created() {
-    window.addEventListener('scroll', this.handleScroll)
-  },
+  methods: {},
+  created() {},
 }
 </script>

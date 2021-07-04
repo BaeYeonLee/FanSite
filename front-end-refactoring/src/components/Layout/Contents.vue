@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="contents-background"
-    :class="{
-      'slide-fade-out': isMainPage && scrollPosition > 150,
-      'silde-fade-in': isMainPage && scrollPosition < 150,
-    }"
-  />
+  <div class="contents-background" ref="back" />
   <div class="main-panel">
     <div class="contents-title" :class="{ 'is-main-page': isMainPage }">
       <b v-if="isMainPage" class="main-title"> With U, <span class="accent"> IU </span> </b>
@@ -45,6 +39,7 @@ export default {
   },
   created() {
     this.setHeaderFlag(this.$route.path)
+    window.addEventListener('scroll', this.handleScroll)
   },
   watch: {
     $route(to) {
@@ -55,6 +50,14 @@ export default {
     /* ------------------------------ SETTER METHOD ------------------------------ */
     setHeaderFlag(path) {
       this.isMainPage = path.includes('/iu')
+    },
+    handleScroll() {
+      console.log('------------------')
+      const test = 1 - window.scrollY / 700
+      this.$refs.back.style.opacity = test
+      if (test <= 1) {
+        this.$refs.back.style.background = 'white'
+      }
     },
   },
 }
