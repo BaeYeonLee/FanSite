@@ -4,24 +4,24 @@ const router = express.Router()
 
 const Database = require('../../mysql')
 
-const TABLE_NAME = 't_song'
+const TABLE_NAME = 't_board'
 
 /**
  *  @swagger
  *  tags:
- *    name: song
+ *    name: board
  *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /song:
+ * /board:
  *  get:
- *    summary: Get song data list.
- *    tags: [song]
+ *    summary: Get board data list.
+ *    tags: [board]
  *    responses:
  *      200:
- *        description: Get song data list
+ *        description: Get board data list
  */
 router.get('/', async function (req, res, next) {
   try {
@@ -36,19 +36,19 @@ router.get('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /song/{id}:
+ * /board/{id}:
  *  get:
- *    summary: Get song data.
- *    tags: [song]
+ *    summary: Get board data.
+ *    tags: [board]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: song PK
+ *        description: board PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get song data object
+ *        description: Get board data object
  */
 router.get('/:id', async function (req, res, next) {
   try {
@@ -67,37 +67,32 @@ router.get('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /song:
+ * /board:
  *  post:
- *    summary: Insert song data.
- *    tags: [song]
+ *    summary: Insert board data.
+ *    tags: [board]
  *    parameters:
  *      - in: body
- *        name: song
+ *        name: board
  *        required: true
  *        schema:
  *          type: object
  *          properties:
- *            album_name:
+ *            user_id:
+ *              type: int
+ *            title:
  *              type: string
- *            album_type:
+ *            image_url:
  *              type: string
- *            cover_image:
+ *            contents:
  *              type: string
- *            release_data:
+ *            created_at:
  *              type: string
- *            links:
- *              type: array
- *              items:
- *                type: object
- *                properties:
- *                  site:
- *                    type: string
- *                  link:
- *                    type: string
+ *            updated_at:
+ *              type: string
  *    responses:
  *      200:
- *        description: Insert song data
+ *        description: Insert board data
  */
 router.post('/', async function (req, res, next) {
   try {
@@ -112,49 +107,36 @@ router.post('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /song/{id}:
+ * /board/{id}:
  *  put:
- *    summary: Update song data.
- *    tags: [song]
+ *    summary: Update board data.
+ *    tags: [board]
  *    parameters:
- *      - in: path
- *        name: id
- *        required: true
- *        description: song PK
- *        type: Integer
  *      - in: body
- *        name: song
+ *        name: board
  *        required: true
  *        schema:
  *          type: object
  *          properties:
- *            name:
+ *            user_id:
+ *              type: int
+ *            title:
  *              type: string
- *            titles:
- *              type: array
- *              items:
- *                type: string
- *            tracks:
- *              type: array
- *              items:
- *                type: string
- *            cover:
+ *            image_url:
  *              type: string
- *            desc:
+ *            contents:
  *              type: string
- *            release_data:
+ *            created_at:
  *              type: string
- *            links:
- *              type: array
- *              items:
- *                type: string
+ *            updated_at:
+ *              type: string
  *    responses:
  *      200:
- *        description: Update song data
+ *        description: Update board data
  */
 router.put('/:id', async function (req, res, next) {
   try {
-    let query = await Database.insert(TABLE_NAME, req.body, {
+    let query = await Database.update(TABLE_NAME, req.body, {
       id: req.params.id,
     })
 
@@ -163,7 +145,7 @@ router.put('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] ALBUM NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] BOARD NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)
@@ -172,19 +154,19 @@ router.put('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /song/{id}:
+ * /board/{id}:
  *  delete:
- *    summary: Delete song data.
- *    tags: [song]
+ *    summary: Delete board data.
+ *    tags: [board]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: song PK
+ *        description: board PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete song data
+ *        description: Delete board data
  */
 router.delete('/:id', async function (req, res, next) {
   try {
@@ -195,7 +177,7 @@ router.delete('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] ALBUM NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] BOARD NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)

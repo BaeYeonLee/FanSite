@@ -12,5 +12,5 @@ module.exports = {
       },
     },
   },
-  apis: ['./routes/*/index.js', './routes/album/song.js'],
+  apis: ['./routes/*/index.js'],
 }

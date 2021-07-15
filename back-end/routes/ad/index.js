@@ -1,24 +1,27 @@
 const express = require('express')
+
 const router = express.Router()
 
-const Program = require('../../models/program.js')
+const Database = require('../../mysql')
+
+const TABLE_NAME = 't_ad'
 
 /**
  *  @swagger
  *  tags:
- *    name: program
+ *    name: advertising
  *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /program:
+ * /ad:
  *  get:
- *    summary: Get program data list.
- *    tags: [program]
+ *    summary: Get advertising data list.
+ *    tags: [advertising]
  *    responses:
  *      200:
- *        description: Get program data list
+ *        description: Get advertising data list
  */
 router.get('/', async function (req, res, next) {
   try {
@@ -33,19 +36,19 @@ router.get('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /program/{id}:
+ * /ad/{id}:
  *  get:
- *    summary: Get program data.
- *    tags: [program]
+ *    summary: Get advertising data.
+ *    tags: [advertising]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: program PK
+ *        description: advertising PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get program data object
+ *        description: Get advertising data object
  */
 router.get('/:id', async function (req, res, next) {
   try {
@@ -64,28 +67,26 @@ router.get('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /program:
+ * /ad:
  *  post:
- *    summary: Insert program data.
- *    tags: [program]
+ *    summary: Insert advertising data.
+ *    tags: [advertising]
  *    parameters:
  *      - in: body
- *        name: program
+ *        name: advertising
  *        required: true
  *        schema:
  *          type: object
  *          properties:
  *            title:
  *              type: string
- *            role:
+ *            year:
  *              type: string
- *            start_date:
- *              type: string
- *            end_date:
+ *            image_url:
  *              type: string
  *    responses:
  *      200:
- *        description: Insert program data
+ *        description: Insert advertising data
  */
 router.post('/', async function (req, res, next) {
   try {
@@ -100,37 +101,35 @@ router.post('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /program/{id}:
+ * /ad/{id}:
  *  put:
- *    summary: Update program data.
- *    tags: [program]
+ *    summary: Update advertising data.
+ *    tags: [advertising]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: program PK
+ *        description: advertising PK
  *        type: Integer
  *      - in: body
- *        name: program
+ *        name: advertising
  *        required: true
  *        schema:
  *          type: object
  *          properties:
  *            title:
  *              type: string
- *            role:
+ *            year:
  *              type: string
- *            start_date:
- *              type: string
- *            end_date:
+ *            image_url:
  *              type: string
  *    responses:
  *      200:
- *        description: Update program data
+ *        description: Update advertising data
  */
 router.put('/:id', async function (req, res, next) {
   try {
-    let query = await Database.insert(TABLE_NAME, req.body, {
+    let query = await Database.update(TABLE_NAME, req.body, {
       id: req.params.id,
     })
 
@@ -139,7 +138,7 @@ router.put('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] HISTORY NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] ALBUM NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)
@@ -148,19 +147,19 @@ router.put('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /program/{id}:
+ * /ad/{id}:
  *  delete:
- *    summary: Delete program data.
- *    tags: [program]
+ *    summary: Delete advertising data.
+ *    tags: [advertising]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: program PK
+ *        description: advertising PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete program data
+ *        description: Delete advertising data
  */
 router.delete('/:id', async function (req, res, next) {
   try {
@@ -171,7 +170,7 @@ router.delete('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] HISTORY NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] ADVERTISING NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)

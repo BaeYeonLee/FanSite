@@ -3,7 +3,7 @@ const router = express.Router()
 
 const Database = require('../../mysql')
 
-const TABLE_NAME = 't_album'
+const TABLE_NAME = 't_history'
 
 /**
  *  @swagger
@@ -126,7 +126,7 @@ router.post('/', async function (req, res, next) {
  */
 router.put('/:id', async function (req, res, next) {
   try {
-    let query = await Database.insert(TABLE_NAME, req.body, {
+    let query = await Database.update(TABLE_NAME, req.body, {
       id: req.params.id,
     })
 
