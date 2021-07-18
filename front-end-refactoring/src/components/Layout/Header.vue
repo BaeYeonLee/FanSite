@@ -1,6 +1,6 @@
 <template>
-  <header :class="{ 'is-main-page': isMainPage }">
-    <div class="header-contents" :class="{ 'is-main-page': isMainPage }">
+  <header :class="{ 'is-main-page': isMainPage && scrollPosition < 120 }">
+    <div class="header-contents" :class="{ 'is-main-page': isMainPage && scrollPosition < 120 }">
       <router-link to="/iu">
         <span class="page-title" :class="{ 'is-main-page': isMainPage }">
           WITH U, <span class="accent"> IU </span>
@@ -24,6 +24,12 @@
 
 <script>
 export default {
+  props: {
+    scrollPosition: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
