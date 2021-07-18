@@ -69,6 +69,17 @@ const routes = [
     ],
   },
   {
+    path: '/testboard',
+    component: () => import('../components/Layout/MainLayout.vue'),
+    children: [
+      {
+        path: '/testboard',
+        name: 'Testboard',
+        component: () => import('@pages/TestBoard.vue'),
+      },
+    ],
+  },
+  {
     path: '/board',
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [
