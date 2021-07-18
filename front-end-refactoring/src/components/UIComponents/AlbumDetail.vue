@@ -35,12 +35,35 @@
       </div>
       <!-- Section Rigth END -->
     </div>
+    <!-- Carousel TEST -->
+    <Carousel>
+      <Slide v-for="(t, index) in albumInfo.trackList" :key="t" :index="index" :total="albumInfo.trackList.length">
+        <div class="song-title">{{ number(t.no) }}. {{ t.name }}</div>
+        <div class="infos">
+          <div class="lyrics">작사</div>
+          <div>{{ t.lyrics.join(', ') }}</div>
+          <div class="compose">작곡</div>
+          <div>{{ t.composed.join(', ') }}</div>
+          <div class="arrange">편곡</div>
+          <div>{{ t.arranged.join(', ') }}</div>
+        </div>
+        <!-- <template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
+          <img :data-index="index" :class="{ current: isCurrent, onLeft: leftIndex >= 0, onRight: rightIndex >= 0 }" />
+        </template> -->
+      </Slide>
+    </Carousel>
   </div>
 </template>
 <script>
+import Carousel from '@/Widget/Carousel'
+import Slide from '@/Widget/Slide'
 import albumList from '@common/dummy/album.js'
 import { mapActions } from 'vuex'
 export default {
+  components: {
+    Carousel,
+    Slide,
+  },
   data() {
     return {
       albumInfo: {},
@@ -134,6 +157,29 @@ export default {
 }
 .list-content {
   padding: 40px;
+  .song-title {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .infos {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    div {
+      font-size: 14px;
+      &.lyrics,
+      &.arrange,
+      &.compose {
+        margin-right: 35px;
+        font-weight: bold;
+        text-align: right;
+      }
+    }
+  }
+
+  //test
+
   .song-title {
     display: block;
     margin-bottom: 20px;

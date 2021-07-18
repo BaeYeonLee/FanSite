@@ -1,6 +1,6 @@
 <template>
-  <header :class="{ 'is-main-page': isMainPage && scrollPosition < 120 }">
-    <div class="header-contents" :class="{ 'is-main-page': isMainPage && scrollPosition < 120 }">
+  <header :class="{ 'is-main-page': isMainPage }">
+    <div class="header-contents" :class="{ 'is-main-page': isMainPage }">
       <router-link to="/iu">
         <span class="page-title" :class="{ 'is-main-page': isMainPage }">
           WITH U, <span class="accent"> IU </span>
@@ -11,31 +11,19 @@
         <router-link
           v-for="menu in menuList"
           class="menu-item"
-          :class="{ selected: selectedTab(menu) }"
+          :class="{ selected: selectedTab(menu), 'menu-item-color': isScroll }"
           :to="`/${menu.toLowerCase()}`"
           :key="menu"
         >
           {{ menu }}
         </router-link>
       </div>
-      <!-- <div class="switch-div">
-        <label class="switch">
-          <input type="checkbox" v-model="isChecked" />
-          <span class="slider"></span>
-        </label>
-      </div> -->
     </div>
   </header>
 </template>
 
 <script>
 export default {
-  props: {
-    scrollPosition: {
-      type: Number,
-      default: 0,
-    },
-  },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
@@ -44,10 +32,12 @@ export default {
       menuList: ['Album', 'Filmography', 'AD', 'History', 'Board'],
       /* ------------------------------ DARK MODE DATA ------------------------------ */
       isChecked: false,
+      isScroll: false,
     }
   },
   created() {
     this.setHeaderFlag(this.$route.path)
+    window.addEventListener('scroll', this.headerHandleScroll)
   },
   watch: {
     $route(to) {
@@ -65,6 +55,11 @@ export default {
     },
     selectedTab(item) {
       return this.$route.path.includes(item.toLowerCase()) ? true : false
+    },
+    headerHandleScroll() {
+      const scrollStatus = 1 - window.scrollY / 700
+      this.isScroll = scrollStatus <= 0
+      console.log('~~~~~~~~~~~~~~~~~~' + this.isScroll)
     },
   },
 }
@@ -103,6 +98,9 @@ header {
     .page-menu {
       .menu-item {
         color: $IU-Header-Pink;
+      }
+      .menu-item-color {
+        color: $IUViolet !important;
       }
     }
   }

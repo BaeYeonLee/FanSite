@@ -1,8 +1,9 @@
 <template>
   <div class="contents-background" ref="back" />
   <div class="main-panel">
-    <div class="contents-title" :class="{ 'is-main-page': isMainPage }">
+    <div class="contents-title" ref="contentTitle" :class="{ 'is-main-page': isMainPage }">
       <b v-if="isMainPage" class="main-title"> With U, <span class="accent"> IU </span> </b>
+      <!-- scroll 시 로고 보이도록 -->
       <!-- <b v-else calss="sub-title"> TITLE</b> -->
       <b class="sub-title" v-else> {{ getTitle }} </b>
     </div>
@@ -52,12 +53,11 @@ export default {
       this.isMainPage = path.includes('/iu')
     },
     handleScroll() {
-      console.log('------------------')
       const test = 1 - window.scrollY / 700
       this.$refs.back.style.opacity = test
-      if (test <= 1) {
-        this.$refs.back.style.background = 'white'
-      }
+      test <= 0
+        ? (this.$refs.contentTitle.style.background = '#fafafa')
+        : (this.$refs.contentTitle.style.background = 'rgba(13, 13, 13, 0.2)')
     },
   },
 }
@@ -101,6 +101,7 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
 
     &.is-main-page {
       height: 830px;
+      transition: 0.5s;
     }
     .sub-title {
       position: absolute;
