@@ -81,7 +81,7 @@ router.get('/:id', async function (req, res, next) {
  *              type: string
  *            desc:
  *              type: string
- *            date:
+ *            year:
  *              type: string
  *    responses:
  *      200:
@@ -118,7 +118,7 @@ router.post('/', async function (req, res, next) {
  *              type: string
  *            desc:
  *              type: string
- *            date:
+ *            year:
  *              type: string
  *    responses:
  *      200:

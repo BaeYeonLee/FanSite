@@ -1,41 +1,45 @@
 const express = require('express')
+
 const router = express.Router()
 
-const Users = require('../../models/user.js')
+const Database = require('../../mysql')
+
+const TABLE_NAME = 't_user'
 
 /**
  *  @swagger
  *  tags:
- *    name: users
+ *    name: user
  *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /users:
+ * /user:
  *  get:
  *    summary: Get user data list.
- *    tags: [users]
+ *    tags: [user]
  *    responses:
  *      200:
  *        description: Get user data list
  */
-router.get('/', function (req, res, next) {
-  Users.find(req.query, function (err, users) {
-    if (err) {
-      return res.status(500).send({ error: 'database failure', msg: err })
-    }
+router.get('/', async function (req, res, next) {
+  try {
+    let query = await Database.select(TABLE_NAME, [], req.query)
 
-    res.status(200).json(users)
-  })
+    res.status(200).json(query)
+  } catch (e) {
+    console.log(e)
+    res.status(400).send(e)
+  }
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *  get:
  *    summary: Get user data.
- *    tags: [users]
+ *    tags: [user]
  *    parameters:
  *      - in: path
  *        name: id
@@ -46,66 +50,56 @@ router.get('/', function (req, res, next) {
  *      200:
  *        description: Get user data object
  */
-router.get('/:id', function (req, res, next) {
-  Users.findById(req.params.id, (err, users) => {
-    if (err) {
-      return res.status(500).send({ error: 'database failure', msg: err })
+router.get('/:id', async function (req, res, next) {
+  try {
+    let query = await Database.select(TABLE_NAME, [], { id: req.params.id })
+
+    if (query.length == 1) {
+      res.status(200).json(query[0])
+    } else {
+      res.status(200).json(query)
     }
-    res.status(200).json(users)
-  })
+  } catch (e) {
+    console.log(e.message)
+    res.status(400).send(e)
+  }
 })
 
 /**
  * @swagger
- * /users:
+ * /user:
  *  post:
  *    summary: Insert user data.
- *    tags: [users]
+ *    tags: [user]
  *    parameters:
  *      - in: body
  *        name: user
  *        required: true
  *        schema:
  *          type: object
- *          required:
- *            - user_id
  *          properties:
- *            user_id:
- *              type: string
- *            password:
- *              type: string
- *            name:
- *              type: string
- *            phone:
- *              type: string
- *            address:
- *              type: string
- *            freind:
- *              type: array
- *              items:
- *                type: string
+ *            TBD
  *    responses:
  *      200:
  *        description: Insert user data
  */
-router.post('/', function (req, res, next) {
-  let user = new Users({ ...req.body })
+router.post('/', async function (req, res, next) {
+  try {
+    let query = await Database.insert(TABLE_NAME, req.body)
 
-  user.save((err, users) => {
-    if (err) {
-      return res.status(500).send({ error: 'database failure', msg: err })
-    }
-
-    res.status(200).json(users)
-  })
+    res.status(200).json(query)
+  } catch (e) {
+    console.log(e)
+    res.status(400).send(e)
+  }
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *  put:
  *    summary: Update user data.
- *    tags: [users]
+ *    tags: [user]
  *    parameters:
  *      - in: path
  *        name: id
@@ -114,50 +108,39 @@ router.post('/', function (req, res, next) {
  *        type: Integer
  *      - in: body
  *        name: user
+ *        required: true
  *        schema:
  *          type: object
  *          properties:
- *            account:
- *              type: string
- *            password:
- *              type: string
- *            name:
- *              type: string
- *            phone:
- *              type: string
- *            address:
- *              type: string
- *            freind:
- *              type: array
- *              items:
- *                type: string
+ *            TBD
  *    responses:
  *      200:
  *        description: Update user data
  */
-router.put('/:id', function (req, res, next) {
-  let upadetData = { ...req.body }
+router.put('/:id', async function (req, res, next) {
+  try {
+    let query = await Database.update(TABLE_NAME, req.body, {
+      id: req.params.id,
+    })
 
-  Users.findByIdAndUpdate(
-    req.params.id,
-    upadetData,
-    { new: true },
-    (err, users) => {
-      if (err) {
-        return res.status(500).send({ error: 'database failure', msg: err })
-      }
-
-      res.status(200).json(users)
-    },
-  )
+    if (query != 'NOT FOUND') {
+      res.status(200).json(query)
+    } else {
+      res
+        .status(400)
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] USER NOT FOUND' })
+    }
+  } catch (e) {
+    res.status(400).send(e)
+  }
 })
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *  delete:
  *    summary: Delete user data.
- *    tags: [users]
+ *    tags: [user]
  *    parameters:
  *      - in: path
  *        name: id
@@ -169,13 +152,19 @@ router.put('/:id', function (req, res, next) {
  *        description: Delete user data
  */
 router.delete('/:id', async function (req, res, next) {
-  Users.findByIdAndRemove(req.params.id, (err, users) => {
-    if (err) {
-      return res.status(500).send({ error: 'database failure', msg: err })
-    }
+  try {
+    let query = await Database.delete(TABLE_NAME, { id: req.params.id })
 
-    res.status(200).json(users)
-  })
+    if (query.affectedRows > 0) {
+      res.status(200).json({ resultCode: 'success' })
+    } else {
+      res
+        .status(400)
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] USER NOT FOUND' })
+    }
+  } catch (e) {
+    res.status(400).send(e)
+  }
 })
 
 module.exports = router
