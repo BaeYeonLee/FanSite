@@ -1,15 +1,5 @@
 <template>
-  <<<<<<< HEAD
   <div class="contents-background" ref="back" />
-  =======
-  <div
-    class="contents-background"
-    :class="{
-      'slide-fade-out': isMainPage && scrollPosition > 150,
-      'silde-fade-in': isMainPage && scrollPosition < 150,
-    }"
-  />
-  >>>>>>> 6ecc716b3e786c9fb4dd38660af72f37f1868437
   <div class="main-panel">
     <div class="contents-title" ref="contentTitle" :class="{ 'is-main-page': isMainPage }">
       <b v-if="isMainPage" class="main-title"> With U, <span class="accent"> IU </span> </b>
