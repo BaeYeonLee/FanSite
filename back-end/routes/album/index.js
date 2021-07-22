@@ -154,7 +154,7 @@ router.post('/', async function (req, res, next) {
  */
 router.put('/:id', async function (req, res, next) {
   try {
-    let query = await Database.insert(TABLE_NAME, req.body, {
+    let query = await Database.update(TABLE_NAME, req.body, {
       id: req.params.id,
     })
 

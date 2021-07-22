@@ -1,26 +1,27 @@
 const express = require('express')
+
 const router = express.Router()
 
 const Database = require('../../mysql')
 
-const TABLE_NAME = 't_history'
+const TABLE_NAME = 't_board'
 
 /**
  *  @swagger
  *  tags:
- *    name: history
- *    description: API to manage History.
+ *    name: board
+ *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /history:
+ * /board:
  *  get:
- *    summary: Get history data list.
- *    tags: [history]
+ *    summary: Get board data list.
+ *    tags: [board]
  *    responses:
  *      200:
- *        description: Get history data list
+ *        description: Get board data list
  */
 router.get('/', async function (req, res, next) {
   try {
@@ -35,19 +36,19 @@ router.get('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /board/{id}:
  *  get:
- *    summary: Get history data.
- *    tags: [history]
+ *    summary: Get board data.
+ *    tags: [board]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: history PK
+ *        description: board PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get history data object
+ *        description: Get board data object
  */
 router.get('/:id', async function (req, res, next) {
   try {
@@ -66,26 +67,32 @@ router.get('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /history:
+ * /board:
  *  post:
- *    summary: Insert history data.
- *    tags: [history]
+ *    summary: Insert board data.
+ *    tags: [board]
  *    parameters:
  *      - in: body
- *        name: history
+ *        name: board
  *        required: true
  *        schema:
  *          type: object
  *          properties:
+ *            user_id:
+ *              type: int
  *            title:
  *              type: string
- *            desc:
+ *            image_url:
  *              type: string
- *            year:
+ *            contents:
+ *              type: string
+ *            created_at:
+ *              type: string
+ *            updated_at:
  *              type: string
  *    responses:
  *      200:
- *        description: Insert history data
+ *        description: Insert board data
  */
 router.post('/', async function (req, res, next) {
   try {
@@ -100,29 +107,32 @@ router.post('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /board/{id}:
  *  put:
- *    summary: Update history data.
- *    tags: [history]
+ *    summary: Update board data.
+ *    tags: [board]
  *    parameters:
- *      - in: path
- *        name: id
- *        required: true
- *        description: history PK
- *        type: Integer
  *      - in: body
- *        name: history
+ *        name: board
  *        required: true
- *        properties:
+ *        schema:
+ *          type: object
+ *          properties:
+ *            user_id:
+ *              type: int
  *            title:
  *              type: string
- *            desc:
+ *            image_url:
  *              type: string
- *            year:
+ *            contents:
+ *              type: string
+ *            created_at:
+ *              type: string
+ *            updated_at:
  *              type: string
  *    responses:
  *      200:
- *        description: Update history data
+ *        description: Update board data
  */
 router.put('/:id', async function (req, res, next) {
   try {
@@ -135,7 +145,7 @@ router.put('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] HISTORY NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] BOARD NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)
@@ -144,19 +154,19 @@ router.put('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /board/{id}:
  *  delete:
- *    summary: Delete history data.
- *    tags: [history]
+ *    summary: Delete board data.
+ *    tags: [board]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: history PK
+ *        description: board PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete history data
+ *        description: Delete board data
  */
 router.delete('/:id', async function (req, res, next) {
   try {
@@ -167,7 +177,7 @@ router.delete('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] HISTORY NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] BOARD NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)

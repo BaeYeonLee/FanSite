@@ -1,26 +1,27 @@
 const express = require('express')
+
 const router = express.Router()
 
 const Database = require('../../mysql')
 
-const TABLE_NAME = 't_history'
+const TABLE_NAME = 't_track'
 
 /**
  *  @swagger
  *  tags:
- *    name: history
- *    description: API to manage History.
+ *    name: track
+ *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /history:
+ * /track:
  *  get:
- *    summary: Get history data list.
- *    tags: [history]
+ *    summary: Get track data list.
+ *    tags: [track]
  *    responses:
  *      200:
- *        description: Get history data list
+ *        description: Get track data list
  */
 router.get('/', async function (req, res, next) {
   try {
@@ -35,19 +36,19 @@ router.get('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /track/{id}:
  *  get:
- *    summary: Get history data.
- *    tags: [history]
+ *    summary: Get track data.
+ *    tags: [track]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: history PK
+ *        description: track PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get history data object
+ *        description: Get track data object
  */
 router.get('/:id', async function (req, res, next) {
   try {
@@ -66,26 +67,32 @@ router.get('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /history:
+ * /track:
  *  post:
- *    summary: Insert history data.
- *    tags: [history]
+ *    summary: Insert track data.
+ *    tags: [track]
  *    parameters:
  *      - in: body
- *        name: history
+ *        name: track
  *        required: true
  *        schema:
  *          type: object
  *          properties:
- *            title:
+ *            album_id:
+ *              type: int
+ *            track_no:
+ *              type: int
+ *            name:
  *              type: string
- *            desc:
+ *            lyric:
  *              type: string
- *            year:
+ *            composed:
+ *              type: string
+ *            arranged:
  *              type: string
  *    responses:
  *      200:
- *        description: Insert history data
+ *        description: Insert track data
  */
 router.post('/', async function (req, res, next) {
   try {
@@ -100,29 +107,37 @@ router.post('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /track/{id}:
  *  put:
- *    summary: Update history data.
- *    tags: [history]
+ *    summary: Update track data.
+ *    tags: [track]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: history PK
+ *        description: track PK
  *        type: Integer
  *      - in: body
- *        name: history
+ *        name: track
  *        required: true
- *        properties:
- *            title:
+ *        schema:
+ *          type: object
+ *          properties:
+ *            album_id:
+ *              type: int
+ *            track_no:
+ *              type: int
+ *            name:
  *              type: string
- *            desc:
+ *            lyric:
  *              type: string
- *            year:
+ *            composed:
+ *              type: string
+ *            arranged:
  *              type: string
  *    responses:
  *      200:
- *        description: Update history data
+ *        description: Update track data
  */
 router.put('/:id', async function (req, res, next) {
   try {
@@ -135,7 +150,7 @@ router.put('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] HISTORY NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] TRACK NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)
@@ -144,19 +159,19 @@ router.put('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /track/{id}:
  *  delete:
- *    summary: Delete history data.
- *    tags: [history]
+ *    summary: Delete track data.
+ *    tags: [track]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: history PK
+ *        description: track PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete history data
+ *        description: Delete track data
  */
 router.delete('/:id', async function (req, res, next) {
   try {
@@ -167,7 +182,7 @@ router.delete('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] HISTORY NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] TRACK NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)

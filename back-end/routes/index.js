@@ -6,13 +6,17 @@ const router = express.Router()
 ------------------------------------------------*/
 const users = require('./users')
 const album = require('./album')
+const board = require('./board')
+const filmography = require('./filmography')
 const history = require('./history')
-const program = require('./program')
+const track = require('./track')
 
 router.use('/users', users)
 router.use('/album', album)
+router.use('/board', board)
+router.use('/filmography', filmography)
 router.use('/history', history)
-router.use('/program', program)
+router.use('/track', track)
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
