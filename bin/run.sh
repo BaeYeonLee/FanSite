@@ -65,7 +65,7 @@ case $1 in
         echo "  restart     Restart services"
         echo "  reboot      Re create service continer"
         echo "  update      Build webpack bundles"
-        echo "  rebuild     Build or rebuild services"
+        echo "  build       Build or rebuild services"
         echo "  logs        Fetch the logs of a container"
         echo "  exec        Execute a command in a running container"
         echo ""
