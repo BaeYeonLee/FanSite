@@ -14,13 +14,15 @@
     </div>
     <!-- content -->
     <div class="tab-contents">
-      <div class="columns">
-        <figure v-for="board in boardList">
+      <div class="garally">
+        <div class="thumnail-wrapper" v-for="board in boardList">
           <div class="thumnail-poster">
-            <figcaption>{{ board.title }}</figcaption>
+            <div class="board-title-bar">
+              <p>{{ board.title }}</p>
+            </div>
             <img :src="board.img" />
           </div>
-        </figure>
+        </div>
       </div>
     </div>
     <div id="myModal" class="modal" v-if="showModal">
@@ -266,27 +268,5 @@ hr {
     color: $IUViolet;
     font-weight: bold;
   }
-}
-
-.columns {
-  white-space: normal;
-  column-width: 300px;
-  column-gap: 15px;
-}
-.columns figure {
-  display: inline-block;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  margin: 0;
-  margin-bottom: 15px;
-  padding: 10px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
-.columns figure img {
-  width: 100%;
-}
-.columns figure figcaption {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  margin-top: 11px;
 }
 </style>

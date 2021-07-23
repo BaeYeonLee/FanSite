@@ -69,17 +69,6 @@ const routes = [
     ],
   },
   {
-    path: '/testboard',
-    component: () => import('../components/Layout/MainLayout.vue'),
-    children: [
-      {
-        path: '/testboard',
-        name: 'Testboard',
-        component: () => import('@pages/TestBoard.vue'),
-      },
-    ],
-  },
-  {
     path: '/board',
     component: () => import('../components/Layout/MainLayout.vue'),
     children: [
@@ -88,21 +77,6 @@ const routes = [
         name: 'Board',
         component: () => import('@pages/BoardPage.vue'),
       },
-      //   {
-      //     path: '/add-board',
-      //     name: 'AddBoard',
-      //     component: () => import('@pages/AddBoard.vue'),
-      //   },
-      //   {
-      //     path: '/detail',
-      //     name: 'Detail',
-      //     component: () => import('@pages/BoardDetailPage.vue'),
-      //   },
-      //   {
-      //     path: '/edit',
-      //     name: 'Edit',
-      //     component: () => import('@pages/EditBoard.vue'),
-      //   },
     ],
   },
 ]
