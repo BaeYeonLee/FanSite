@@ -13,10 +13,6 @@
       </div>
     </div>
     <!-- Tab Content -->
-    <div>
-      ??? showModal : {{ showModal }} <br/>
-      {{ selectedBoard }}
-    </div>
     <div class="tab-contents">
       <div class="columns">
         <figure v-for="board in boardList">
@@ -28,9 +24,9 @@
       </div>
     </div>
     <!-- Modal Content -->
-    <Dialog title="Dialog title" v-model="showModal" :closeDialog="closeDailog">
+    <Dialog title="Dialog title" v-model="showModal" @closeDialog="closeDialog">
       <template #title>
-        <input v-model="title" type="text" class="input-title" placeholder="제목을 입력해주세요." />  
+        <input v-model="selectedBoard.title" type="text" class="input-title" placeholder="제목을 입력해주세요." />  
       </template>
       <div class="add-image-box flex-box center-contents" @click="addImage">+</div>
     </Dialog>
@@ -78,9 +74,14 @@ export default {
     getBoardList() {
       this.boardList = boardList.concat()
     },
-    closeDailog() {
+    closeDialog() {
       this.showModal = false
-      this.selectedBoard = this.defaultBoard
+      this.initBoardData()
+    },
+    initBoardData() {
+      this.selectedBoard = {
+        ...this.defaultBoard
+      }
     },
     selectedTab(index) {
       this.currentTab = index

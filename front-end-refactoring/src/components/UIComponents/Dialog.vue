@@ -35,13 +35,8 @@ export default {
       default: true
     },
   },
-  setup() {
-
-  },
   methods: {
     handleClose() {
-      this.modelValue = false
-
       this.$emit("closeDialog")
     }
   }
