@@ -22,12 +22,6 @@ export default {
   components: {
     Footer,
   },
-  props: {
-    scrollPosition: {
-      type: Number,
-      default: 0,
-    },
-  },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
@@ -53,9 +47,9 @@ export default {
       this.isMainPage = path.includes('/iu')
     },
     handleScroll() {
-      const test = 1 - window.scrollY / 700
-      this.$refs.back.style.opacity = test
-      test <= 0
+      const opacity = 1 - window.scrollY / 700
+      this.$refs.back.style.opacity = opacity
+      opacity <= 0
         ? (this.$refs.contentTitle.style.background = '#fafafa')
         : (this.$refs.contentTitle.style.background = 'rgba(13, 13, 13, 0.2)')
     },
@@ -77,14 +71,7 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
-  &.slide-fade-out {
-    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-    opacity: 0.5;
-  }
-  &.silde-fade-in {
-    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-    opacity: 1;
-  }
+  
 }
 
 .main-panel {

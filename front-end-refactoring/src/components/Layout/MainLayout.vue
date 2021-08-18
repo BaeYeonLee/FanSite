@@ -1,6 +1,6 @@
 <template>
-  <Header :scrollPosition="scrollPosition" />
-  <Contents :scrollPosition="scrollPosition" />
+  <Header/>
+  <Contents />
 </template>
 
 <script>
@@ -14,7 +14,6 @@ export default {
   },
   data() {
     return {
-      scrollPosition: 0,
     }
   },
   methods: {},

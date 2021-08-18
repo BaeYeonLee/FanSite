@@ -57,9 +57,10 @@ export default {
       return this.$route.path.includes(item.toLowerCase()) ? true : false
     },
     headerHandleScroll() {
-      const scrollStatus = 1 - window.scrollY / 700
-      this.isScroll = scrollStatus <= 0
-      console.log('~~~~~~~~~~~~~~~~~~' + this.isScroll)
+      console.log(document.documentElement.clientHeight)
+      const height = document.documentElement.clientHeight
+      const half = height /2
+      this.isScroll = window.scrollY > half
     },
   },
 }
@@ -80,6 +81,7 @@ header {
 
   &.is-main-page {
     background-color: $IU-Transparent;
+    transition: 0.5s;
   }
 }
 
