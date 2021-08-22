@@ -4,24 +4,24 @@ const router = express.Router()
 
 const Database = require('../../mysql')
 
-const TABLE_NAME = 't_song'
+const TABLE_NAME = 't_ad'
 
 /**
  *  @swagger
  *  tags:
- *    name: song
+ *    name: advertising
  *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /song:
+ * /ad:
  *  get:
- *    summary: Get song data list.
- *    tags: [song]
+ *    summary: Get advertising data list.
+ *    tags: [advertising]
  *    responses:
  *      200:
- *        description: Get song data list
+ *        description: Get advertising data list
  */
 router.get('/', async function (req, res, next) {
   try {
@@ -36,19 +36,19 @@ router.get('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /song/{id}:
+ * /ad/{id}:
  *  get:
- *    summary: Get song data.
- *    tags: [song]
+ *    summary: Get advertising data.
+ *    tags: [advertising]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: song PK
+ *        description: advertising PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get song data object
+ *        description: Get advertising data object
  */
 router.get('/:id', async function (req, res, next) {
   try {
@@ -67,37 +67,26 @@ router.get('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /song:
+ * /ad:
  *  post:
- *    summary: Insert song data.
- *    tags: [song]
+ *    summary: Insert advertising data.
+ *    tags: [advertising]
  *    parameters:
  *      - in: body
- *        name: song
+ *        name: advertising
  *        required: true
  *        schema:
  *          type: object
  *          properties:
- *            album_name:
+ *            title:
  *              type: string
- *            album_type:
+ *            year:
  *              type: string
- *            cover_image:
+ *            image_url:
  *              type: string
- *            release_data:
- *              type: string
- *            links:
- *              type: array
- *              items:
- *                type: object
- *                properties:
- *                  site:
- *                    type: string
- *                  link:
- *                    type: string
  *    responses:
  *      200:
- *        description: Insert song data
+ *        description: Insert advertising data
  */
 router.post('/', async function (req, res, next) {
   try {
@@ -112,49 +101,35 @@ router.post('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /song/{id}:
+ * /ad/{id}:
  *  put:
- *    summary: Update song data.
- *    tags: [song]
+ *    summary: Update advertising data.
+ *    tags: [advertising]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: song PK
+ *        description: advertising PK
  *        type: Integer
  *      - in: body
- *        name: song
+ *        name: advertising
  *        required: true
  *        schema:
  *          type: object
  *          properties:
- *            name:
+ *            title:
  *              type: string
- *            titles:
- *              type: array
- *              items:
- *                type: string
- *            tracks:
- *              type: array
- *              items:
- *                type: string
- *            cover:
+ *            year:
  *              type: string
- *            desc:
+ *            image_url:
  *              type: string
- *            release_data:
- *              type: string
- *            links:
- *              type: array
- *              items:
- *                type: string
  *    responses:
  *      200:
- *        description: Update song data
+ *        description: Update advertising data
  */
 router.put('/:id', async function (req, res, next) {
   try {
-    let query = await Database.insert(TABLE_NAME, req.body, {
+    let query = await Database.update(TABLE_NAME, req.body, {
       id: req.params.id,
     })
 
@@ -172,19 +147,19 @@ router.put('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /song/{id}:
+ * /ad/{id}:
  *  delete:
- *    summary: Delete song data.
- *    tags: [song]
+ *    summary: Delete advertising data.
+ *    tags: [advertising]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: song PK
+ *        description: advertising PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete song data
+ *        description: Delete advertising data
  */
 router.delete('/:id', async function (req, res, next) {
   try {
@@ -195,7 +170,7 @@ router.delete('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] ALBUM NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] ADVERTISING NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)

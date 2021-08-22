@@ -1,26 +1,27 @@
 const express = require('express')
+
 const router = express.Router()
 
 const Database = require('../../mysql')
 
-const TABLE_NAME = 't_history'
+const TABLE_NAME = 't_filmography'
 
 /**
  *  @swagger
  *  tags:
- *    name: history
- *    description: API to manage History.
+ *    name: filmography
+ *    description: API to manage User.
  */
 
 /**
  * @swagger
- * /history:
+ * /filmography:
  *  get:
- *    summary: Get history data list.
- *    tags: [history]
+ *    summary: Get filmography data list.
+ *    tags: [filmography]
  *    responses:
  *      200:
- *        description: Get history data list
+ *        description: Get filmography data list
  */
 router.get('/', async function (req, res, next) {
   try {
@@ -35,19 +36,19 @@ router.get('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /filmography/{id}:
  *  get:
- *    summary: Get history data.
- *    tags: [history]
+ *    summary: Get filmography data.
+ *    tags: [filmography]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: history PK
+ *        description: filmography PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Get history data object
+ *        description: Get filmography data object
  */
 router.get('/:id', async function (req, res, next) {
   try {
@@ -66,26 +67,32 @@ router.get('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /history:
+ * /filmography:
  *  post:
- *    summary: Insert history data.
- *    tags: [history]
+ *    summary: Insert filmography data.
+ *    tags: [filmography]
  *    parameters:
  *      - in: body
- *        name: history
+ *        name: filmography
  *        required: true
  *        schema:
  *          type: object
  *          properties:
  *            title:
  *              type: string
- *            desc:
+ *            cast:
  *              type: string
- *            year:
+ *            start_date:
+ *              type: string
+ *            end_data:
+ *              type: string
+ *            image:
+ *              type: string
+ *            links:
  *              type: string
  *    responses:
  *      200:
- *        description: Insert history data
+ *        description: Insert filmography data
  */
 router.post('/', async function (req, res, next) {
   try {
@@ -100,29 +107,32 @@ router.post('/', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /filmography/{id}:
  *  put:
- *    summary: Update history data.
- *    tags: [history]
+ *    summary: Update filmography data.
+ *    tags: [filmography]
  *    parameters:
- *      - in: path
- *        name: id
- *        required: true
- *        description: history PK
- *        type: Integer
  *      - in: body
- *        name: history
+ *        name: filmography
  *        required: true
- *        properties:
+ *        schema:
+ *          type: object
+ *          properties:
  *            title:
  *              type: string
- *            desc:
+ *            cast:
  *              type: string
- *            year:
+ *            start_date:
+ *              type: string
+ *            end_data:
+ *              type: string
+ *            image:
+ *              type: string
+ *            links:
  *              type: string
  *    responses:
  *      200:
- *        description: Update history data
+ *        description: Update filmography data
  */
 router.put('/:id', async function (req, res, next) {
   try {
@@ -135,7 +145,7 @@ router.put('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] HISTORY NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] FILMOGRAPHY NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)
@@ -144,19 +154,19 @@ router.put('/:id', async function (req, res, next) {
 
 /**
  * @swagger
- * /history/{id}:
+ * /filmography/{id}:
  *  delete:
- *    summary: Delete history data.
- *    tags: [history]
+ *    summary: Delete filmography data.
+ *    tags: [filmography]
  *    parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: history PK
+ *        description: filmography PK
  *        type: Integer
  *    responses:
  *      200:
- *        description: Delete history data
+ *        description: Delete filmography data
  */
 router.delete('/:id', async function (req, res, next) {
   try {
@@ -167,7 +177,10 @@ router.delete('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] HISTORY NOT FOUND' })
+        .json({
+          resultCode: 'fail',
+          resultMsg: '[ERROR] FILMOGRAPHY NOT FOUND',
+        })
     }
   } catch (e) {
     res.status(400).send(e)

@@ -1,0 +1,7 @@
+# Git
+*/.gitignore
+
+# Config
+*/.vscode
+*/.prettierrc
+*/.eslintrc.js
