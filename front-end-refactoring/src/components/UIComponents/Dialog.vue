@@ -7,13 +7,13 @@
             {{ title }}
           </span>
         </slot>
-        <button type="button" class="dialog__close-btn" @click="handleClose"> &times; </button>
+        <button type="button" class="dialog__close-btn" @click="handleClose">&times;</button>
       </div>
       <div class="dialog__body">
-        <slot/>
+        <slot />
       </div>
       <div v-if="footer" class="dialog__footer">
-        <slot name="footer"/>
+        <slot name="footer" />
       </div>
     </div>
   </div>
@@ -28,18 +28,18 @@ export default {
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     footer: {
       type: Boolean,
-      default: true
+      default: true,
     },
   },
   methods: {
     handleClose() {
-      this.$emit("closeDialog")
-    }
-  }
+      this.$emit('closeDialog')
+    },
+  },
 }
 </script>
 
