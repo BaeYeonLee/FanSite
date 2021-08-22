@@ -164,7 +164,32 @@ const filmographyList = [
     home: 'https://program.kbs.co.kr/2tv/drama/produca/pc/index.html',
   },
 ]
-
+const historyImage = [
+  {
+    year: 2021,
+    imgUrl:
+      'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202101/09/071fdf62-b125-4b47-b7b7-b2c9fc56dcf1.jpg',
+  },
+  {
+    year: 2020,
+    imgUrl:
+      'https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile23.uf.tistory.com%2Fimage%2F9999EA335A22D8A62938ED',
+  },
+  { year: 2019, imgUrl: 'https://t1.daumcdn.net/cfile/blog/1427CD434F56D4CE09' },
+  {
+    year: 2018,
+    imgUrl:
+      'https://pds.joongang.co.kr//news/component/htmlphoto_mmdata/201801/11/972313f2-439e-4b77-a29f-395f082644bd.jpg',
+  },
+  { year: 2017, imgUrl: 'https://spnimage.edaily.co.kr/images/Photo/files/NP/S/2018/11/PS18112800146.jpg' },
+  { year: 2016, imgUrl: '' },
+  { year: 2015, imgUrl: '' },
+  { year: 2014, imgUrl: '' },
+  { year: 2013, imgUrl: '' },
+  { year: 2012, imgUrl: '' },
+  { year: 2011, imgUrl: '' },
+  { year: 2010, imgUrl: '' },
+]
 const history = [
   { content: '2020 APAN MUSIC AWARDS 아이돌챔프 인기상 국내 여자 솔로 부문', year: '2021' },
   { content: '제10회 가온차트 뮤직 어워즈 올해의 작사가상', year: '2021' },
@@ -324,4 +349,4 @@ const tvList = [
 ]
 const categories = ['ALBUM', 'FILMOGRAPHY', 'TV', 'AD', 'HISTORY', 'BOARD']
 
-export { boardList, replyList, filmographyList, categories, history, scheduleList, tvList, adList }
+export { boardList, replyList, filmographyList, categories, history, scheduleList, tvList, adList, historyImage }

@@ -26,7 +26,7 @@
     <!-- Modal Content -->
     <Dialog title="Dialog title" v-model="showModal" @closeDialog="closeDialog">
       <template #title>
-        <input v-model="selectedBoard.title" type="text" class="input-title" placeholder="제목을 입력해주세요." />  
+        <input v-model="selectedBoard.title" type="text" class="input-title" placeholder="제목을 입력해주세요." />
       </template>
       <div class="add-image-box flex-box center-contents" @click="addImage">+</div>
     </Dialog>
@@ -39,7 +39,7 @@ import Dialog from '@/Dialog'
 
 export default {
   components: {
-    Dialog
+    Dialog,
   },
   data() {
     return {
@@ -49,7 +49,7 @@ export default {
         id: '',
         title: '',
         image: '',
-        user: ''
+        user: '',
       },
       /* ------------------------------ BOARD DATA ------------------------------ */
       boardList: [],
@@ -57,7 +57,7 @@ export default {
         id: '',
         title: '',
         image: '',
-        user: ''
+        user: '',
       },
       currentTab: '',
       showModal: false,
@@ -80,7 +80,7 @@ export default {
     },
     initBoardData() {
       this.selectedBoard = {
-        ...this.defaultBoard
+        ...this.defaultBoard,
       }
     },
     selectedTab(index) {
@@ -89,7 +89,7 @@ export default {
         case 1:
           break
         case 2:
-          console.log("!!!!modelValue")
+          console.log('!!!!modelValue')
           this.showModal = true
           break
         case 3:
@@ -102,7 +102,7 @@ export default {
     },
     addImage() {
       // TODO :: IMAGE FILE UPLOAD
-    }
+    },
   },
 }
 </script>
@@ -278,5 +278,15 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px;
   margin-top: 11px;
+}
+@media (max-width: 1860px) {
+  .columns {
+    column-width: 275px;
+  }
+}
+@media (max-width: 1080px) {
+  .columns {
+    column-width: 200px;
+  }
 }
 </style>

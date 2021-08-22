@@ -53,7 +53,7 @@ const routes = [
       {
         path: '/ad',
         name: 'AD',
-        component: () => import('@pages/AdvertisingPage.vue'),
+        component: () => import('@pages/AD.vue'),
       },
     ],
   },

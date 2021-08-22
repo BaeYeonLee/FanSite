@@ -33,6 +33,16 @@
 
   grid-gap: 30px;
 }
+@media (max-width: 1860px) {
+  .grid-view {
+    grid-template-columns: repeat(auto-fit, 330px);
+  }
+}
+@media (max-width: 1080px) {
+  .grid-view {
+    grid-template-columns: repeat(auto-fit, 475px);
+  }
+}
 
 body::-webkit-scrollbar,
 div::-webkit-scrollbar {
