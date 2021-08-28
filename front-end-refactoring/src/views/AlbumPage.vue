@@ -53,28 +53,33 @@ export default {
   },
   created() {
     console.log('------------> mouted')
+    this.getAlbumList()
     this.setSubTitle()
-    this.albumList = albumList.concat()
-
-    this.albumList.forEach(album => {
-      this.albumTabs.forEach(tab => {
-        if (tab.key == 'All') {
-          tab.count += 1
-          return
-        }
-
-        const type = tab.key.toLowerCase()
-        if (album.type == type) {
-          tab.count += 1
-        }
-      })
-    })
   },
   methods: {
     /* ------------------------------ VUEX METHOD ------------------------------ */
     ...mapActions(['set_title']),
     setSubTitle() {
       this.set_title({ title: 'ALBUM' })
+    },
+    /* ------------------------------ GETTER METHOD ------------------------------ */
+    getAlbumList() {
+      //TODO SET API
+      this.albumList = albumList.concat()
+
+      this.albumList.forEach(album => {
+        this.albumTabs.forEach(tab => {
+          if (tab.key == 'All') {
+            tab.count += 1
+            return
+          }
+
+          const type = tab.key.toLowerCase()
+          if (album.type == type) {
+            tab.count += 1
+          }
+        })
+      })
     },
     /* ------------------------------ EVENT METHOD ------------------------------ */
     onChangeFilter(filterKey) {

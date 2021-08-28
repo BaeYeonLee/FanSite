@@ -19,16 +19,18 @@
       <!-- Section Right Start -->
       <div class="section-right">
         <h4>Track List</h4>
-        <div class="expand-wrapper" v-for="(tl, idx) in albumInfo.trackList" :key="tl" @click="open(idx)">
-          <!-- <transition-group name="list">-->
-          <div class="expand-title">
-            <span class="title">{{ number(tl.no) }}. {{ tl.name }}</span>
-            <i class="fas fa-caret-up" v-if="openCard[idx]"></i>
-            <i class="fas fa-caret-down" v-else></i>
-          </div>
-          <!-- </transition-group>-->
-          <transition-group name="list">
-            <div class="content" v-if="openCard[idx]">
+        <transition-group name="list" mode="out-in">
+          <div class="expand-wrapper" v-for="(tl, idx) in albumInfo.trackList" :key="tl">
+            <div class="expand-title" :key="idx" @click="open(idx)">
+              <p class="name">
+                {{ number(tl.no) }}. {{ tl.name }} <span class="title" v-if="tl.is_title == 1"> title</span>
+              </p>
+
+              <i class="fas fa-caret-up" v-if="openCard[idx]"></i>
+              <i class="fas fa-caret-down" v-else></i>
+            </div>
+            <!-- <transition name="list" mode="out-in"> -->
+            <div class="content" v-show="openCard[idx]" :key="idx">
               <div class="infos">
                 <div class="lyrics">작사</div>
                 <div>{{ tl.lyrics.join(', ') }}</div>
@@ -36,10 +38,34 @@
                 <div>{{ tl.composed.join(', ') }}</div>
                 <div class="arrange">편곡</div>
                 <div>{{ tl.arranged.join(', ') }}</div>
+                <div class="arrange">가사</div>
+                <div style="white-space: pre-line" v-if="tl.content">
+                  {{ tl.content }}
+                </div>
               </div>
+
+              <!-- TEST UI - PORALOID -->
+              <!-- <div class="polar-wrapper hi-melody">
+                <div class="lyric-area" v-if="tl.content">
+                  {{ tl.content }}
+                </div>
+
+                <div class="none-lyric-area" v-else>
+                  <img :src="albumInfo.image" />
+                </div>
+                <div class="polar-infos">
+                  <div class="lyrics">작사</div>
+                  <div>{{ tl.lyrics.join(', ') }}</div>
+                  <div class="compose">작곡</div>
+                  <div>{{ tl.composed.join(', ') }}</div>
+                  <div class="arrange">편곡</div>
+                  <div>{{ tl.arranged.join(', ') }}</div>
+                </div>
+              </div> -->
+              <!-- END -->
             </div>
-          </transition-group>
-        </div>
+          </div>
+        </transition-group>
       </div>
       <!-- Section Rigth END -->
     </div>
@@ -105,6 +131,7 @@ export default {
 
     /* ------------------------------ GETTER METHOD ------------------------------ */
     getAlbumInfo() {
+      //TODO SET API
       let albumID = this.$route.params.album_id
       this.albumInfo = albumList.concat().find(album => {
         return album.id == albumID
@@ -146,7 +173,7 @@ export default {
     display: grid;
     grid-column-gap: 10%;
     margin: 40px 0;
-    overflow: auto;
+    overflow-y: overlay;
     color: $IU-BlueViolet;
   }
 }
@@ -179,33 +206,68 @@ export default {
   color: $IU-BlueViolet;
   width: 100%;
 
-  .list-enter-active,
-  .list-leave-active {
-    // transition: opacity 0.5s ease;
-    transition: all 0.5s;
-  }
-
-  .list-enter-from,
-  .list-leave-to {
-    //transform: translateY(30px);
-    transform: translate(0, -30px);
-    opacity: 0;
-  }
-
   .expand-wrapper {
     width: 25rem;
+    transition: all 0.5s ease-in-out;
   }
+
   .expand-title {
     display: flex;
     justify-content: space-between;
-    //box-shadow: 1px 2px 1px -1px $IU-BlueViolet;
     cursor: pointer;
-    margin-bottom: 15px;
-    transition: 0.5s;
+    padding-bottom: 15px;
+    background: $IU-White;
+    font-family: 'Hi Melody', cursive;
+    .title {
+      border: 1px solid $IU-BlueViolet;
+      padding: 2px 5px 0px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-left: 5px;
+    }
   }
   .content {
-    margin: 20px 0px;
-    transition: 0.5s;
+    margin-bottom: 20px;
+
+    //poraloid
+    .polar-wrapper {
+      background: white;
+      background: white;
+      padding: 40px 30px 50px;
+      box-shadow: 2px 2px 5px 1px;
+      .lyric-area {
+        white-space: pre-line;
+        background: $IULightViolet;
+        padding: 20px;
+        overflow-y: scroll;
+        height: 300px;
+        font-size: 0.9rem;
+        img {
+          width: 100%;
+          opacity: 0.5;
+        }
+      }
+      .none-lyric-area img {
+        width: 100%;
+      }
+      .polar-infos {
+        // font-size: 14px;
+        margin-top: 20px;
+        // font-style: italic;
+        display: grid;
+        grid-template-columns: 40px 1fr;
+        div {
+          // font-size: 14px;
+          // margin-bottom: 5px;
+          &.lyrics,
+          &.arrange,
+          &.compose {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    //not polaroid
     .infos {
       display: grid;
       grid-template-columns: 90px 1fr;
@@ -223,58 +285,7 @@ export default {
   }
 
   h4 {
-    text-align: center;
     margin-bottom: 30px;
-  }
-  .track-list {
-    display: grid;
-    margin: 20px 0 0 50px;
-  }
-}
-.list-content {
-  padding: 40px;
-  .song-title {
-    display: block;
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-size: 18px;
-  }
-  .infos {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    div {
-      font-size: 14px;
-      &.lyrics,
-      &.arrange,
-      &.compose {
-        margin-right: 35px;
-        font-weight: bold;
-        text-align: right;
-      }
-    }
-  }
-
-  //test
-
-  .song-title {
-    display: block;
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-size: 18px;
-  }
-  .infos {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    div {
-      font-size: 14px;
-      &.lyrics,
-      &.arrange,
-      &.compose {
-        margin-right: 35px;
-        font-weight: bold;
-        text-align: right;
-      }
-    }
   }
 }
 </style>

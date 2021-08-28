@@ -13,6 +13,51 @@ export default [
         lyrics: ['아이유'],
         composed: ['임수호', 'Dr.JO', '옹킴', 'N!ko'],
         arranged: ['임수호', '옹킴', 'N!ko'],
+        content: `나리는 꽃가루에 눈이 따끔해 (아야)\n
+        눈물이 고여도 꾹 참을래\n
+        내 마음 한켠 비밀스런 오르골에 넣어두고서\n
+        영원히 되감을 순간이니까\n
+        우리 둘의 마지막 페이지를 잘 부탁해\n
+        어느 작별이 이보다 완벽할까?\n
+        Love me only 'til this spring\n
+        오, 라일락, 꽃이 지는 날 goodbye\n
+        이런 결말이 어울려, 안녕 꽃잎 같은 안녕\n
+        하이얀 우리 봄날의 climax\n
+        아, 얼마나 기쁜 일이야\n
+        우우우우, 우우우우\n
+        Love me only 'til this spring 봄바람처럼\n
+        우우우우, 우우우우\n
+        Love me only 'til this spring 봄바람처럼\n
+        기분이 달아 콧노래 부르네 (랄라)\n
+        입꼬리는 살짝 올린 채\n
+        어쩜 이렇게 하늘은 더 바람은 또 완벽한 건지\n
+        오늘따라 내 모습 맘에 들어\n
+        처음 만난 그날처럼 예쁘다고 말해줄래\n
+        어느 이별이 이토록 달콤할까?\n
+        Love resembles misty dream\n
+        오, 라일락, 꽃이 지는 날 goodbye\n
+        이런 결말이 어울려, 안녕 꽃잎 같은 안녕\n
+        하이얀 우리 봄날의 climax\n
+        아, 얼마나 기쁜 일이야\n
+        우우우우, 우우우우\n
+        Love resembles misty dream 뜬구름처럼\n
+        우우우우, 우우우우\n
+        Love resembles misty dream 뜬구름처럼\n
+        너도 언젠가 날 잊게 될까?\n
+        지금 표정과 오늘의 향기도?\n
+        단잠 사이에 스쳐간 봄날의 꿈처럼\n
+        오, 라일락, 꽃이 지는 날 goodbye\n
+        너의 대답이 날 울려, 안녕 약속 같은 안녕\n
+        하이얀 우리 봄날에 climax\n
+        아, 얼마나 기쁜 일이야\n
+        우우우우, 우우우우\n
+        Love me only 'til this spring 봄바람처럼\n
+        우우우우, 우우우우\n
+        Love me only 'til this spring 봄바람처럼\n
+        우우우우, 우우우우\n
+        Love resembles misty dream 뜬구름처럼 (뜬구름처럼)\n
+        우우우우, 우우우우\n
+        Love resembles misty dream 뜬구름처럼\n`
       },
       {
         no: 2,

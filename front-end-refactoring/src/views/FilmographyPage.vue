@@ -49,27 +49,32 @@ export default {
   created() {
     console.log('------------> filmo mouted')
     this.setSubTitle()
-    this.filmoList = filmoList.concat()
-
-    this.filmoList.forEach(filmo => {
-      this.filmoTabs.forEach(tab => {
-        if (tab.key == 'All') {
-          tab.count += 1
-          return
-        }
-
-        const type = tab.key.toLowerCase()
-        if (filmo.type == type) {
-          tab.count += 1
-        }
-      })
-    })
+    this.getFilmoList()
   },
   methods: {
     /* ------------------------------ VUEX METHOD ------------------------------ */
     ...mapActions(['set_title']),
     setSubTitle() {
       this.set_title({ title: 'Filmograpy' })
+    },
+    /* ------------------------------ GETTER METHOD ------------------------------ */
+    getFilmoList() {
+      //TODO SET API
+      this.filmoList = filmoList.concat()
+
+      this.filmoList.forEach(filmo => {
+        this.filmoTabs.forEach(tab => {
+          if (tab.key == 'All') {
+            tab.count += 1
+            return
+          }
+
+          const type = tab.key.toLowerCase()
+          if (filmo.type == type) {
+            tab.count += 1
+          }
+        })
+      })
     },
     /* ------------------------------ EVENT METHOD ------------------------------ */
     onChangeFilter(filterKey) {

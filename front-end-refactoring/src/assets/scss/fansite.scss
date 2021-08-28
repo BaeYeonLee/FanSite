@@ -1,4 +1,10 @@
 @import './_variables';
+@import url('https://fonts.googleapis.com/css?family=Hi+Melody:400');
+
+.hi-melody * {
+  font-family: 'Hi Melody', cursive;
+ }
+ 
 
 * {
   margin: 0;
@@ -27,12 +33,13 @@
 
 body::-webkit-scrollbar,
 div::-webkit-scrollbar {
-  width: 0.7em;
+  width: 0.5em;
 }
 
 body::-webkit-scrollbar-track,
 div::-webkit-scrollbar-track {
   // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
   background-color: $IULightViolet;
 }
 
