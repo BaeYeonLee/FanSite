@@ -1,6 +1,6 @@
 <template>
   <header :class="{ 'is-main-page': isMainPage }">
-    <div class="header-contents" :class="{ 'is-main-page': isMainPage }">
+    <div class="header-contents" :class="{ 'is-main-page': isMainPage && !isScroll }">
       <router-link to="/iu">
         <span class="page-title" :class="{ 'is-main-page': isMainPage }">
           WITH U, <span class="accent"> IU </span>
@@ -59,7 +59,7 @@ export default {
     headerHandleScroll() {
       console.log(document.documentElement.clientHeight)
       const height = document.documentElement.clientHeight
-      const half = height /2
+      const half = height / 2
       this.isScroll = window.scrollY > half
     },
   },
