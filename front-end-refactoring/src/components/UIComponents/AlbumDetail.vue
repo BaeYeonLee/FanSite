@@ -217,7 +217,7 @@ export default {
     cursor: pointer;
     padding-bottom: 15px;
     background: $IU-White;
-    font-family: 'Hi Melody', cursive;
+    // font-family: 'Hi Melody', cursive;
     .title {
       border: 1px solid $IU-BlueViolet;
       padding: 2px 5px 0px;
