@@ -10,7 +10,7 @@
         <div class="columns left-columns" v-if="idx % 2 != 0">
           <div
             class="test"
-            v-for="(ad, index) in getYearAd(year)"
+            v-for="(ad, index) in getFourYearAd(year)"
             :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }"
           >
             <figure :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
@@ -32,7 +32,7 @@
           <div
             class="test"
             :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }"
-            v-for="(ad, index) in getYearAd(year)"
+            v-for="(ad, index) in getFourYearAd(year)"
           >
             <figure :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
               <div class="thumnail-poster">
@@ -59,6 +59,18 @@ export default {
       return this.adList.filter(item => {
         return item.year == year
       })
+    },
+    getFourYearAd(year) {
+      let tmp = []
+      tmp = this.adList.filter(item => {
+        return item.year == year
+      })
+      console.log(tmp.length)
+      if (tmp.length > 4) {
+        return tmp.slice(0, 4)
+      } else {
+        return tmp
+      }
     },
     getADList() {
       this.adList = adList.concat()
@@ -201,6 +213,7 @@ export default {
   margin: 0;
   margin-bottom: 15px;
   padding: 10px;
+  padding-bottom: 40px;
   // box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 7px 12px 5px 9px beige;
 }
@@ -221,7 +234,7 @@ export default {
   transform: rotate(355deg);
 }
 .thumnail-poster {
-  border-radius: 12px;
+  border-radius: 5px;
   height: 110px;
   width: 120px;
   overflow: hidden;
