@@ -1,4 +1,6 @@
-export const API_URL = 'http://localhost:3000/'
+// export const API_URL = 'http://localhost:3000/'
+// TODO DELETE
+export const API_URL = 'http://piglet911.cafe24.com/iu/api/'
 
 export const API = {
   GRAPHQL: '/graphql',
@@ -13,4 +15,10 @@ export const ALBUM = {
   UPSERT: 'album',
   GET_OR_DELETE: 'album/',
   GET_LIST: 'album',
+}
+
+export const TRACK = {
+  UPSERT: 'track',
+  GET_OR_DELETE: 'track/',
+  GET_LIST: 'track',
 }

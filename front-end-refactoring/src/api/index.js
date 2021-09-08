@@ -1,4 +1,6 @@
 import users from "./users";
+import album from "./album";
+import track from "./track";
 
 export default {
   install(app, options) {
@@ -10,5 +12,7 @@ export default {
   },
 
   // API
-  ...users,
+  users,
+  album,
+  track,
 };

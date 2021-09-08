@@ -3,15 +3,15 @@
     <div class="album-detail">
       <div class="section-left">
         <div class="cover">
-          <img :src="albumInfo.image" />
+          <img :src="albumInfo.image_url" />
         </div>
         <div class="album-info">
           <div class="title">
             {{ albumInfo.title }}
           </div>
           <div class="info">
-            <div class="type">{{ albumInfo.type }}</div>
-            <div class="date">{{ albumInfo.date }}</div>
+            <div class="type">{{ getAlbumType(albumInfo.album_type) }}</div>
+            <div class="date">{{ albumInfo.release_date }}</div>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
         <div class="expand-wrapper" v-for="(tl, idx) in albumInfo.trackList" :key="tl" @click="open(idx)">
           <!-- <transition-group name="list">-->
           <div class="expand-title">
-            <span class="title">{{ number(tl.no) }}. {{ tl.name }}</span>
+            <span class="title">{{ number(tl.track_no) }}. {{ tl.name }}</span>
             <i class="fas fa-caret-up" v-if="openCard[idx]"></i>
             <i class="fas fa-caret-down" v-else></i>
           </div>
@@ -30,12 +30,12 @@
           <transition-group name="list">
             <div class="content" v-if="openCard[idx]">
               <div class="infos">
-                <div class="lyrics">작사</div>
-                <div>{{ tl.lyrics.join(', ') }}</div>
-                <div class="compose">작곡</div>
-                <div>{{ tl.composed.join(', ') }}</div>
-                <div class="arrange">편곡</div>
-                <div>{{ tl.arranged.join(', ') }}</div>
+                <div class="lyrics"> 작사 </div>
+                <div>{{ tl.lyrics_by }} </div>
+                <div class="compose"> 작곡 </div>
+                <div>{{ tl.composed_by }} </div>
+                <div class="arrange"> 편곡 </div>
+                <div>{{ tl.arranged_by }} </div>
               </div>
             </div>
           </transition-group>
@@ -88,6 +88,10 @@ export default {
       }
     },
   },
+  created() {
+    this.getAlbumInfo()
+    this.setSubTitle()
+  },
   methods: {
     open(idx) {
       if (this.currentIndex == idx) {
@@ -104,16 +108,24 @@ export default {
     },
 
     /* ------------------------------ GETTER METHOD ------------------------------ */
-    getAlbumInfo() {
-      let albumID = this.$route.params.album_id
-      this.albumInfo = albumList.concat().find(album => {
-        return album.id == albumID
-      })
-      this.albumInfo.trackList.forEach((element, idx) => {
-        this.tmpArray[idx] = false
-      })
+    getAlbumType(album_type) {
+      switch(album_type) {
+        case 1:
+          return '정규'
+        case 2:
+          return '미니'
+        case 3:
+          return '리메이크'
+        case 4:
+          return '싱글'
+        case 5:
+          return '디지털 싱글'
+        case 6:
+          return 'OST'
+        case 7:
+          return '참여'
+      }
     },
-
     /* ------------------------------ SETTER METHOD ------------------------------ */
     number(item) {
       /**
@@ -122,10 +134,29 @@ export default {
        */
       return item > 9 ? item : `0${item}`
     },
-  },
-  created() {
-    this.getAlbumInfo()
-    this.setSubTitle()
+    /* ------------------------------ GET DATA METHOD ------------------------------ */
+    async getAlbumInfo() {
+      console.log("get Album Info")
+
+      const albumId = this.$route.params.album_id
+      console.log("albumId", albumId)
+      this.albumInfo = await this.$api.album.getOne(albumId)
+
+      console.log("albumInfo", this.albumInfo)
+
+      this.albumInfo.trackList = await this.$api.track.getList({ album_id: albumId })
+
+      console.log("trackList", this.albumInfo.trackList)
+
+
+      // let albumID = this.$route.params.album_id
+      // this.albumInfo = albumList.concat().find(album => {
+      //   return album.id == albumID
+      // })
+      this.albumInfo.trackList.forEach((element, idx) => {
+        this.tmpArray[idx] = false
+      })
+    },
   },
 }
 </script>
