@@ -3,34 +3,83 @@
     <div class="ad-title">
       <h3>Advertising</h3>
     </div>
-    <div style="width: 100%; height: 250px" v-for="(ad, idx) in adList">
+    <div style="width: 100%; height: 250px" v-for="(year, idx) in yearList">
       <div class="left-hist-content">
-        <p v-if="idx % 2 == 0" class="year-font">{{ ad.title }}</p>
-        <p v-if="idx % 2 == 0"><img class="ad-image" :src="ad.img" /></p>
+        <p v-if="idx % 2 == 0" class="year-font">{{ year }}</p>
+        <p v-if="idx % 2 == 0" v-for="(ad, index) in getYearAd(year)">{{ ad.title }}</p>
+        <div class="columns left-columns" v-if="idx % 2 != 0">
+          <div
+            class="test"
+            v-for="(ad, index) in getFourYearAd(year)"
+            :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }"
+          >
+            <figure :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
+              <div class="thumnail-poster">
+                <img :src="ad.image_url" />
+              </div>
+            </figure>
+          </div>
+        </div>
       </div>
       <div class="center-hist-content" :style="{ height: 250 + 'px' }">
         <div class="circle"></div>
         <div class="line"></div>
       </div>
       <div class="right-hist-content">
-        <p v-if="idx % 2 != 0" class="year-font">{{ ad.title }}</p>
-        <p v-if="idx % 2 != 0"><img class="ad-image" :src="ad.img" /></p>
+        <p v-if="idx % 2 != 0" class="year-font">{{ year }}</p>
+        <p v-if="idx % 2 != 0" v-for="ad in getYearAd(year)">{{ ad.title }}</p>
+        <div class="columns" v-if="idx % 2 == 0">
+          <div
+            class="test"
+            :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }"
+            v-for="(ad, index) in getFourYearAd(year)"
+          >
+            <figure :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
+              <div class="thumnail-poster">
+                <img :src="ad.image_url" />
+              </div>
+            </figure>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { adList } from '@common/dummy.js'
+import adList from '@common/dummy/ad.js'
 export default {
   data() {
     return {
       adList: [],
+      yearList: [],
     }
   },
   methods: {
+    getYearAd(year) {
+      return this.adList.filter(item => {
+        return item.year == year
+      })
+    },
+    getFourYearAd(year) {
+      let tmp = []
+      tmp = this.adList.filter(item => {
+        return item.year == year
+      })
+      console.log(tmp.length)
+      if (tmp.length > 4) {
+        return tmp.slice(0, 4)
+      } else {
+        return tmp
+      }
+    },
     getADList() {
       this.adList = adList.concat()
-      const tmp = []
+      let tmp = []
+      this.adList.map(item => {
+        tmp.push(item.year)
+      })
+      this.yearList = new Set(tmp)
+      console.log(this.yearList)
     },
   },
   created() {
@@ -139,15 +188,65 @@ export default {
   position: relative;
   width: 100%;
 }
-.hist-content {
-  width: 70%;
-  margin: 0 auto;
-}
-.ad-title {
+.hist-title {
   padding: 40px;
   text-align: center;
   h3 {
     font-size: 30px;
+  }
+}
+
+.columns {
+  display: flex;
+  white-space: normal;
+  column-width: 130px;
+  column-gap: 15px;
+  min-height: 200px;
+}
+.left-columns {
+  justify-content: flex-end;
+}
+.columns figure {
+  background: white;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 10px;
+  padding-bottom: 40px;
+  // box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 7px 12px 5px 9px beige;
+}
+.columns figure img {
+  height: 100%;
+}
+.columns figure figcaption {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-top: 11px;
+}
+.test {
+}
+.isLotate {
+  transform: rotate(5deg);
+}
+.isNotLotate {
+  transform: rotate(355deg);
+}
+.thumnail-poster {
+  border-radius: 5px;
+  height: 110px;
+  width: 120px;
+  overflow: hidden;
+  position: relative;
+  &:before {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    content: '';
+    width: 100%;
+    height: 50%;
+    z-index: 1;
   }
 }
 </style>

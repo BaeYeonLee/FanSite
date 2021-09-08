@@ -1,8 +1,9 @@
 <template>
-  <div class="contents-background" />
+  <div class="contents-background" ref="back" />
   <div class="main-panel">
-    <div class="contents-title" :class="{ 'is-main-page': isMainPage }">
+    <div class="contents-title" ref="contentTitle" :class="{ 'is-main-page': isMainPage }">
       <b v-if="isMainPage" class="main-title"> With U, <span class="accent"> IU </span> </b>
+      <!-- scroll 시 로고 보이도록 -->
       <!-- <b v-else calss="sub-title"> TITLE</b> -->
       <b class="sub-title" v-else> {{ getTitle }} </b>
     </div>
@@ -21,25 +22,10 @@ export default {
   components: {
     Footer,
   },
-  props: {
-    // scrollPosition: {
-    //   type: Number,
-    //   default: 0,
-    // },
-  },
-  watch: {
-    scrollPosition(val, oldVal) {
-      this.oldScrollPosition = oldVal
-      this.moveScroll()
-    },
-  },
   data() {
     return {
       /* ------------------------------ FLAG DATA ------------------------------ */
       isMainPage: false,
-      /* ------------------------------ SCROLL DATA ------------------------------ */
-      scrollPosition: window.scrollY,
-      oldScrollPosition: 0,
     }
   },
   computed: {
@@ -48,6 +34,7 @@ export default {
   },
   created() {
     this.setHeaderFlag(this.$route.path)
+    window.addEventListener('scroll', this.handleScroll)
   },
   watch: {
     $route(to) {
@@ -59,22 +46,13 @@ export default {
     setHeaderFlag(path) {
       this.isMainPage = path.includes('/iu')
     },
-    /* ------------------------------ SCROLL EVENT METHOD ------------------------------ */
-    moveScroll() {
-      let start = 0
-      let now = this.scrollPosition
-      let old = this.oldScrollPosition
-      let condition = this.isMainPage && now > start && now > old
-      return condition
+    handleScroll() {
+      const opacity = 1 - window.scrollY / 700
+      this.$refs.back.style.opacity = opacity
+      opacity <= 0
+        ? (this.$refs.contentTitle.style.background = '#fafafa')
+        : (this.$refs.contentTitle.style.background = 'rgba(13, 13, 13, 0.2)')
     },
-    // let max = 200 //기본
-    // if (this.isMainPage) {
-    //   if (this.scrollPosition > max) {
-    //     return 'color :rgba(242, 226, 220, 0); transition: 1.5s;'
-    //   } else if (this.scrollPosition < max) {
-    //     return 'color : rgba(242, 226, 220, 0.9); transition: 1.5s;'
-    //   }
-    // }
   },
 }
 </script>
@@ -91,8 +69,9 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
   height: 100%;
   background-image: url('../../assets/img/img_iu_1920.jpg');
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: top left;
   background-size: cover;
+  
 }
 
 .main-panel {
@@ -109,6 +88,7 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
 
     &.is-main-page {
       height: 830px;
+      transition: 0.5s;
     }
     .sub-title {
       position: absolute;

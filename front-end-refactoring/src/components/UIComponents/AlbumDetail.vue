@@ -19,18 +19,26 @@
       <!-- Section Right Start -->
       <div class="section-right">
         <h4>Track List</h4>
-        <div class="track-list">
-          <div class="list-content" v-for="tl in albumInfo.trackList" :key="tl">
-            <div class="song-title">{{ number(tl.no) }}. {{ tl.name }}</div>
-            <div class="infos">
-              <div class="lyrics">작사</div>
-              <div>{{ tl.lyrics.join(', ') }}</div>
-              <div class="compose">작곡</div>
-              <div>{{ tl.composed.join(', ') }}</div>
-              <div class="arrange">편곡</div>
-              <div>{{ tl.arranged.join(', ') }}</div>
-            </div>
+        <div class="expand-wrapper" v-for="(tl, idx) in albumInfo.trackList" :key="tl" @click="open(idx)">
+          <!-- <transition-group name="list">-->
+          <div class="expand-title">
+            <span class="title">{{ number(tl.no) }}. {{ tl.name }}</span>
+            <i class="fas fa-caret-up" v-if="openCard[idx]"></i>
+            <i class="fas fa-caret-down" v-else></i>
           </div>
+          <!-- </transition-group>-->
+          <transition-group name="list">
+            <div class="content" v-if="openCard[idx]">
+              <div class="infos">
+                <div class="lyrics">작사</div>
+                <div>{{ tl.lyrics.join(', ') }}</div>
+                <div class="compose">작곡</div>
+                <div>{{ tl.composed.join(', ') }}</div>
+                <div class="arrange">편곡</div>
+                <div>{{ tl.arranged.join(', ') }}</div>
+              </div>
+            </div>
+          </transition-group>
         </div>
       </div>
       <!-- Section Rigth END -->
@@ -44,9 +52,51 @@ export default {
   data() {
     return {
       albumInfo: {},
+      currentIndex: -1,
+      tmpArray: [],
     }
   },
+  computed: {
+    openCard() {
+      let array = this.tmpArray
+      if (this.currentIndex < 0) {
+        //선택 해제 시
+        let result = array.map((el, idx) => {
+          el = false
+        })
+        return result
+      } else {
+        //선택 했을 경우
+        array.map((el, idx) => {
+          if (idx == this.currentIndex) {
+            array[idx] = true
+          } else {
+            array[idx] = false
+          }
+        })
+        //undefined로 떨어짐... 외..?
+        /*
+        let result = array.map((el, idx) => {
+          if (idx == this.currentIndex) {
+            el = true
+          } else {
+            el = false
+          }
+        })
+        */
+        return array
+      }
+    },
+  },
   methods: {
+    open(idx) {
+      if (this.currentIndex == idx) {
+        this.currentIndex = -1
+      } else {
+        this.currentIndex = idx
+      }
+    },
+
     /* ------------------------------ VUEX METHOD ------------------------------ */
     ...mapActions(['set_title']),
     setSubTitle() {
@@ -58,6 +108,9 @@ export default {
       let albumID = this.$route.params.album_id
       this.albumInfo = albumList.concat().find(album => {
         return album.id == albumID
+      })
+      this.albumInfo.trackList.forEach((element, idx) => {
+        this.tmpArray[idx] = false
       })
     },
 
@@ -124,8 +177,54 @@ export default {
 .section-right {
   grid-area: section-right;
   color: $IU-BlueViolet;
+  width: 100%;
+
+  .list-enter-active,
+  .list-leave-active {
+    // transition: opacity 0.5s ease;
+    transition: all 0.5s;
+  }
+
+  .list-enter-from,
+  .list-leave-to {
+    //transform: translateY(30px);
+    transform: translate(0, -30px);
+    opacity: 0;
+  }
+
+  .expand-wrapper {
+    width: 25rem;
+  }
+  .expand-title {
+    display: flex;
+    justify-content: space-between;
+    //box-shadow: 1px 2px 1px -1px $IU-BlueViolet;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: 0.5s;
+  }
+  .content {
+    margin: 20px 0px;
+    transition: 0.5s;
+    .infos {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      div {
+        font-size: 14px;
+        &.lyrics,
+        &.arrange,
+        &.compose {
+          margin-right: 35px;
+          font-weight: bold;
+          text-align: right;
+        }
+      }
+    }
+  }
+
   h4 {
     text-align: center;
+    margin-bottom: 30px;
   }
   .track-list {
     display: grid;
@@ -134,6 +233,29 @@ export default {
 }
 .list-content {
   padding: 40px;
+  .song-title {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .infos {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    div {
+      font-size: 14px;
+      &.lyrics,
+      &.arrange,
+      &.compose {
+        margin-right: 35px;
+        font-weight: bold;
+        text-align: right;
+      }
+    }
+  }
+
+  //test
+
   .song-title {
     display: block;
     margin-bottom: 20px;

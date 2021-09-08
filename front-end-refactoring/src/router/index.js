@@ -53,7 +53,7 @@ const routes = [
       {
         path: '/ad',
         name: 'AD',
-        component: () => import('@pages/AdvertisingPage.vue'),
+        component: () => import('@pages/AD.vue'),
       },
     ],
   },
@@ -77,21 +77,6 @@ const routes = [
         name: 'Board',
         component: () => import('@pages/BoardPage.vue'),
       },
-      //   {
-      //     path: '/add-board',
-      //     name: 'AddBoard',
-      //     component: () => import('@pages/AddBoard.vue'),
-      //   },
-      //   {
-      //     path: '/detail',
-      //     name: 'Detail',
-      //     component: () => import('@pages/BoardDetailPage.vue'),
-      //   },
-      //   {
-      //     path: '/edit',
-      //     name: 'Edit',
-      //     component: () => import('@pages/EditBoard.vue'),
-      //   },
     ],
   },
 ]

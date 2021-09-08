@@ -11,19 +11,13 @@
         <router-link
           v-for="menu in menuList"
           class="menu-item"
-          :class="{ selected: selectedTab(menu) }"
+          :class="{ selected: selectedTab(menu), 'menu-item-color': isScroll }"
           :to="`/${menu.toLowerCase()}`"
           :key="menu"
         >
           {{ menu }}
         </router-link>
       </div>
-      <!-- <div class="switch-div">
-        <label class="switch">
-          <input type="checkbox" v-model="isChecked" />
-          <span class="slider"></span>
-        </label>
-      </div> -->
     </div>
   </header>
 </template>
@@ -38,10 +32,12 @@ export default {
       menuList: ['Album', 'Filmography', 'AD', 'History', 'Board'],
       /* ------------------------------ DARK MODE DATA ------------------------------ */
       isChecked: false,
+      isScroll: false,
     }
   },
   created() {
     this.setHeaderFlag(this.$route.path)
+    window.addEventListener('scroll', this.headerHandleScroll)
   },
   watch: {
     $route(to) {
@@ -59,6 +55,12 @@ export default {
     },
     selectedTab(item) {
       return this.$route.path.includes(item.toLowerCase()) ? true : false
+    },
+    headerHandleScroll() {
+      console.log(document.documentElement.clientHeight)
+      const height = document.documentElement.clientHeight
+      const half = height /2
+      this.isScroll = window.scrollY > half
     },
   },
 }
@@ -79,6 +81,7 @@ header {
 
   &.is-main-page {
     background-color: $IU-Transparent;
+    transition: 0.5s;
   }
 }
 
@@ -97,6 +100,9 @@ header {
     .page-menu {
       .menu-item {
         color: $IU-Header-Pink;
+      }
+      .menu-item-color {
+        color: $IUViolet !important;
       }
     }
   }
