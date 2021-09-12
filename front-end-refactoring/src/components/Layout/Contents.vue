@@ -69,7 +69,7 @@ $IU-Title-Black: rgba(13, 13, 13, 0.75);
   height: 100%;
   background-image: url('../../assets/img/img_iu_1920.jpg');
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: top left;
   background-size: cover;
   
 }

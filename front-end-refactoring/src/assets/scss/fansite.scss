@@ -22,6 +22,15 @@
   padding: 40px 15px 50px;
 }
 
+.flex-box {
+  display: flex;
+
+  &.center-contents {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .grid-view {
   display: grid;
   // TODO CHECK :: 1080px under
@@ -29,6 +38,16 @@
   grid-template-columns: repeat(auto-fit, 330px);
 
   grid-gap: 30px;
+}
+@media (max-width: 1860px) {
+  .grid-view {
+    grid-template-columns: repeat(auto-fit, 330px);
+  }
+}
+@media (max-width: 1080px) {
+  .grid-view {
+    grid-template-columns: repeat(auto-fit, 475px);
+  }
 }
 
 body::-webkit-scrollbar,

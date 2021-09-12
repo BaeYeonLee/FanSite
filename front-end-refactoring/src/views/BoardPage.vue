@@ -1,7 +1,7 @@
 <template>
   <div class="tab-box">
+    <!--  tab name -->
     <div class="tabs">
-      <!--  tab name -->
       <div class="tab" v-for="(category, idx) in categories" :key="idx">
         <div class="cateogry-name" @click="selectedTab(idx)" :class="{ selected: isSelectedCategory(idx) }">
           {{ category }}
@@ -12,54 +12,76 @@
         </div>
       </div>
     </div>
-    <!-- content -->
+    <!-- Tab Content -->
     <div class="tab-contents">
-      <div class="garally">
-        <div class="thumnail-wrapper" v-for="board in boardList">
+      <div class="columns">
+        <figure v-for="board in boardList">
           <div class="thumnail-poster">
-            <div class="board-title-bar">
-              <p>{{ board.title }}</p>
-            </div>
+            <figcaption>{{ board.title }}</figcaption>
             <img :src="board.img" />
           </div>
-        </div>
+        </figure>
       </div>
     </div>
-    <div id="myModal" class="modal" v-if="showModal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <input v-model="title" type="text" class="input-title" placeholder="제목을 입력해주세요." />
-        <span class="close" @click="closeModal">&times;</span>
-        <p class="add-board-btn">+</p>
-      </div>
-    </div>
+    <!-- Modal Content -->
+    <Dialog title="Dialog title" v-model="showModal" @closeDialog="closeDialog">
+      <template #title>
+        <input v-model="selectedBoard.title" type="text" class="input-title" placeholder="제목을 입력해주세요." />
+      </template>
+      <div class="add-image-box flex-box center-contents" @click="addImage">+</div>
+    </Dialog>
   </div>
 </template>
 
 <script>
 import { boardList } from '@common/dummy.js'
+import Dialog from '@/Dialog'
+
 export default {
+  components: {
+    Dialog,
+  },
   data() {
     return {
+      /* ------------------------------ STATIC DATA ------------------------------ */
+      categories: ['Board', 'Like', 'ADD+'], // Static Data는 그냥 data에 선언해주세요 ~
+      defaultBoard: {
+        id: '',
+        title: '',
+        image: '',
+        user: '',
+      },
+      /* ------------------------------ BOARD DATA ------------------------------ */
       boardList: [],
-      categories: [],
+      selectedBoard: {
+        id: '',
+        title: '',
+        image: '',
+        user: '',
+      },
       currentTab: '',
       showModal: false,
       title: '',
     }
   },
+  created() {
+    this.getBoardList()
+  },
   methods: {
     isSelectedCategory(index) {
       return this.currentTab == index
     },
-    getCategories() {
-      this.categories = ['Board', 'Like', 'ADD+']
-    },
     getBoardList() {
       this.boardList = boardList.concat()
     },
-    closeModal() {
+    closeDialog() {
       this.showModal = false
+      this.initBoardData()
+    },
+    initBoardData() {
+      this.selectedBoard = {
+        ...this.defaultBoard,
+      }
     },
     selectedTab(index) {
       this.currentTab = index
@@ -67,6 +89,7 @@ export default {
         case 1:
           break
         case 2:
+          console.log('!!!!modelValue')
           this.showModal = true
           break
         case 3:
@@ -77,10 +100,9 @@ export default {
           break
       }
     },
-  },
-  created() {
-    this.getCategories()
-    this.getBoardList()
+    addImage() {
+      // TODO :: IMAGE FILE UPLOAD
+    },
   },
 }
 </script>
@@ -213,60 +235,58 @@ hr {
   text-align: center;
 }
 
-.modal {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 40%;
-  border-radius: 10px;
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
 .input-title {
-  text-align: center;
-  width: 90%;
-  margin-right: 4%;
-  margin-top: 1px;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
+  width: 80%;
+  margin: auto;
+  padding: 8px;
   border: 0;
   border-bottom: 1px solid #e4e4e4;
-  display: inline-block;
+  font-size: 16px;
+
+  &:focus {
+    outline: 0;
+  }
 }
-.add-board-btn {
+.add-image-box {
+  min-height: 500px;
   text-align: center;
   font-size: 60px;
   &:hover {
     cursor: pointer;
     color: $IUViolet;
     font-weight: bold;
+  }
+}
+
+.columns {
+  white-space: normal;
+  column-width: 300px;
+  column-gap: 15px;
+}
+.columns figure {
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.columns figure img {
+  width: 100%;
+}
+.columns figure figcaption {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-top: 11px;
+}
+@media (max-width: 1860px) {
+  .columns {
+    column-width: 275px;
+  }
+}
+@media (max-width: 1080px) {
+  .columns {
+    column-width: 200px;
   }
 }
 </style>

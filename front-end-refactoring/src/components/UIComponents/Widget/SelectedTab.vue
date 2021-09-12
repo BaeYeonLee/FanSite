@@ -6,8 +6,8 @@
       :class="{ 'selected-tab': selectedIdx == idx }"
       @click="onClickTabs(idx)"
     >
-      {{ item.key }}
-      <span v-if="item.count != undefined" class="sub-text"> ({{ item.count }})</span>
+      {{ item.label }}
+      <span v-if="item.count != undefined" class="sub-text"> &nbsp;({{ item.count }})</span>
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
     onClickTabs(idx) {
       this.selectedIdx = idx
 
-      this.$emit('changed', this.tabs[idx].key.toLowerCase())
+      this.$emit('changed', this.tabs[idx].code)
     },
   },
 }
