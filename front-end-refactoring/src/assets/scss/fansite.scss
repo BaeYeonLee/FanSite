@@ -3,8 +3,7 @@
 
 .hi-melody * {
   font-family: 'Hi Melody', cursive;
- }
- 
+}
 
 * {
   margin: 0;
@@ -53,6 +52,7 @@
 body::-webkit-scrollbar,
 div::-webkit-scrollbar {
   width: 0.5em;
+  height: 0.5rem;
 }
 
 body::-webkit-scrollbar-track,
