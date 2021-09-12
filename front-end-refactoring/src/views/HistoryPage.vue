@@ -3,28 +3,31 @@
     <div class="hist-title">
       <h3>History</h3>
     </div>
-    <div style="width: 100%; hieght: auto" v-for="year in yearList">
-      <div class="left-hist-content">
-        <p v-if="year % 2 != 0" class="year-font">{{ year }}</p>
-        <p v-if="year % 2 != 0" v-for="(hist, idx) in yearToHistory(year)">{{ hist.content }}</p>
+    <div style="width: 100%; height: 300px; display: flex" v-for="(year, index) in yearList">
+      <div class="left-hist-content" style="flex: 7">
+        <p v-if="year.year % 2 != 0" class="year-font">{{ year.year }}</p>
+        <p v-if="year.year % 2 != 0" v-for="(hist, idx) in yearToHistory(year.year)">{{ hist.content }}</p>
+        <div class="testdiv" v-if="year.year % 2 == 0"><img class="ad-image" :src="year.imgUrl" /></div>
       </div>
-      <div class="center-hist-content" :style="{ height: 34 + yearToHistory(year).length * 22 + 'px' }">
+      <div class="center-hist-content" style="height: 300px; flex: 1">
         <div class="circle"></div>
         <div class="lines"></div>
       </div>
-      <div class="right-hist-content">
-        <p v-if="year % 2 == 0" class="year-font">{{ year }}</p>
-        <p v-if="year % 2 == 0" v-for="(hist, idx) in yearToHistory(year)">{{ hist.content }}</p>
+      <div class="right-hist-content" style="flex: 7">
+        <p v-if="year.year % 2 == 0" class="year-font">{{ year.year }}</p>
+        <p v-if="year.year % 2 == 0" v-for="(hist, idx) in yearToHistory(year.year)">{{ hist.content }}</p>
+        <div class="testdiv" v-if="year.year % 2 != 0"><img class="ad-image" :src="year.imgUrl" /></div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { history } from '@common/dummy.js'
+import { history, historyImage } from '@common/dummy.js'
 export default {
   data() {
     return {
       historyList: [],
+      historyImgList: [],
       yearList: [],
     }
   },
@@ -35,8 +38,22 @@ export default {
       this.historyList.map(item => {
         tmp.push(item.year)
       })
-      this.yearList = [...new Set(tmp)]
+      let yearTmp = [...new Set(tmp)]
+      yearTmp.map(item => {
+        this.yearList.push({
+          year: item,
+        })
+      })
       console.log(this.yearList)
+      this.getHistoryImgList()
+    },
+    getHistoryImgList() {
+      this.historyImgList = historyImage.concat()
+      this.yearList.map(item => {
+        item['imgUrl'] = this.historyImgList.find(hist => {
+          return item.year == hist.year
+        }).imgUrl
+      })
     },
     yearToHistory(year) {
       const tmp = this.historyList.filter(item => {
@@ -77,8 +94,9 @@ export default {
 }
 
 .lines {
-  top: 23px;
-  left: 47%;
+  top: 20px;
+  left: 49%;
+
   z-index: 0;
   /*   height: 120px; */
   height: 100%;
@@ -152,5 +170,11 @@ export default {
   h3 {
     font-size: 30px;
   }
+}
+.ad-image {
+  width: 100%;
+  object-position: top;
+  object-fit: cover;
+  height: 280px;
 }
 </style>

@@ -1,69 +1,89 @@
 <template>
   <div class="hist-content">
-    <div class="hist-title">
-      <h3>History</h3>
+    <div class="ad-title">
+      <h3>Advertising</h3>
     </div>
-    <div style="width: 100%; height: 300px; display: flex" v-for="(year, index) in yearList">
-      <div class="left-hist-content" style="flex: 7">
-        <p v-if="year.year % 2 != 0" class="year-font">{{ year.year }}</p>
-        <p v-if="year.year % 2 != 0" v-for="(hist, idx) in yearToHistory(year.year)">{{ hist.content }}</p>
-        <div class="testdiv" v-if="year.year % 2 == 0"><img class="ad-image" :src="year.imgUrl" /></div>
+    <div style="width: 100%; height: auto" v-for="(year, idx) in yearList">
+      <div class="left-hist-content">
+        <p v-if="idx % 2 == 0" class="year-font">{{ year }}</p>
+        <p v-if="idx % 2 == 0" v-for="(ad, index) in getYearAd(year)">{{ ad.content }}</p>
+        <div class="columns left-columns" v-if="idx % 2 != 0">
+          <div
+            class="test"
+            v-for="(ad, index) in getFourYearAd(year)"
+            :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }"
+          >
+            <figure :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
+              <div class="thumnail-poster">
+                <img :src="ad.image_url" />
+              </div>
+            </figure>
+          </div>
+        </div>
       </div>
-      <div class="center-hist-content" style="height: 300px; flex: 1">
+      <div class="center-hist-content" :style="{ height: 150 + 30 * getYearAd(year).length + 'px' }">
         <div class="circle"></div>
-        <div class="lines"></div>
+        <div class="line"></div>
       </div>
-      <div class="right-hist-content" style="flex: 7">
-        <p v-if="year.year % 2 == 0" class="year-font">{{ year.year }}</p>
-        <p v-if="year.year % 2 == 0" v-for="(hist, idx) in yearToHistory(year.year)">{{ hist.content }}</p>
-        <div class="testdiv" v-if="year.year % 2 != 0"><img class="ad-image" :src="year.imgUrl" /></div>
+      <div class="right-hist-content">
+        <p v-if="idx % 2 != 0" class="year-font">{{ year }}</p>
+        <p v-if="idx % 2 != 0" v-for="ad in getYearAd(year)">{{ ad.content }}</p>
+        <div class="columns" v-if="idx % 2 == 0">
+          <div
+            class="test"
+            :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }"
+            v-for="(ad, index) in getFourYearAd(year)"
+          >
+            <figure :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
+              <div class="thumnail-poster">
+                <img :src="ad.image_url" />
+              </div>
+            </figure>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { history, historyImage } from '@common/dummy.js'
+import { history } from '@common/dummy.js'
 export default {
   data() {
     return {
       historyList: [],
-      historyImgList: [],
       yearList: [],
     }
   },
   methods: {
-    getHistoryList() {
+    getYearAd(year) {
+      return this.historyList.filter(item => {
+        return item.year == year
+      })
+    },
+    getFourYearAd(year) {
+      let tmp = []
+      tmp = this.historyList.filter(item => {
+        return item.year == year
+      })
+      console.log(tmp.length)
+      if (tmp.length > 4) {
+        return tmp.slice(0, 4)
+      } else {
+        return tmp
+      }
+    },
+    gethistoryList() {
       this.historyList = history.concat()
-      const tmp = []
+      let tmp = []
       this.historyList.map(item => {
         tmp.push(item.year)
       })
-      let yearTmp = [...new Set(tmp)]
-      yearTmp.map(item => {
-        this.yearList.push({
-          year: item,
-        })
-      })
+      this.yearList = new Set(tmp)
       console.log(this.yearList)
-      this.getHistoryImgList()
-    },
-    getHistoryImgList() {
-      this.historyImgList = historyImage.concat()
-      this.yearList.map(item => {
-        item['imgUrl'] = this.historyImgList.find(hist => {
-          return item.year == hist.year
-        }).imgUrl
-      })
-    },
-    yearToHistory(year) {
-      const tmp = this.historyList.filter(item => {
-        return year == item.year
-      })
-      return tmp
     },
   },
   created() {
-    this.getHistoryList()
+    this.gethistoryList()
   },
 }
 </script>
@@ -93,10 +113,9 @@ export default {
   display: inline-block;
 }
 
-.lines {
-  top: 20px;
-  left: 49%;
-
+.line {
+  top: 23px;
+  left: 47%;
   z-index: 0;
   /*   height: 120px; */
   height: 100%;
@@ -132,7 +151,12 @@ export default {
   font-weight: bold;
   color: #1f9d9d;
 }
-
+.ad-image {
+  width: 100%;
+  object-position: top;
+  object-fit: cover;
+  height: 400px;
+}
 .step.start .line {
   position: absolute;
   left: 50%;
@@ -171,10 +195,53 @@ export default {
     font-size: 30px;
   }
 }
-.ad-image {
+
+.columns {
+  display: flex;
+  white-space: normal;
+  column-width: 130px;
+  column-gap: 15px;
+  min-height: 200px;
+}
+.left-columns {
+  justify-content: flex-end;
+}
+.columns figure {
+  background: white;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 10px;
+  padding-bottom: 40px;
+  // box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 7px 12px 5px 9px beige;
+}
+.columns figure img {
   width: 100%;
-  object-position: top;
-  object-fit: cover;
-  height: 280px;
+}
+.columns figure figcaption {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-top: 11px;
+}
+.test {
+}
+
+.thumnail-poster {
+  border-radius: 5px;
+  height: 110px;
+  width: 120px;
+  overflow: hidden;
+  position: relative;
+  &:before {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    content: '';
+    width: 100%;
+    height: 50%;
+    z-index: 1;
+  }
 }
 </style>

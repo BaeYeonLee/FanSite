@@ -12,8 +12,7 @@
         </div>
       </router-link>
       <router-link to="ad">
-        <div class="menu-card menu-ad">
-          <img src="@assets/img/advertising.jpg" />
+        <div class="menu-card menu-advertising">
           <div class="menu-hover">AD</div>
         </div>
       </router-link>
@@ -131,18 +130,19 @@ $IU-Hover-Black: rgba(0, 0, 0, 0.3);
         background-image: url('../assets/img/history.jpg');
       }
 
+      &.menu-advertising {
+        left: 80px;
+        top: -130px;
+        width: 290px;
+        height: 290px;
+        background-image: url('../assets/img/advertising.jpg');
+      }
+
       &.menu-album {
         left: 40px;
         width: 420px;
         height: 420px;
         background-image: url('../assets/img/album.png');
-      }
-
-      &.menu-ad {
-        left: 80px;
-        top: -130px;
-        width: 290px;
-        height: 290px;
       }
 
       &.menu-filmography {
