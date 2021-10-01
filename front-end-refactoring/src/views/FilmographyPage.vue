@@ -4,7 +4,16 @@
       <SelectedTab :tabs="filmoTabs" @changed="onChangeFilter" />
       <div style="margin-top: 10px; padding: 30px 15px">
         <div class="grid-view">
-          <Thumnail v-for="filmo in showingList" v-bind="filmo" />
+          <Thumnail
+            v-for="filmo in showingList"
+            :id="filmo.id"
+            :title="filmo.title"
+            :startDate="filmo.start_date"
+            :endDate="filmo.end_date"
+            :cast="filmo.cast"
+            :image="filmo.image_url"
+            :link="filmo.homepage_url"
+          />
         </div>
       </div>
     </div>
@@ -24,32 +33,32 @@ export default {
     return {
       // Static Data
       filmoTabs: [
-        { key: 'All', count: 0 },
-        { key: 'Movie', count: 0 },
-        { key: 'Drama', count: 0 },
+        { label: 'All', code: 0, count: 0 },
+        { label: 'Movie', code: 1, count: 0 },
+        { label: 'Drama', code: 2, count: 0 },
       ],
 
       // Filter Data
-      filterKey: 'all',
+      filterCode: 0,
       // Album Data
       filmoList: [],
     }
   },
   computed: {
     showingList() {
-      if (this.filterKey == 'all') {
+      if (this.filterCode == 0) {
         return this.filmoList
       }
 
       return this.filmoList.filter(filmo => {
-        return filmo.type == this.filterKey
+        return filmo.filmo_type == this.filterCode
       })
     },
   },
   created() {
     console.log('------------> filmo mouted')
     this.setSubTitle()
-    this.getFilmoList()
+    this.getFilmographyList()
   },
   methods: {
     /* ------------------------------ VUEX METHOD ------------------------------ */
@@ -77,8 +86,51 @@ export default {
       })
     },
     /* ------------------------------ EVENT METHOD ------------------------------ */
-    onChangeFilter(filterKey) {
-      this.filterKey = filterKey
+    onChangeFilter(filterCode) {
+      this.filterCode = filterCode
+    },
+    /* ------------------------------ GETTER METHOD ------------------------------ */
+    getFilmoType(filmo_type) {
+      switch (filmo_type) {
+        case 1:
+          return 'Movie'
+        case 2:
+          return 'Drama'
+      }
+    },
+    /* ------------------------------ GET DATA METHOD ------------------------------ */
+    async getFilmographyList() {
+      const tempList = await this.$api.filmography.getList()
+
+      // Filmography 나온 날짜 순으로 정렬
+      tempList.sort((a, b) => {
+        if (a.start_date < b.start_date) {
+          return 1
+        }
+
+        if (a.start_date > b.start_date) {
+          return -1
+        }
+
+        return 0
+      })
+
+      // Filmography Type 및 종류 별 갯수 설정
+      this.filmoList = tempList.map(filmo => {
+        let tabItem = this.filmoTabs.find(tab => {
+          return tab.code == filmo.filmo_type
+        })
+
+        if (tabItem) {
+          this.filmoTabs[0].count++
+          tabItem.count++
+        }
+
+        return {
+          ...filmo,
+          type: this.getFilmoType(filmo.filmo_type),
+        }
+      })
     },
   },
 }

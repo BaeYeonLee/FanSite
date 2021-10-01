@@ -1,10 +1,10 @@
 import axios from './config'
-import { ALBUM } from './urls'
+import { FILMOGRAPHY } from './urls'
 
 export default {
   async insert(params) {
     try {
-      return await axios.post(ALBUM.UPSERT, params)
+      return await axios.post(FILMOGRAPHY.UPSERT, params)
     } catch (e) {
       return 'INSERT ERROR'
     }
@@ -12,7 +12,7 @@ export default {
 
   async getOne(id) {
     try {
-      return await axios.get(ALBUM.GET_OR_DELETE + id)
+      return await axios.get(FILMOGRAPHY.GET_OR_DELETE + id)
     } catch (e) {
       return {}
     }
@@ -25,7 +25,7 @@ export default {
    */
   async getList(params) {
     try {
-      return await axios.get(ALBUM.GET_LIST, { params })
+      return await axios.get(FILMOGRAPHY.GET_LIST, { params })
     } catch (e) {
       return []
     }
@@ -33,7 +33,7 @@ export default {
 
   async update(params) {
     try {
-      return await axios.put(ALBUM.UPSERT, params)
+      return await axios.put(FILMOGRAPHY.UPSERT, params)
     } catch (e) {
       return 'UPDATE ERROR'
     }
@@ -41,7 +41,7 @@ export default {
 
   async delete(id) {
     try {
-      return await axios.delete(ALBUM.GET_OR_DELETE + id)
+      return await axios.delete(FILMOGRAPHY.GET_OR_DELETE + id)
     } catch (e) {
       return 'DELETE ERROR'
     }

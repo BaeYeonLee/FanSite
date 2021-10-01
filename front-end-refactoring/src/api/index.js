@@ -1,6 +1,7 @@
 import users from "./users";
 import album from "./album";
 import track from "./track";
+import filmography from "./filmography";
 
 export default {
   install(app, options) {
@@ -15,4 +16,5 @@ export default {
   users,
   album,
   track,
+  filmography,
 };

@@ -22,3 +22,9 @@ export const TRACK = {
   GET_OR_DELETE: 'track/',
   GET_LIST: 'track',
 }
+
+export const FILMOGRAPHY = {
+  UPSERT: 'filmography',
+  GET_OR_DELETE: 'filmography/',
+  GET_LIST: 'filmography',
+}

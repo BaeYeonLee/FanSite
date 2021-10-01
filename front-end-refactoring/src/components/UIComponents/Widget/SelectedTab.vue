@@ -14,16 +14,6 @@
 <script>
 export default {
   props: {
-    /** TODO CHECK :: Data Foramt
-      [
-        { key: 'All', count: 0 },
-        { key: 'Studio', count: 0 },
-        { key: 'Mini', count: 0 },
-        { key: 'Remake', count: 0 },
-        { key: 'Single', count: 0 },
-        { key: 'Digital', count: 0 },
-      ],
-     */
     tabs: {
       type: Array,
       default: [],
