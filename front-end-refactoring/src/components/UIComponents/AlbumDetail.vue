@@ -122,7 +122,6 @@ export default {
   },
   created() {
     this.getAlbumInfo()
-    this.setSubTitle()
   },
   methods: {
     open(idx) {
@@ -191,6 +190,8 @@ export default {
       this.albumInfo.trackList.forEach((element, idx) => {
         this.tmpArray[idx] = false
       })
+      //SET Sub Title on Header by Vuex
+      this.setSubTitle()
     },
   },
 }
