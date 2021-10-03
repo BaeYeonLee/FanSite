@@ -71,6 +71,25 @@ export default {
     setSubTitle() {
       this.set_title({ title: 'ALBUM' })
     },
+    /* ------------------------------ GETTER METHOD ------------------------------ */
+    getAlbumList() {
+      //TODO SET API
+      this.albumList = albumList.concat()
+
+      this.albumList.forEach(album => {
+        this.albumTabs.forEach(tab => {
+          if (tab.key == 'All') {
+            tab.count += 1
+            return
+          }
+
+          const type = tab.key.toLowerCase()
+          if (album.type == type) {
+            tab.count += 1
+          }
+        })
+      })
+    },
     /* ------------------------------ EVENT METHOD ------------------------------ */
     onChangeFilter(filterCode) {
       this.filterCode = filterCode
@@ -100,11 +119,11 @@ export default {
 
       // 앨범 나온 날짜 순으로 정렬
       tempList.sort( (a,b) => {
-        if( a.release_date > b.release_date ) {
+        if( a.release_date < b.release_date ) {
           return 1
         }
 
-        if( a.release_date < b.release_date ) {
+        if( a.release_date > b.release_date ) {
           return -1
         }
 
@@ -129,7 +148,7 @@ export default {
           type: this.getAlbumType(album.album_type)
         }
       })
-    }
+    },
   },
 }
 </script>

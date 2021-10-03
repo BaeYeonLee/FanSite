@@ -10,7 +10,7 @@
       </template>
       <template v-else-if="startDate">
         <br />
-        {{ startDate }} - {{ endDate }} <br />
+        {{ startDate }} ~ {{ endDate }} <br />
         {{ cast }}<br />
       </template>
     </div>

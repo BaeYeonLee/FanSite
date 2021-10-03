@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <div class="album-detail">
-      <div class="section-left">
+      <div class="section-left" ref="left">
         <div class="cover">
           <img :src="albumInfo.image_url" />
         </div>
@@ -17,28 +17,56 @@
       </div>
       <!-- Section Left End-->
       <!-- Section Right Start -->
-      <div class="section-right">
+      <div class="section-right" ref="right">
         <h4>Track List</h4>
         <div class="expand-wrapper" v-for="(tl, idx) in albumInfo.trackList" :key="tl" @click="open(idx)">
           <!-- <transition-group name="list">-->
           <div class="expand-title">
-            <span class="title">{{ number(tl.track_no) }}. {{ tl.name }}</span>
+            <div class="title-content">
+              {{ number(tl.track_no) }}. {{ tl.name }}
+              <!-- <span>{{ number(tl.track_no) }}. {{ tl.name }}</span> -->
+            </div>
+            <div class="title" v-if="tl.is_title">title</div>
+            <!-- <span class="title" v-if="tl.is_title">title</span> -->
             <i class="fas fa-caret-up" v-if="openCard[idx]"></i>
             <i class="fas fa-caret-down" v-else></i>
           </div>
-          <!-- </transition-group>-->
-          <transition-group name="list">
-            <div class="content" v-if="openCard[idx]">
+          <transition name="rightToLeft">
+            <div class="content" v-show="openCard[idx]">
               <div class="infos">
-                <div class="lyrics"> 작사 </div>
-                <div>{{ tl.lyrics_by }} </div>
-                <div class="compose"> 작곡 </div>
-                <div>{{ tl.composed_by }} </div>
-                <div class="arrange"> 편곡 </div>
-                <div>{{ tl.arranged_by }} </div>
+                <div class="lyrics">작사</div>
+                <div>{{ tl.lyrics_by }}</div>
+                <div class="compose">작곡</div>
+                <div>{{ tl.composed_by }}</div>
+                <div class="arrange">편곡</div>
+                <div>{{ tl.arranged_by }}</div>
+                <div class="lyrics" style="margin-top: 1rem">가사</div>
+                <div v-if="tl.lyrics" style="white-space: pre; margin-top: 1rem; height: 12rem; overflow-y: auto">
+                  {{ tl.lyrics }}
+                </div>
               </div>
+
+              <!-- TEST UI - PORALOID -->
+              <!-- <div class="polar-wrapper hi-melody">
+                <div class="lyric-area" v-if="tl.lyrics">
+                  {{ tl.lyrics }}
+                </div>
+
+                <div class="none-lyric-area" v-else>
+                  <img :src="albumInfo.image_url" />
+                </div>
+                <div class="polar-infos">
+                  <div class="lyrics">작사</div>
+                  <div>{{ tl.lyrics_by }}</div>
+                  <div class="compose">작곡</div>
+                  <div>{{ tl.composed_by }}</div>
+                  <div class="arrange">편곡</div>
+                  <div>{{ tl.arranged_by }}</div>
+                </div>
+              </div> -->
+              <!-- END -->
             </div>
-          </transition-group>
+          </transition>
         </div>
       </div>
       <!-- Section Rigth END -->
@@ -61,10 +89,14 @@ export default {
       let array = this.tmpArray
       if (this.currentIndex < 0) {
         //선택 해제 시
-        let result = array.map((el, idx) => {
-          el = false
+        array.map((el, idx) => {
+          if (el == true) {
+            array[idx] = false
+            this.currentIndex = -1
+            return
+          }
         })
-        return result
+        return array
       } else {
         //선택 했을 경우
         array.map((el, idx) => {
@@ -90,13 +122,16 @@ export default {
   },
   created() {
     this.getAlbumInfo()
-    this.setSubTitle()
   },
   methods: {
     open(idx) {
       if (this.currentIndex == idx) {
+        this.$refs.right.style.width = '30%'
+        this.$refs.left.style.width = '70%'
         this.currentIndex = -1
       } else {
+        this.$refs.right.style.width = '50%'
+        this.$refs.left.style.width = '50%'
         this.currentIndex = idx
       }
     },
@@ -109,7 +144,7 @@ export default {
 
     /* ------------------------------ GETTER METHOD ------------------------------ */
     getAlbumType(album_type) {
-      switch(album_type) {
+      switch (album_type) {
         case 1:
           return '정규'
         case 2:
@@ -136,18 +171,17 @@ export default {
     },
     /* ------------------------------ GET DATA METHOD ------------------------------ */
     async getAlbumInfo() {
-      console.log("get Album Info")
+      console.log('get Album Info')
 
       const albumId = this.$route.params.album_id
-      console.log("albumId", albumId)
+      console.log('albumId', albumId)
       this.albumInfo = await this.$api.album.getOne(albumId)
 
-      console.log("albumInfo", this.albumInfo)
+      console.log('albumInfo', this.albumInfo)
 
       this.albumInfo.trackList = await this.$api.track.getList({ album_id: albumId })
 
-      console.log("trackList", this.albumInfo.trackList)
-
+      console.log('trackList', this.albumInfo.trackList)
 
       // let albumID = this.$route.params.album_id
       // this.albumInfo = albumList.concat().find(album => {
@@ -156,6 +190,8 @@ export default {
       this.albumInfo.trackList.forEach((element, idx) => {
         this.tmpArray[idx] = false
       })
+      //SET Sub Title on Header by Vuex
+      this.setSubTitle()
     },
   },
 }
@@ -170,73 +206,129 @@ export default {
   margin: 0 auto;
   .album-detail {
     height: 670px;
-    margin: 40px auto 30px;
-    grid-template-areas:
-      'section-left section-right'
-      'section-left section-right';
-    display: grid;
-    grid-column-gap: 10%;
     margin: 40px 0;
-    overflow: auto;
     color: $IU-BlueViolet;
+    display: flex;
+    // margin: 40px auto 30px;
+    // grid-template-areas:
+    //   'section-left section-right'
+    //   'section-left section-right';
+    // display: grid;
+    // grid-column-gap: 2rem;
+    // grid-template-columns: minmax(auto, 2fr) 1fr;
+    // overflow-y: overlay;
   }
 }
 .section-left {
-  grid-area: section-left;
-  max-width: 360px;
+  // grid-area: section-left;
+  // max-width: 360px;
+  text-align: center;
+  width: 70%;
+  display: inline-block;
+  transition: 0.5s;
+  .cover {
+    img {
+      width: 360px;
+    }
+  }
   .album-info {
+    width: 50%;
+    display: inline-block;
     .title {
       font-weight: bold;
       margin-top: 40px;
       text-align: center;
     }
     .info {
-      position: relative;
-      .type {
-        position: absolute;
-        top: 15px;
-        left: 15%;
-      }
-      .date {
-        position: absolute;
-        top: 15px;
-        right: 10%;
-      }
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
     }
   }
 }
 .section-right {
-  grid-area: section-right;
+  // grid-area: section-right;
   color: $IU-BlueViolet;
-  width: 100%;
-
-  .list-enter-active,
-  .list-leave-active {
-    // transition: opacity 0.5s ease;
-    transition: all 0.5s;
-  }
-
-  .list-enter-from,
-  .list-leave-to {
-    //transform: translateY(30px);
-    transform: translate(0, -30px);
-    opacity: 0;
-  }
-
+  width: 30%;
+  display: inline-block;
+  transition: 0.5s;
+  overflow-y: auto;
   .expand-wrapper {
-    width: 25rem;
-  }
-  .expand-title {
-    display: flex;
-    justify-content: space-between;
-    //box-shadow: 1px 2px 1px -1px $IU-BlueViolet;
-    cursor: pointer;
-    margin-bottom: 15px;
-    transition: 0.5s;
-  }
-  .content {
-    margin: 20px 0px;
-    transition: 0.5s;
+    margin-right: 2rem;
+    .expand-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding-bottom: 15px;
+      background: $IU-White;
+      // font-family: 'Hi Melody', cursive;
+      .title-content {
+        text-overflow: ellipsis;
+        max-width: 75%;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .title {
+        border: 1px solid $IU-BlueViolet;
+        padding: 2px 5px 0px;
+        border-radius: 10px;
+        font-size: 12px;
+        margin-left: 5px;
+      }
+    }
+    .content {
+      margin-bottom: 20px;
+      overflow: hidden;
+      animation-duration: 0.5s;
+      &.rightToLeft-enter-active {
+        animation-name: slidein;
+        transition: 0.5s;
+      }
+      &.rightToLeft-leave-active {
+        animation-name: slideout;
+        transition: 0.5s;
+      }
+    }
+    //poraloid
+    .polar-wrapper {
+      background: white;
+      background: white;
+      padding: 40px 30px 50px;
+      box-shadow: 2px 2px 5px 1px;
+      .lyric-area {
+        white-space: pre-line;
+        background: $IULightViolet;
+        padding: 20px;
+        overflow-y: scroll;
+        height: 300px;
+        font-size: 0.9rem;
+        img {
+          width: 100%;
+          opacity: 0.5;
+        }
+      }
+      .none-lyric-area img {
+        width: 100%;
+      }
+      .polar-infos {
+        // font-size: 14px;
+        margin-top: 20px;
+        // font-style: italic;
+        display: grid;
+        grid-template-columns: 40px 1fr;
+        div {
+          // font-size: 14px;
+          // margin-bottom: 5px;
+          &.lyrics,
+          &.arrange,
+          &.compose {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    //not polaroid
     .infos {
       display: grid;
       grid-template-columns: 90px 1fr;
@@ -254,58 +346,26 @@ export default {
   }
 
   h4 {
-    text-align: center;
     margin-bottom: 30px;
   }
-  .track-list {
-    display: grid;
-    margin: 20px 0 0 50px;
+}
+
+@keyframes slidein {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
-.list-content {
-  padding: 40px;
-  .song-title {
-    display: block;
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-size: 18px;
+@keyframes slideout {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
   }
-  .infos {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    div {
-      font-size: 14px;
-      &.lyrics,
-      &.arrange,
-      &.compose {
-        margin-right: 35px;
-        font-weight: bold;
-        text-align: right;
-      }
-    }
-  }
-
-  //test
-
-  .song-title {
-    display: block;
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-size: 18px;
-  }
-  .infos {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    div {
-      font-size: 14px;
-      &.lyrics,
-      &.arrange,
-      &.compose {
-        margin-right: 35px;
-        font-weight: bold;
-        text-align: right;
-      }
-    }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
   }
 }
 </style>

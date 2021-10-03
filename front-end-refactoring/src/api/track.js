@@ -10,9 +10,9 @@ export default {
     }
   },
 
-  async getOne(trackId) {
+  async getOne(id) {
     try {
-      return await axios.get(TRACK.GET_OR_DELETE + trackId)
+      return await axios.get(TRACK.GET_OR_DELETE + id)
     } catch (e) {
       return {}
     }
@@ -39,9 +39,9 @@ export default {
     }
   },
 
-  async delete(trackId) {
+  async delete(id) {
     try {
-      return await axios.delete(TRACK.GET_OR_DELETE + trackId)
+      return await axios.delete(TRACK.GET_OR_DELETE + id)
     } catch (e) {
       return 'DELETE ERROR'
     }
