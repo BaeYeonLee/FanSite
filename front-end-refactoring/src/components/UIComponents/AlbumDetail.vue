@@ -6,48 +6,56 @@
           <img :src="albumInfo.image_url" />
         </div>
         <div class="album-info">
-          <div class="title">
-            {{ albumInfo.title }}
-          </div>
-          <div class="info">
-            <div class="type">{{ getAlbumType(albumInfo.album_type) }}</div>
-            <div class="date">{{ albumInfo.release_date }}</div>
-          </div>
+          <table>
+            <tr v-for="item in fields">
+              <th v-if="item.includes('_')">
+                {{ item.substring(item.indexOf('_') + 1, item.length).toUpperCase() }}
+              </th>
+              <th v-else>{{ item.toUpperCase() }}</th>
+              <td v-if="item == 'album_type'">{{ getAlbumType(albumInfo[item]) }}</td>
+              <td v-else>{{ albumInfo[item] }}</td>
+            </tr>
+          </table>
         </div>
       </div>
       <!-- Section Left End-->
       <!-- Section Right Start -->
       <div class="section-right" ref="right">
-        <h4>Track List</h4>
-        <div class="expand-wrapper" v-for="(tl, idx) in albumInfo.trackList" :key="tl" @click="open(idx)">
-          <!-- <transition-group name="list">-->
-          <div class="expand-title">
-            <div class="title-content">
-              {{ number(tl.track_no) }}. {{ tl.name }}
-              <!-- <span>{{ number(tl.track_no) }}. {{ tl.name }}</span> -->
-            </div>
-            <div class="title" v-if="tl.is_title">title</div>
-            <!-- <span class="title" v-if="tl.is_title">title</span> -->
-            <i class="fas fa-caret-up" v-if="openCard[idx]"></i>
-            <i class="fas fa-caret-down" v-else></i>
-          </div>
-          <transition name="rightToLeft">
-            <div class="content" v-show="openCard[idx]">
-              <div class="infos">
-                <div class="lyrics">작사</div>
-                <div>{{ tl.lyrics_by }}</div>
-                <div class="compose">작곡</div>
-                <div>{{ tl.composed_by }}</div>
-                <div class="arrange">편곡</div>
-                <div>{{ tl.arranged_by }}</div>
-                <div class="lyrics" style="margin-top: 1rem">가사</div>
-                <div v-if="tl.lyrics" style="white-space: pre; margin-top: 1rem; height: 12rem; overflow-y: auto">
-                  {{ tl.lyrics }}
-                </div>
-              </div>
+        <h4 v-if="currentIndex < 0">Track List</h4>
+        <!-- <button v-else class="back-to-list" @click="open(currentIndex)" title="Back To Track List">
+          <i class="far fa-arrow-alt-circle-left fa-2x" />
+        </button> -->
 
-              <!-- TEST UI - PORALOID -->
-              <!-- <div class="polar-wrapper hi-melody">
+        <!-- TRACK LIST -->
+        <div v-for="(tl, idx) in albumInfo.trackList" :key="tl" class="expand-wrapper">
+          <div class="expand-title" @click="open(idx)" v-show="currentIndex == idx || currentIndex < 0">
+            <div class="title-content">{{ number(tl.track_no) }}. {{ tl.name }}</div>
+            <div class="title" v-if="tl.is_title">title</div>
+            <div class="icons">
+              <i class="far fa-arrow-alt-circle-left" v-if="currentIndex == idx" />
+              <i class="far fa-arrow-alt-circle-right" v-else />
+            </div>
+          </div>
+        </div>
+
+        <!-- TRACK CONTENT -->
+        <div v-for="(t, idx) in albumInfo.trackList" :key="t" v-show="currentIndex == idx" class="content">
+          <transition name="rightToLeft">
+            <div class="infos">
+              <div class="lyrics-by">작사</div>
+              <div>{{ t.lyrics_by }}</div>
+              <div class="compose-by">작곡</div>
+              <div>{{ t.composed_by }}</div>
+              <div class="arrange-by">편곡</div>
+              <div>{{ t.arranged_by }}</div>
+              <div class="lyrics">가사</div>
+              <div v-if="t.lyrics" class="lyrics-area">
+                {{ t.lyrics }}
+              </div>
+            </div>
+
+            <!-- TEST UI - PORALOID -->
+            <!-- <div class="polar-wrapper hi-melody">
                 <div class="lyric-area" v-if="tl.lyrics">
                   {{ tl.lyrics }}
                 </div>
@@ -64,8 +72,7 @@
                   <div>{{ tl.arranged_by }}</div>
                 </div>
               </div> -->
-              <!-- END -->
-            </div>
+            <!-- END -->
           </transition>
         </div>
       </div>
@@ -82,6 +89,7 @@ export default {
       albumInfo: {},
       currentIndex: -1,
       tmpArray: [],
+      fields: ['title', 'album_type', 'release_date'],
     }
   },
   computed: {
@@ -106,16 +114,6 @@ export default {
             array[idx] = false
           }
         })
-        //undefined로 떨어짐... 외..?
-        /*
-        let result = array.map((el, idx) => {
-          if (idx == this.currentIndex) {
-            el = true
-          } else {
-            el = false
-          }
-        })
-        */
         return array
       }
     },
@@ -124,6 +122,7 @@ export default {
     this.getAlbumInfo()
   },
   methods: {
+    /* ------------------------------ Click METHOD ------------------------------ */
     open(idx) {
       if (this.currentIndex == idx) {
         this.$refs.right.style.width = '30%'
@@ -135,7 +134,6 @@ export default {
         this.currentIndex = idx
       }
     },
-
     /* ------------------------------ VUEX METHOD ------------------------------ */
     ...mapActions(['set_title']),
     setSubTitle() {
@@ -232,37 +230,59 @@ export default {
     }
   }
   .album-info {
-    width: 50%;
+    width: 360px;
     display: inline-block;
-    .title {
-      font-weight: bold;
-      margin-top: 40px;
-      text-align: center;
-    }
-    .info {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
+    text-align: left;
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
     }
   }
 }
 .section-right {
+  h4 {
+    margin-bottom: 30px;
+  }
   // grid-area: section-right;
   color: $IU-BlueViolet;
   width: 30%;
   display: inline-block;
   transition: 0.5s;
   overflow-y: auto;
+  .back-to-list {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    color: $IU-BlueViolet;
+    &:hover {
+      color: $IU-LightViolet;
+    }
+  }
   .expand-wrapper {
     margin-right: 2rem;
+
     .expand-title {
+      position: relative;
       display: flex;
-      justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      padding-bottom: 15px;
-      background: $IU-White;
+      margin-bottom: 15px;
+      padding: 0.5rem;
+      .icons {
+        position: absolute;
+        right: 0;
+        top: 0.3rem;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
       // font-family: 'Hi Melody', cursive;
+      &:hover {
+        border-radius: 1rem;
+        box-shadow: 3px 3px 5px 0px #4a4e8c;
+        transition: 0.3s;
+      }
       .title-content {
         text-overflow: ellipsis;
         max-width: 75%;
@@ -277,76 +297,87 @@ export default {
         margin-left: 5px;
       }
     }
-    .content {
-      margin-bottom: 20px;
-      overflow: hidden;
-      animation-duration: 0.5s;
-      &.rightToLeft-enter-active {
-        animation-name: slidein;
-        transition: 0.5s;
-      }
-      &.rightToLeft-leave-active {
-        animation-name: slideout;
-        transition: 0.5s;
-      }
+  }
+
+  .content {
+    margin: 0 1.25rem 1.25rem 0;
+    overflow: hidden;
+
+    animation-duration: 0.5s;
+    &.rightToLeft-enter-active {
+      animation-name: slidein;
+      transition: 0.5s;
     }
-    //poraloid
-    .polar-wrapper {
-      background: white;
-      background: white;
-      padding: 40px 30px 50px;
-      box-shadow: 2px 2px 5px 1px;
-      .lyric-area {
-        white-space: pre-line;
-        background: $IULightViolet;
-        padding: 20px;
-        overflow-y: scroll;
-        height: 300px;
-        font-size: 0.9rem;
-        img {
-          width: 100%;
-          opacity: 0.5;
-        }
-      }
-      .none-lyric-area img {
+    &.rightToLeft-leave-active {
+      animation-name: slideout;
+      transition: 0.5s;
+    }
+  }
+  //poraloid
+  .polar-wrapper {
+    background: white;
+    background: white;
+    padding: 40px 30px 50px;
+    box-shadow: 2px 2px 5px 1px;
+    .lyric-area {
+      white-space: pre-line;
+      background: $IULightViolet;
+      padding: 20px;
+      overflow-y: scroll;
+      height: 300px;
+      font-size: 0.9rem;
+      img {
         width: 100%;
-      }
-      .polar-infos {
-        // font-size: 14px;
-        margin-top: 20px;
-        // font-style: italic;
-        display: grid;
-        grid-template-columns: 40px 1fr;
-        div {
-          // font-size: 14px;
-          // margin-bottom: 5px;
-          &.lyrics,
-          &.arrange,
-          &.compose {
-            font-weight: bold;
-          }
-        }
+        opacity: 0.5;
       }
     }
-    //not polaroid
-    .infos {
+    .none-lyric-area img {
+      width: 100%;
+    }
+    .polar-infos {
+      // font-size: 14px;
+      margin-top: 20px;
+      // font-style: italic;
       display: grid;
-      grid-template-columns: 90px 1fr;
+      grid-template-columns: 40px 1fr;
       div {
-        font-size: 14px;
+        // font-size: 14px;
+        // margin-bottom: 5px;
         &.lyrics,
         &.arrange,
         &.compose {
-          margin-right: 35px;
           font-weight: bold;
-          text-align: right;
         }
       }
     }
   }
-
-  h4 {
-    margin-bottom: 30px;
+  //not polaroid
+  .infos {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    background: $IULightViolet;
+    border-radius: 2rem;
+    padding: 1rem;
+    div {
+      font-size: 14px;
+      &.lyrics-by,
+      &.arrange-by,
+      &.compose-by,
+      &.lyrics {
+        margin-right: 35px;
+        font-weight: bold;
+        text-align: right;
+      }
+      &.lyrics {
+        margin-top: 1rem;
+      }
+    }
+    .lyrics-area {
+      white-space: pre;
+      margin-top: 1rem;
+      // height: 12rem;
+      // overflow-y: auto;
+    }
   }
 }
 

@@ -35,17 +35,18 @@
   // TODO CHECK :: 1080px under
   // grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   grid-template-columns: repeat(auto-fit, 330px);
-
   grid-gap: 30px;
 }
 @media (max-width: 1860px) {
   .grid-view {
-    grid-template-columns: repeat(auto-fit, 330px);
+    // grid-template-columns: repeat(auto-fit, 330px);
+    column-width: 330px;
   }
 }
 @media (max-width: 1080px) {
   .grid-view {
-    grid-template-columns: repeat(auto-fit, 475px);
+    // grid-template-columns: repeat(auto-fit, 475px);
+    column-width: 475px;
   }
 }
 
