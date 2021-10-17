@@ -1,23 +1,13 @@
 <template>
   <div class="tab-box">
     <!--  tab name -->
-    <div class="tabs">
-      <div class="tab" v-for="(category, idx) in categories" :key="idx">
-        <div class="cateogry-name" @click="selectedTab(idx)" :class="{ selected: isSelectedCategory(idx) }">
-          {{ category }}
-        </div>
-        <div>
-          <hr v-if="currentTab == idx" class="selected" />
-          <hr v-else />
-        </div>
-      </div>
-    </div>
+    <SelectedTab :tabs="categories" @changed="selectedTab" />
     <!-- Tab Content -->
-    <div class="tab-contents">
-      <div class="columns">
+    <div class="board-tab-contents">
+      <div class="board-columns">
         <figure v-for="board in boardList">
-          <div class="thumnail-poster">
-            <figcaption>{{ board.title }}</figcaption>
+          <div class="board-thumnail-poster">
+            <figcaption class="board-title-text">{{ board.title }}</figcaption>
             <img :src="board.img" />
           </div>
         </figure>
@@ -34,17 +24,24 @@
 </template>
 
 <script>
+import SelectedTab from '@/Widget/SelectedTab'
 import { boardList } from '@common/dummy.js'
 import Dialog from '@/Dialog'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
+    SelectedTab,
     Dialog,
   },
   data() {
     return {
       /* ------------------------------ STATIC DATA ------------------------------ */
-      categories: ['Board', 'Like', 'ADD+'], // Static Data는 그냥 data에 선언해주세요 ~
+      categories: [
+        { label: 'Board', code: 0, count: 0 },
+        { label: 'Like', code: 1, count: 0 },
+        { label: 'ADD', code: 2, count: 0 },
+      ], // Static Data는 그냥 data에 선언해주세요 ~
       defaultBoard: {
         id: '',
         title: '',
@@ -66,8 +63,13 @@ export default {
   },
   created() {
     this.getBoardList()
+    this.setSubTitle()
   },
   methods: {
+    ...mapActions(['set_title']),
+    setSubTitle() {
+      this.set_title({ title: 'Board' })
+    },
     isSelectedCategory(index) {
       return this.currentTab == index
     },
@@ -119,7 +121,7 @@ hr {
   color: lightgray;
   border: solid 3px;
 }
-.tab-contents {
+.board-tab-contents {
   margin: 20px 0;
   white-space: nowrap;
   overflow: auto;
@@ -154,7 +156,7 @@ hr {
 }
 .thumnail-wrapper {
   margin: 0 auto;
-  .thumnail-poster {
+  .board-thumnail-poster {
     border-radius: 12px;
     height: 280px;
     width: 250px;
@@ -258,12 +260,12 @@ hr {
   }
 }
 
-.columns {
+.board-columns {
   white-space: normal;
   column-width: 300px;
   column-gap: 15px;
 }
-.columns figure {
+.board-columns figure {
   display: inline-block;
   border: 1px solid rgba(0, 0, 0, 0.2);
   margin: 0;
@@ -271,21 +273,26 @@ hr {
   padding: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
-.columns figure img {
+.board-columns figure img {
   width: 100%;
 }
-.columns figure figcaption {
+.board-columns figure figcaption {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px;
   margin-top: 11px;
 }
+.board-title-text {
+  color: $IU-DeepViolet;
+  font-size: 20px;
+  font-weight: bold;
+}
 @media (max-width: 1860px) {
-  .columns {
+  .board-columns {
     column-width: 275px;
   }
 }
 @media (max-width: 1080px) {
-  .columns {
+  .board-columns {
     column-width: 200px;
   }
 }

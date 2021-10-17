@@ -47,6 +47,7 @@
 </template>
 <script>
 import { history } from '@common/dummy.js'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -55,6 +56,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['set_title']),
+    setSubTitle() {
+      this.set_title({ title: 'Hisotry' })
+    },
     getYearAd(year) {
       return this.historyList.filter(item => {
         return item.year == year
@@ -84,6 +89,7 @@ export default {
   },
   created() {
     this.gethistoryList()
+    this.setSubTitle()
   },
 }
 </script>

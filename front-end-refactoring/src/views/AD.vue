@@ -47,6 +47,7 @@
 </template>
 <script>
 import adList from '@common/dummy/ad.js'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -55,6 +56,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['set_title']),
+    setSubTitle() {
+      this.set_title({ title: 'Advertising' })
+    },
     getYearAd(year) {
       return this.adList.filter(item => {
         return item.year == year
@@ -84,6 +89,7 @@ export default {
   },
   created() {
     this.getADList()
+    this.setSubTitle()
   },
 }
 </script>
