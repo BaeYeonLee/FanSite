@@ -1,19 +1,16 @@
 <template>
   <div class="hist-content">
-    <div class="ad-title">
-      <h3>Advertising</h3>
-    </div>
-    <div style="width: 100%; height: auto" v-for="(year, idx) in yearList">
+    <div class="hist-wrapper" v-for="(year, idx) in yearList">
       <div class="left-hist-content">
-        <p v-if="idx % 2 == 0" class="year-font">{{ year }}</p>
-        <p v-if="idx % 2 == 0" v-for="(ad, index) in getYearAd(year)">{{ ad.content }}</p>
+        <div v-if="idx % 2 == 0" class="year-font">{{ year }}</div>
+        <div v-if="idx % 2 == 0" v-for="(ad, index) in getYearAd(year)">{{ ad.content }}</div>
         <div class="columns left-columns" v-if="idx % 2 != 0">
           <div
-            class="test"
             v-for="(ad, index) in getFourYearAd(year)"
+            class="test"
             :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }"
           >
-            <figure :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
+            <figure v-if="index < 2" :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
               <div class="thumnail-poster">
                 <img :src="ad.image_url" />
               </div>
@@ -26,15 +23,15 @@
         <div class="line"></div>
       </div>
       <div class="right-hist-content">
-        <p v-if="idx % 2 != 0" class="year-font">{{ year }}</p>
-        <p v-if="idx % 2 != 0" v-for="ad in getYearAd(year)">{{ ad.content }}</p>
+        <div v-if="idx % 2 != 0" class="year-font">{{ year }}</div>
+        <div v-if="idx % 2 != 0" v-for="ad in getYearAd(year)">{{ ad.content }}</div>
         <div class="columns" v-if="idx % 2 == 0">
           <div
-            class="test"
             :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }"
+            class="test"
             v-for="(ad, index) in getFourYearAd(year)"
           >
-            <figure :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
+            <figure v-if="index < 2" :class="{ isLotate: index % 2 == 0, isNotLotate: index % 2 != 0 }">
               <div class="thumnail-poster">
                 <img :src="ad.image_url" />
               </div>
@@ -88,6 +85,16 @@ export default {
 }
 </script>
 <style lang="scss">
+.hist-content {
+  width: 1080px;
+  margin: 0 auto;
+}
+.hist-wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-content: flex-start;
+}
 .step {
   padding: 10px;
   display: flex;
@@ -228,10 +235,16 @@ export default {
 .test {
 }
 
+.isLotate {
+  transform: rotate(5deg);
+}
+.isNotLotate {
+  transform: rotate(355deg);
+}
 .thumnail-poster {
   border-radius: 5px;
-  height: 110px;
-  width: 120px;
+  height: 170px;
+  width: 170px;
   overflow: hidden;
   position: relative;
   &:before {
