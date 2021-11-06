@@ -57,7 +57,6 @@ export default {
       return this.$route.path.includes(item.toLowerCase()) ? true : false
     },
     headerHandleScroll() {
-      console.log(document.documentElement.clientHeight)
       const height = document.documentElement.clientHeight
       const half = height / 2
       this.isScroll = window.scrollY > half

@@ -82,7 +82,6 @@
   </div>
 </template>
 <script>
-import albumList from '@common/dummy/album.js'
 import { mapActions } from 'vuex'
 export default {
   data() {
@@ -123,6 +122,12 @@ export default {
     this.getAlbumInfo()
   },
   methods: {
+    /* ------------------------------ VUEX METHOD ------------------------------ */
+    ...mapActions(['set_title']),
+    setSubTitle() {
+      this.set_title({ title: this.albumInfo.title })
+    },
+
     /* ------------------------------ Click METHOD ------------------------------ */
     open(idx) {
       if (this.currentIndex == idx) {
@@ -139,12 +144,6 @@ export default {
       const location = document.querySelector('.detail').offsetTop - 40
       window.scrollTo({ top: location, behavior: 'smooth' })
     },
-    /* ------------------------------ VUEX METHOD ------------------------------ */
-    ...mapActions(['set_title']),
-    setSubTitle() {
-      this.set_title({ title: this.albumInfo.title })
-    },
-
     /* ------------------------------ GETTER METHOD ------------------------------ */
     getAlbumType(album_type) {
       switch (album_type) {
