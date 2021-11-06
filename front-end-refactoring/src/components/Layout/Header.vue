@@ -1,5 +1,5 @@
 <template>
-  <header :class="{ 'is-main-page': isMainPage }">
+  <header ref="headerPanel" :class="{ 'is-main-page': isMainPage }">
     <div class="header-contents" :class="{ 'is-main-page': isMainPage && !isScroll }">
       <router-link to="/iu">
         <span class="page-title" :class="{ 'is-main-page': isMainPage }">
@@ -61,6 +61,11 @@ export default {
       const height = document.documentElement.clientHeight
       const half = height / 2
       this.isScroll = window.scrollY > half
+      const opacity = 1 - window.scrollY / 700
+
+      opacity <= 0.1
+        ? (this.$refs.headerPanel.style.boxShadow = '0 1px 0px 1px #131313')
+        : (this.$refs.headerPanel.style.boxShadow = 'none')
     },
   },
 }
@@ -80,6 +85,7 @@ header {
   background-color: white;
 
   &.is-main-page {
+    height: 76px;
     background-color: $IU-Transparent;
     transition: 0.5s;
   }

@@ -135,4 +135,15 @@ export default {
   },
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+@media (max-width: 1860px) {
+  .grid-view {
+    grid-template-columns: repeat(auto-fit, 330px);
+  }
+}
+@media (max-width: 1080px) {
+  .grid-view {
+    grid-template-columns: repeat(auto-fit, 216px);
+  }
+}
+</style>
