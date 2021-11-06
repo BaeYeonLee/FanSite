@@ -75,13 +75,13 @@
             <!-- END -->
           </transition>
         </div>
+        <div v-if="currentIndex > -1" class="go-to-top" @click="goToTop">TOP</div>
       </div>
       <!-- Section Rigth END -->
     </div>
   </div>
 </template>
 <script>
-import albumList from '@common/dummy/album.js'
 import { mapActions } from 'vuex'
 export default {
   data() {
@@ -122,6 +122,12 @@ export default {
     this.getAlbumInfo()
   },
   methods: {
+    /* ------------------------------ VUEX METHOD ------------------------------ */
+    ...mapActions(['set_title']),
+    setSubTitle() {
+      this.set_title({ title: this.albumInfo.title })
+    },
+
     /* ------------------------------ Click METHOD ------------------------------ */
     open(idx) {
       if (this.currentIndex == idx) {
@@ -134,12 +140,10 @@ export default {
         this.currentIndex = idx
       }
     },
-    /* ------------------------------ VUEX METHOD ------------------------------ */
-    ...mapActions(['set_title']),
-    setSubTitle() {
-      this.set_title({ title: this.albumInfo.title })
+    goToTop() {
+      const location = document.querySelector('.detail').offsetTop - 40
+      window.scrollTo({ top: location, behavior: 'smooth' })
     },
-
     /* ------------------------------ GETTER METHOD ------------------------------ */
     getAlbumType(album_type) {
       switch (album_type) {
@@ -203,7 +207,7 @@ export default {
   max-width: 1080px;
   margin: 0 auto;
   .album-detail {
-    height: 670px;
+    // height: 670px;
     margin: 40px 0;
     color: $IU-BlueViolet;
     display: flex;
@@ -241,15 +245,33 @@ export default {
   }
 }
 .section-right {
-  h4 {
-    margin-bottom: 30px;
-  }
   // grid-area: section-right;
   color: $IU-BlueViolet;
   width: 30%;
   display: inline-block;
   transition: 0.5s;
-  overflow-y: auto;
+  // overflow-y: auto;
+
+  h4 {
+    margin-bottom: 30px;
+  }
+  .go-to-top {
+    font-size: 0.5rem;
+    background: $IULightViolet;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 3rem;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 3px 3px 5px 0px $IU-BlueViolet;
+      transition: 0.3s;
+    }
+  }
   .back-to-list {
     border: none;
     background: none;
@@ -280,7 +302,7 @@ export default {
       // font-family: 'Hi Melody', cursive;
       &:hover {
         border-radius: 1rem;
-        box-shadow: 3px 3px 5px 0px #4a4e8c;
+        box-shadow: 3px 3px 5px 0px $IU-BlueViolet;
         transition: 0.3s;
       }
       .title-content {
