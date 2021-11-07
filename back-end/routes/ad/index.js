@@ -78,9 +78,15 @@ router.get('/:id', async function (req, res, next) {
  *        schema:
  *          type: object
  *          properties:
+ *            year:
+ *              type: string
+ *            advertiser:
+ *              type: string
  *            title:
  *              type: string
- *            year:
+ *            kind:
+ *              type: string
+ *            remark:
  *              type: string
  *            image_url:
  *              type: string
@@ -117,9 +123,15 @@ router.post('/', async function (req, res, next) {
  *        schema:
  *          type: object
  *          properties:
+ *            year:
+ *              type: string
+ *            advertiser:
+ *              type: string
  *            title:
  *              type: string
- *            year:
+ *            kind:
+ *              type: string
+ *            remark:
  *              type: string
  *            image_url:
  *              type: string
@@ -138,7 +150,7 @@ router.put('/:id', async function (req, res, next) {
     } else {
       res
         .status(400)
-        .json({ resultCode: 'fail', resultMsg: '[ERROR] ALBUM NOT FOUND' })
+        .json({ resultCode: 'fail', resultMsg: '[ERROR] ADVERTISING NOT FOUND' })
     }
   } catch (e) {
     res.status(400).send(e)

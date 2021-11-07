@@ -79,9 +79,9 @@ router.get('/:id', async function (req, res, next) {
  *          properties:
  *            title:
  *              type: string
- *            desc:
- *              type: string
  *            year:
+ *              type: string
+ *            image_url:
  *              type: string
  *    responses:
  *      200:
@@ -116,9 +116,9 @@ router.post('/', async function (req, res, next) {
  *        properties:
  *            title:
  *              type: string
- *            desc:
- *              type: string
  *            year:
+ *              type: string
+ *            image_url:
  *              type: string
  *    responses:
  *      200:
